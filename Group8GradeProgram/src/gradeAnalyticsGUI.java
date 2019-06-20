@@ -23,6 +23,7 @@ public class gradeAnalyticsGUI {
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
+		JLabel resultsGoHere = new JLabel("(Results Go Here)");
 
 		
 		//Creates buttons
@@ -56,6 +57,8 @@ public class gradeAnalyticsGUI {
 		showResultsPanel.setBackground(Color.white);
 		userPanel.add(showResultsPanel,BorderLayout.CENTER);
 		
+		//Temporary indicator of gui layout ("Results go here label")
+		showResultsPanel.add(resultsGoHere,BorderLayout.CENTER);
 		
 		//Adds buttons to button panel
 		buttonPanel.add(Box.createVerticalStrut(30));
@@ -76,5 +79,5 @@ public class gradeAnalyticsGUI {
 		//Adds components to screen frame
 		screenFrame.add(userPanel);
 	}
-}
+} //End of gradeAnalyticsGUI.java
 
