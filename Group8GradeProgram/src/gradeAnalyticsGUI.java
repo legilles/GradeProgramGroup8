@@ -1,87 +1,103 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+//import newGUi.NewGradeGUI;
 
 
-public class gradeAnalyticsGUI {
+public class gradeAnalyticsGUI extends JFrame {
+	
+	public gradeAnalyticsGUI()
+	{
+		menuUI();
+	}
+	
+	private void menuUI()
+	{
+	createMenuBar();
+	setTitle("Grade Analysis Program");
+	setSize(900,600);
+	setLocationRelativeTo(null);
+	setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	private void createMenuBar()
+	{
+		var menuBar = new JMenuBar(); //creates menu bar
+		
+		//Creates main menu labels
+		var fileMenu = new JMenu("File");
+		var seeStatisticsMenu = new JMenu("See Statistics");
+		var createReportMenu = new JMenu("Create Report");
+		
+		//Creates sub menu labels
+		var uploadFileTab = new JMenu("Upload File");
+		var editTab = new JMenu("Edit");
+		var quitProgramTab = new JMenu("Quit");
+		var nameReportTab = new JMenu("Name Report");
+		
+		
+		//Main menu items added
+		menuBar.add(fileMenu);
+		menuBar.add(seeStatisticsMenu);
+		menuBar.add(createReportMenu);
+		
+		//Sub menu items added to (fileMenu)
+		fileMenu.add(uploadFileTab);
+		fileMenu.add(editTab);
+		fileMenu.add(quitProgramTab);
+		
+		
+		//seeStatisticsMenu sub tabs created
+		var minMaxScore = new JMenu("Min/Max Scores");
+		var averageScore = new JMenu("Average Score");
+		var medianScore = new JMenu("Median Score");
+		var gradeDistribution = new JMenu("Grade Distribution");
+		var gradePercentiles = new JMenu("Grade Percentiles");
+		
+		//Sub menu items added to (seeStatisticsMenu)
+		seeStatisticsMenu.add(minMaxScore);
+		seeStatisticsMenu.add(averageScore);
+		seeStatisticsMenu.add(medianScore);
+		seeStatisticsMenu.add(gradeDistribution);
+		seeStatisticsMenu.add(gradePercentiles);
+		
+		//Sub menu items added to (createReportMenu)
+		createReportMenu.add(nameReportTab);
+		
+		
+		//Sub-sub menu items created for (makeAChange)
+		var addGrade = new JMenu("Add Grade");
+		var deleteGrade = new JMenu("Delete Grade");
+		var replaceGrade = new JMenu("Replace Grade");
+		
+		
+		var makeAChange = new JMenu("Make a Grade Change");
+		
+		editTab.add(makeAChange);
+		
+		//Added sub sub menu items for (MakeAChange)
+		makeAChange.add(addGrade);
+		makeAChange.add(deleteGrade);
+		makeAChange.add(replaceGrade);
+		
+		
+		
+		setJMenuBar(menuBar); //adds menu bar to screen
+	}
+	
 	public static void main(String[] args)
 	{
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-		
-		JFrame screenFrame = new JFrame("Grade Analytics Program");
-		screenFrame.setSize(900,500); //sets frame size
-		screenFrame.setDefaultCloseOperation(screenFrame.EXIT_ON_CLOSE); //program will quit if user clicks "x"
-		screenFrame.setVisible(true); 
-	
-		//Creates Labels
-		JLabel programTitle = new JLabel("Grade Analytics Program");
-		JLabel resultsGoHere = new JLabel("(Results Go Here)");
-
-		
-		//Creates buttons
-		JButton inputFileButton = new JButton("Import File");
-		JButton seeStatisticsButton = new JButton("See Statistics");
-		JButton seeGradePercentilesButton = new JButton("See Grade Percentiles");
-		JButton makeChangesButton = new JButton("Make A Grade Change");
-		JButton createReportButton = new JButton("Create Grade Report");
-		JButton quitButton = new JButton("Close Program");
-		
-		//Sets colors of buttons
-		inputFileButton.setBackground(Color.yellow);
-		seeStatisticsButton.setBackground(Color.green);
-		seeGradePercentilesButton.setBackground(Color.red);
-		makeChangesButton.setBackground(Color.cyan);
-		createReportButton.setBackground(Color.orange);
-		quitButton.setBackground(Color.magenta);
-	
-		
-		//Panel to Hold Buttons
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-		
-		//Panel to hold all user components
-		JPanel userPanel = new JPanel();
-		userPanel.setLayout(new BorderLayout());
-		userPanel.add(programTitle, BorderLayout.NORTH);
-		
-		//Panel to show results
-		JPanel showResultsPanel = new JPanel();
-		showResultsPanel.setBackground(Color.white);
-		userPanel.add(showResultsPanel,BorderLayout.CENTER);
-		
-		//Temporary indicator of gui layout ("Results go here label")
-		showResultsPanel.add(resultsGoHere,BorderLayout.CENTER);
-		
-		//Adds buttons to button panel
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(inputFileButton);
-		buttonPanel.add(Box.createVerticalStrut(30)); //adds spacing
-		buttonPanel.add(seeStatisticsButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(makeChangesButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(seeGradePercentilesButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(createReportButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(quitButton);
-		
-		userPanel.add(buttonPanel,BorderLayout.WEST);
-		
-		//Adds components to screen frame
-		screenFrame.add(userPanel);
-			}
+		EventQueue.invokeLater(() -> {
+			var ex = new gradeAnalyticsGUI();
+			ex.setVisible(true);
 		});
 	}
+	
+	
+	
+	
 } //End of gradeAnalyticsGUI.java
 
