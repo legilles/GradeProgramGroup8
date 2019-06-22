@@ -75,14 +75,21 @@ public class gradeAnalyticsGUI extends JFrame {
 		
 		
 		var makeAChange = new JMenu("Make a Grade Change");
+		var distributionChange = new JMenu("Change Grade Distribution");
 		
 		editTab.add(makeAChange);
+		editTab.add(distributionChange);
 		
 		//Added sub sub menu items for (MakeAChange)
 		makeAChange.add(addGrade);
 		makeAChange.add(deleteGrade);
 		makeAChange.add(replaceGrade);
 		
+		//Created/Added sub sub menu items for (distributionChange)
+		var redefineLetterGrade = new JMenu("Redefine Letter Grade");
+		var setNewPointScale = new JMenu("Set New Point Scale");
+		distributionChange.add(redefineLetterGrade);
+		distributionChange.add(setNewPointScale);
 		
 		
 		setJMenuBar(menuBar); //adds menu bar to screen
