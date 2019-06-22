@@ -1,4 +1,6 @@
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Label;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -87,9 +89,15 @@ public class gradeAnalyticsGUI extends JFrame {
 		distributionChange.add(redefineLetterGrade);
 		distributionChange.add(setNewPointScale);
 		
-		
 		setJMenuBar(menuBar); //adds menu bar to screen
+		
+		setLayout(new FlowLayout(FlowLayout.CENTER,20,100));
+		add(new Label("Welcome to the Grade Analysis Program")); //Welcome message on screen
+		
 	}
+	
+
+	
 	
 	public static void main(String[] args)
 	{
@@ -98,9 +106,6 @@ public class gradeAnalyticsGUI extends JFrame {
 			ex.setVisible(true);
 		});
 	}
-	
-	
-	
-	
+		
 } //End of gradeAnalyticsGUI.java
 
