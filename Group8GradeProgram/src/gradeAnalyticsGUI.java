@@ -15,6 +15,8 @@ import javax.swing.SwingUtilities;
 public class gradeAnalyticsGUI {
 	public static void main(String[] args)
 	{
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
 		
 		JFrame screenFrame = new JFrame("Grade Analytics Program");
 		screenFrame.setSize(900,500); //sets frame size
@@ -78,6 +80,8 @@ public class gradeAnalyticsGUI {
 		
 		//Adds components to screen frame
 		screenFrame.add(userPanel);
+			}
+		});
 	}
 } //End of gradeAnalyticsGUI.java
 
