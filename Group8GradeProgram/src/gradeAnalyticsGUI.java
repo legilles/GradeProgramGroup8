@@ -51,16 +51,12 @@ public class gradeAnalyticsGUI extends JFrame {
 		
 		
 		//seeStatisticsMenu sub tabs created
-		var minMaxScore = new JMenu("Min/Max Scores");
-		var averageScore = new JMenu("Average Score");
-		var medianScore = new JMenu("Median Score");
+		var scoreBreakDown = new JMenu("Grade Breakdown");
 		var gradeDistribution = new JMenu("Grade Distribution");
 		var gradePercentiles = new JMenu("Grade Percentiles");
 		
 		//Sub menu items added to (seeStatisticsMenu)
-		seeStatisticsMenu.add(minMaxScore);
-		seeStatisticsMenu.add(averageScore);
-		seeStatisticsMenu.add(medianScore);
+		seeStatisticsMenu.add(scoreBreakDown);
 		seeStatisticsMenu.add(gradeDistribution);
 		seeStatisticsMenu.add(gradePercentiles);
 		
