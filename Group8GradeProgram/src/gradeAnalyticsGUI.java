@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -85,7 +86,7 @@ public class gradeAnalyticsGUI
 		
 		
 		
-		//JButton Action Listeners
+		//JButton Action Listeners (organized upside down from menu)
 		
 		//Close Program JButton Action Listener
 		quitButton.addActionListener(new ActionListener()
@@ -97,6 +98,10 @@ public class gradeAnalyticsGUI
 				JOptionPane.showMessageDialog(screenFrame, "Are you sure you want to quit?", "Close Program",JOptionPane.WARNING_MESSAGE);
 			}	
 			});
+		
+		//Adds components to screen frame
+		screenFrame.add(userPanel);	
+		
 		
 		//Create Report JButton Action Listener
 		createReportButton.addActionListener(new ActionListener()
@@ -159,6 +164,11 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Import File Button Clicked");
+						
+						JFileChooser gradeFileFinder = new JFileChooser();
+						int returnFile = gradeFileFinder.showOpenDialog(screenFrame);
+						gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
+							
 					}	
 				});
 		
@@ -172,11 +182,7 @@ public class gradeAnalyticsGUI
 				
 				
 				
-				
-				
-				
-				//Adds components to screen frame
-				screenFrame.add(userPanel);	
+			
 	
 			}
 		});
