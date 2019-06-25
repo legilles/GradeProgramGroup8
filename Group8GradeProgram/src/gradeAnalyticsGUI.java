@@ -189,13 +189,74 @@ public class gradeAnalyticsGUI
 					{
 						System.out.println("Change Grade Distribution Button Clicked");
 						
-						JFrame gradeDisFrame = new JFrame("Change Letter Grade Range");
-						gradeDisFrame.setSize(400, 200);
+						
+						//Creating frame
+						JFrame gradeDisFrame = new JFrame("Change Grade Distribution");
+						gradeDisFrame.setSize(450,90);
 						gradeDisFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 						gradeDisFrame.setVisible(true); 
 						
+						//Creating Panel
 						JPanel gradeDisPanel = new JPanel();
 						gradeDisPanel.setBackground(Color.red);
+						
+						//Creating buttons
+						JButton changeGradeRangeButton = new JButton("Change Letter Grade Ranges");
+						JButton changeTotalPointsButton = new JButton("Change Total Points Possible");
+						
+						gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.X_AXIS));
+						
+						//Adding buttons to panel
+						gradeDisPanel.add(changeGradeRangeButton);
+						gradeDisPanel.add(Box.createHorizontalStrut(5));
+						gradeDisPanel.add(changeTotalPointsButton);
+						
+						gradeDisFrame.add(gradeDisPanel);
+						
+						//Change Total Points Possible JButton Action Listener
+						changeTotalPointsButton.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent e)
+							{
+								//Creating frame
+								JFrame changePointFrame = new JFrame("Change Total Points");
+								changePointFrame.setSize(200,90);
+								changePointFrame.setDefaultCloseOperation(changePointFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+								changePointFrame.setVisible(true); 
+								
+								//Creating Panel
+								JPanel changePointPanel = new JPanel();
+								changePointPanel.setBackground(Color.red);
+								
+								//Creating label and text field
+								JLabel setTotalLabel = new JLabel("Out of how many points?");
+								JTextField newTotalField = new JTextField(10);
+							
+								//Adding to panel
+								changePointPanel.add(newTotalField);
+								
+								
+								changePointFrame.add(setTotalLabel, BorderLayout.NORTH);
+								changePointFrame.add(changePointPanel);
+							}	
+						}); //CHANGE TOTAL POINTS POSSIBLE ACTION LISTENER
+						
+						
+						
+						//Change Grade Letter Ranges JButton Action Listener
+						changeGradeRangeButton.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent e)
+							{
+								
+						JFrame gradeRangeFrame = new JFrame("Change Grade Distribution");
+						gradeRangeFrame.setSize(450,90);
+						gradeRangeFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						gradeRangeFrame.setVisible(true); 	
+						
+						//Creating Panel
+						JPanel gradeRangePanel = new JPanel();
+						gradeRangePanel.setBackground(Color.red);
 						
 						//Grade Letter Labels
 						JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
@@ -207,14 +268,14 @@ public class gradeAnalyticsGUI
 						JLabel letterELabel = new JLabel("E:");
 						
 						//Adding letter labels to gradeChangerPanel
-						gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.Y_AXIS));
-						gradeDisPanel.add(letterChangeTitle);
-						gradeDisPanel.add(letterALabel);
-						gradeDisPanel.add(letterBLabel);
-						gradeDisPanel.add(letterCLabel);
-						gradeDisPanel.add(letterDLabel);
-						gradeDisPanel.add(letterFLabel);
-						gradeDisPanel.add(letterELabel);
+						gradeRangePanel.setLayout(new BoxLayout(gradeRangePanel, BoxLayout.Y_AXIS));
+						gradeRangePanel.add(letterChangeTitle);
+						gradeRangePanel.add(letterALabel);
+						gradeRangePanel.add(letterBLabel);
+						gradeRangePanel.add(letterCLabel);
+						gradeRangePanel.add(letterDLabel);
+						gradeRangePanel.add(letterFLabel);
+						gradeRangePanel.add(letterELabel);
 						
 						
 						//Adding text fields for each letter
@@ -239,10 +300,13 @@ public class gradeAnalyticsGUI
 						letterTextFields.add(letterETextField);
 						
 						
-						gradeDisFrame.add(gradeDisPanel, BorderLayout.WEST);
-						gradeDisFrame.add(letterTextFields, BorderLayout.EAST);
+						gradeRangeFrame.add(gradeRangePanel, BorderLayout.WEST);
+						gradeRangeFrame.add(letterTextFields, BorderLayout.EAST);
+							}	
+						}); //CHANGE GRADE LETTER RANGES ACTION LISTENER
+						
 					}	
-				});
+				}); //CHANGE GRADE DISTRIBUTION ACTION LISTENER
 				
 							
 		//Make a Grade Change JButton Action Listener
@@ -413,7 +477,6 @@ public class gradeAnalyticsGUI
 						
 						//Adding labels/text fields to panel
 						deleteGradePanel.add(whichToDeleteLabel);
-						//deleteGradePanel.add(Box.createVerticalStrut(10));
 						deleteGradePanel.add(deleteStudentLabel);
 						deleteGradePanel.add(deleteStudentID);
 						deleteGradePanel.add(deleteGradeScoreLabel);
@@ -451,17 +514,6 @@ public class gradeAnalyticsGUI
 				});
 		
 		
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			
-	
 			}
 		});
 	}
