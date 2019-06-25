@@ -2,15 +2,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -28,7 +29,7 @@ public class gradeAnalyticsGUI
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
-		JLabel resultsGoHere = new JLabel("(Results Go Here)");
+		JLabel resultsGoHere = new JLabel("(Uploaded File Grades Printed Here)");
 
 		
 		//Creates buttons
@@ -136,6 +137,36 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("See Satistics Button Clicked");
+						
+						JFrame statisticsFrame = new JFrame();
+						statisticsFrame.setSize(400, 200);
+						statisticsFrame.setDefaultCloseOperation(statisticsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						statisticsFrame.setVisible(true); 
+						
+						JPanel statisticsPanel = new JPanel();
+						statisticsPanel.setBackground(Color.green);
+						
+						
+						//Labels for high,low,average,median score
+						JLabel highScoreLabel = new JLabel("Hightest Score: ");
+						JLabel lowScoreLabel = new JLabel("Lowest Score: ");
+						JLabel avgScoreLabel = new JLabel("Average Score: ");
+						JLabel medScoreLabel = new JLabel("Median Score: ");
+						
+						//Label for number of letter grades
+						JLabel numberOfLettersLabel = new JLabel("Number of  A's[] B's[] C's[] D's[] F's[] E's[]");
+						
+						//Adding Labels to panel
+						statisticsPanel.add(highScoreLabel);
+						statisticsPanel.add(lowScoreLabel);
+						statisticsPanel.add(avgScoreLabel);
+						statisticsPanel.add(medScoreLabel);
+						statisticsPanel.add(numberOfLettersLabel);
+						
+						
+						
+						statisticsPanel.setLayout(new BoxLayout(statisticsPanel, BoxLayout.Y_AXIS));
+						statisticsFrame.add(statisticsPanel);	
 					}	
 				});
 		
@@ -146,13 +177,13 @@ public class gradeAnalyticsGUI
 					{
 						System.out.println("Change Grade Distribution Button Clicked");
 						
-						JFrame gradeChangerFrame = new JFrame("Change Letter Grade Range");
-						gradeChangerFrame.setSize(400, 200);
-						gradeChangerFrame.setDefaultCloseOperation(gradeChangerFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-						gradeChangerFrame.setVisible(true); 
+						JFrame gradeDisFrame = new JFrame("Change Letter Grade Range");
+						gradeDisFrame.setSize(400, 200);
+						gradeDisFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						gradeDisFrame.setVisible(true); 
 						
-						JPanel gradeChangerPanel = new JPanel();
-						gradeChangerPanel.setBackground(Color.red);
+						JPanel gradeDisPanel = new JPanel();
+						gradeDisPanel.setBackground(Color.red);
 						
 						//Grade Letter Labels
 						JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
@@ -164,14 +195,14 @@ public class gradeAnalyticsGUI
 						JLabel letterELabel = new JLabel("E:");
 						
 						//Adding letter labels to gradeChangerPanel
-						gradeChangerPanel.setLayout(new BoxLayout(gradeChangerPanel, BoxLayout.Y_AXIS));
-						gradeChangerPanel.add(letterChangeTitle);
-						gradeChangerPanel.add(letterALabel);
-						gradeChangerPanel.add(letterBLabel);
-						gradeChangerPanel.add(letterCLabel);
-						gradeChangerPanel.add(letterDLabel);
-						gradeChangerPanel.add(letterFLabel);
-						gradeChangerPanel.add(letterELabel);
+						gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.Y_AXIS));
+						gradeDisPanel.add(letterChangeTitle);
+						gradeDisPanel.add(letterALabel);
+						gradeDisPanel.add(letterBLabel);
+						gradeDisPanel.add(letterCLabel);
+						gradeDisPanel.add(letterDLabel);
+						gradeDisPanel.add(letterFLabel);
+						gradeDisPanel.add(letterELabel);
 						
 						
 						//Adding text fields for each letter
@@ -196,17 +227,52 @@ public class gradeAnalyticsGUI
 						letterTextFields.add(letterETextField);
 						
 						
-						gradeChangerFrame.add(gradeChangerPanel, BorderLayout.WEST);
-						gradeChangerFrame.add(letterTextFields, BorderLayout.EAST);
+						gradeDisFrame.add(gradeDisPanel, BorderLayout.WEST);
+						gradeDisFrame.add(letterTextFields, BorderLayout.EAST);
 					}	
 				});
-		
+				
+				
+				
+					
 		//Make a Grade Change JButton Action Listener
 				makeChangesButton.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Make Grade Change Button Clicked");
+						
+						//Drop Down Menu for Make a Grade Change
+						//JComboBox<String> changeList = new JComboBox<String>();
+						//changeList.addItem("Make a Grade Change");
+						//changeList.addItem("Add Grade");
+						//changeList.addItem("Replace Grade");
+						//changeList.addItem("Delete Grade");
+						//makeChangesButton.add(changeList);
+						
+						
+						JFrame makeChangesFrame = new JFrame();
+						makeChangesFrame.setSize(200, 200);
+						makeChangesFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						makeChangesFrame.setVisible(true); 
+						
+						//Created add,replace,delete buttons
+						JButton addGrade = new JButton("Add Grade");
+						JButton replaceGrade = new JButton("Replace Grade");
+						JButton deleteGrade = new JButton("Delete Grade");
+						
+						
+						//Added buttons to panel
+						JPanel makeChangesPanel = new JPanel();
+						makeChangesPanel.setBackground(Color.cyan);
+						makeChangesPanel.add(addGrade);
+						makeChangesPanel.add(Box.createVerticalStrut(30));
+						makeChangesPanel.add(replaceGrade);
+						makeChangesPanel.add(Box.createVerticalStrut(30));
+						makeChangesPanel.add(deleteGrade);
+						
+						makeChangesPanel.setLayout(new BoxLayout(makeChangesPanel, BoxLayout.Y_AXIS));
+						makeChangesFrame.add(makeChangesPanel);
 						
 					}	
 				});
