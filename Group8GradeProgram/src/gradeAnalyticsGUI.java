@@ -145,6 +145,59 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Change Grade Distribution Button Clicked");
+						
+						JFrame gradeChangerFrame = new JFrame("Change Letter Grade Range");
+						gradeChangerFrame.setSize(400, 200);
+						gradeChangerFrame.setDefaultCloseOperation(gradeChangerFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						gradeChangerFrame.setVisible(true); 
+						
+						JPanel gradeChangerPanel = new JPanel();
+						gradeChangerPanel.setBackground(Color.red);
+						
+						//Grade Letter Labels
+						JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
+						JLabel letterALabel = new JLabel("A:");
+						JLabel letterBLabel = new JLabel("B:");
+						JLabel letterCLabel = new JLabel("C:");
+						JLabel letterDLabel = new JLabel("D:");
+						JLabel letterFLabel = new JLabel("F:");
+						JLabel letterELabel = new JLabel("E:");
+						
+						//Adding letter labels to gradeChangerPanel
+						gradeChangerPanel.setLayout(new BoxLayout(gradeChangerPanel, BoxLayout.Y_AXIS));
+						gradeChangerPanel.add(letterChangeTitle);
+						gradeChangerPanel.add(letterALabel);
+						gradeChangerPanel.add(letterBLabel);
+						gradeChangerPanel.add(letterCLabel);
+						gradeChangerPanel.add(letterDLabel);
+						gradeChangerPanel.add(letterFLabel);
+						gradeChangerPanel.add(letterELabel);
+						
+						
+						//Adding text fields for each letter
+						JTextField letterATextField = new JTextField(20);
+						JTextField letterBTextField = new JTextField(20);
+						JTextField letterCTextField = new JTextField(20);
+						JTextField letterDTextField = new JTextField(20);
+						JTextField letterFTextField = new JTextField(20);
+						JTextField letterETextField = new JTextField(20);
+						
+						
+						JPanel letterTextFields = new JPanel();
+						letterTextFields.setLayout(new BoxLayout(letterTextFields, BoxLayout.Y_AXIS));
+						
+						
+						//Adding letter text fields to letterTextFields Panel
+						letterTextFields.add(letterATextField);
+						letterTextFields.add(letterBTextField);
+						letterTextFields.add(letterCTextField);
+						letterTextFields.add(letterDTextField);
+						letterTextFields.add(letterFTextField);
+						letterTextFields.add(letterETextField);
+						
+						
+						gradeChangerFrame.add(gradeChangerPanel, BorderLayout.WEST);
+						gradeChangerFrame.add(letterTextFields, BorderLayout.EAST);
 					}	
 				});
 		
@@ -154,6 +207,7 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Make Grade Change Button Clicked");
+						
 					}	
 				});
 		
@@ -166,7 +220,7 @@ public class gradeAnalyticsGUI
 						System.out.println("Import File Button Clicked");
 						
 						JFileChooser gradeFileFinder = new JFileChooser();
-						int returnFile = gradeFileFinder.showOpenDialog(screenFrame);
+						int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
 						gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 							
 					}	
