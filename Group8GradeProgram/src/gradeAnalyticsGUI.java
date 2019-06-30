@@ -17,6 +17,9 @@ import javax.swing.SwingUtilities;
 
 public class gradeAnalyticsGUI 
 {
+	protected static int returnFile;
+	protected static JFrame screenFrame;
+	
 	public static void main(String[] args)
 	{
 		SwingUtilities.invokeLater(new Runnable() {
@@ -504,7 +507,7 @@ public class gradeAnalyticsGUI
 				}); //CHANGE A GRADE BUTTON LISTENER
 		
 			
-		//Import File JButton Action Listener
+	//Import File JButton Action Listener
 				inputFileButton.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -514,7 +517,8 @@ public class gradeAnalyticsGUI
 						JFileChooser gradeFileFinder = new JFileChooser();
 						int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
 						gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
-							
+						
+						ImportGrades.importGrades();
 					}	
 				});
 		
