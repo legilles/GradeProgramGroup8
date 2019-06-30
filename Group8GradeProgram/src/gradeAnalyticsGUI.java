@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,8 +19,16 @@ import javax.swing.SwingUtilities;
 
 public class gradeAnalyticsGUI 
 {
-	protected static int returnFile;
-	protected static JFrame screenFrame;
+	
+	ArrayList<Integer> studentIDList = new ArrayList<Integer>(); //array list to hold Student ID's 
+	ArrayList<Integer> studentScoreList = new ArrayList<Integer>(); //array list to hold Student Scores
+	ArrayList<Character> studentLetterList = new ArrayList<Character>(); //array list to hold letter equivalent of scores
+	
+	protected  int returnFile;
+	protected JFrame screenFrame;
+	protected JPanel userPanel;
+	
+	
 	
 	public static void main(String[] args)
 	{
@@ -32,7 +42,7 @@ public class gradeAnalyticsGUI
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
-		JLabel resultsGoHere = new JLabel("(Uploaded File Grades Printed Here)");
+		//JLabel historyLabel = new JLabel("History");
 
 		
 		//Creates buttons
@@ -67,8 +77,8 @@ public class gradeAnalyticsGUI
 		showResultsPanel.setBackground(Color.white);
 		userPanel.add(showResultsPanel,BorderLayout.CENTER);
 		
-		//Temporary indicator of GUI layout ("Results go here label")
-		showResultsPanel.add(resultsGoHere,BorderLayout.CENTER);
+		//History label added to panel
+		//showResultsPanel.add(historyLabel,BorderLayout.CENTER);
 		
 		//Adds buttons to button panel
 		buttonPanel.add(Box.createVerticalStrut(30));
@@ -84,13 +94,14 @@ public class gradeAnalyticsGUI
 		buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(quitButton);
 		
+		//Add button panel to user panel
 		userPanel.add(buttonPanel,BorderLayout.WEST);
 		
 		
 		
 		
 		
-		//JButton Action Listeners (organized upside down from menu)
+//JButton Action Listeners (organized upside down from menu)
 		
 //Close Program JButton Action Listener
 		quitButton.addActionListener(new ActionListener()
@@ -514,11 +525,11 @@ public class gradeAnalyticsGUI
 					{
 						System.out.println("Import File Button Clicked");
 						
-						JFileChooser gradeFileFinder = new JFileChooser();
-						int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
-						gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
+						//final JFileChooser gradeFileFinder = new JFileChooser();
+						//int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
+						//gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 						
-						ImportGrades.importGrades();
+						new ImportGrades().importGrades(); //calls on ImportGrade class methods
 					}	
 				});
 		
