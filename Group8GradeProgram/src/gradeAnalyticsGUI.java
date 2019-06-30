@@ -89,14 +89,19 @@ public class gradeAnalyticsGUI
 		
 		//JButton Action Listeners (organized upside down from menu)
 		
-		//Close Program JButton Action Listener
+//Close Program JButton Action Listener
 		quitButton.addActionListener(new ActionListener()
 				{
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("Close Program Button Clicked"); //to see if listener worked
-
-				JOptionPane.showMessageDialog(screenFrame, "Are you sure you want to quit?", "Close Program",JOptionPane.WARNING_MESSAGE);
+				screenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				int confirmation = JOptionPane.showConfirmDialog(screenFrame, "Are you sure you want to quit?", "Close Program",JOptionPane.YES_NO_OPTION); //warning message prompts yes/no to close program
+	
+				if (confirmation == JOptionPane.YES_OPTION) //user clicks yes
+				{
+					System.exit(0); //closes program
+				}	
 			}	
 			});
 		
