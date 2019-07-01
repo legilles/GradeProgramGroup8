@@ -26,6 +26,7 @@ public class gradeAnalyticsGUI
 	
 	protected  int returnFile;
 	protected JFrame screenFrame;
+	protected JFrame makeChangesFrame;
 	
 	public static void main(String[] args)
 	{
@@ -366,38 +367,11 @@ public class gradeAnalyticsGUI
 							public void actionPerformed(ActionEvent e)
 							{
 						
-						//Creating new window for "add a grade"
-						JFrame addGradeFrame = new JFrame("Add a Grade");
-						addGradeFrame.setSize(400,90);
-						addGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-						addGradeFrame.setVisible(true);
-						
-						//Creating panel for "add a grade"
-						JPanel addGradePanel = new JPanel();
-						addGradePanel.setBackground(Color.cyan);
-						
-						//Creating labels for "add a grade"
-						JLabel addStudentLabel = new JLabel("Student/ID:");
-						JLabel addGradeScoreLabel = new JLabel("Score: ");
-						
-						//Creating text fields for "add a grade"
-						JTextField addStudentID = new JTextField(20);
-						JTextField addGradeScore = new JTextField(20);
-						
-						//Adding labels/text fields to panel
-						addGradePanel.add(addStudentLabel);
-						addGradePanel.add(addStudentID);
-						addGradePanel.add(addGradeScoreLabel);
-						addGradePanel.add(addGradeScore);
 						
 						
-						//add a grade panel layout
-						addGradePanel.setLayout(new BoxLayout(addGradePanel, BoxLayout.X_AXIS));
+						//call GradeChange addGrade() method
+						new GradeChange().addGrade();
 						
-						//adding panel to frame
-						addGradeFrame.add(addGradePanel);
-						
-
 							}	
 						}); //ADD A GRADE BUTTON LISTENER
 						
