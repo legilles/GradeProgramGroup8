@@ -27,6 +27,7 @@ public class gradeAnalyticsGUI
 	protected  int returnFile;
 	protected JFrame screenFrame;
 	protected JPanel userPanel;
+	protected JPanel showResultsPanel;
 	
 	
 	
@@ -42,8 +43,7 @@ public class gradeAnalyticsGUI
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
-		//JLabel historyLabel = new JLabel("History");
-
+		JLabel resultsLabel = new JLabel("Student Grades");
 		
 		//Creates buttons
 		JButton inputFileButton = new JButton("Import File");
@@ -71,15 +71,14 @@ public class gradeAnalyticsGUI
 		userPanel.setLayout(new BorderLayout());
 		userPanel.add(programTitle, BorderLayout.NORTH);
 	
-		
 		//Panel to show results
 		JPanel showResultsPanel = new JPanel();
 		showResultsPanel.setBackground(Color.white);
 		userPanel.add(showResultsPanel,BorderLayout.CENTER);
-		
-		//History label added to panel
-		//showResultsPanel.add(historyLabel,BorderLayout.CENTER);
-		
+				
+		//Results label added to panel
+		showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
+				
 		//Adds buttons to button panel
 		buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(inputFileButton);
@@ -96,11 +95,7 @@ public class gradeAnalyticsGUI
 		
 		//Add button panel to user panel
 		userPanel.add(buttonPanel,BorderLayout.WEST);
-		
-		
-		
-		
-		
+			
 //JButton Action Listeners (organized upside down from menu)
 		
 //Close Program JButton Action Listener
@@ -529,7 +524,7 @@ public class gradeAnalyticsGUI
 						//int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
 						//gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 						
-						new ImportGrades().importGrades(); //calls on ImportGrade class methods
+						new ImportGrades().importGrades(); //calls on ImportGrade class methods 
 					}	
 				});
 		

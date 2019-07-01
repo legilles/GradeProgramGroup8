@@ -1,18 +1,12 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.List;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 
 
@@ -21,7 +15,7 @@ public class ImportGrades extends gradeAnalyticsGUI {
 	BufferedReader reader = null;
 	int lineIndex = 0;
 	String lineValue;
-
+	String textResults = "";
 	
 public void importGrades()
 {
@@ -52,23 +46,7 @@ public void importGrades()
 		System.out.println("File Uploaded"); //check console if file uploaded
 		JOptionPane.showMessageDialog(screenFrame, "File Uploaded.", "File Status",JOptionPane.INFORMATION_MESSAGE); //tells user text file was uploaded
 		
-		System.out.println(studentIDList);
-		
-		
-		//Prints studentIDList/studentScoreList/studentLetterList in a friendly format in console
-		for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
-		{
-			System.out.println("StudentID: " + studentIDList.get(listIndex) + " GradeScore: " + studentScoreList.get(listIndex) + " LetterGrade: " + studentLetterList.get(listIndex) );
-		}
-		
-		
-		
-		
-		//New window to show grade results
-		//JFrame importedGradesFrame = new JFrame("Student Grades");
-		//importedGradesFrame.setSize(300,900); //sets frame size
-		//importedGradesFrame.setDefaultCloseOperation(importedGradesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-		//importedGradesFrame.setVisible(true); 
+		printGrades();
 		
 	} catch (FileNotFoundException notFound)
 	{
@@ -81,12 +59,41 @@ public void importGrades()
 		JOptionPane.showMessageDialog(screenFrame, "File Not Readable.", "File Status",JOptionPane.ERROR_MESSAGE); //warns user if file not uploaded
 	
 	}
-	
+	return;
 	//}
 	
 	
 	
 }
+
+
+//Method to Print out all Array Lists with Student ID's/Scores/Letter Grades
+public void printGrades()
+	{
+	
+//Prints studentIDList/studentScoreList/studentLetterList in a friendly format in console
+			for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
+		{
+			textResults += "Student ID: " + studentIDList.get(listIndex) + " Grade Score: " + studentScoreList.get(listIndex) + " Letter Grade: " + studentLetterList.get(listIndex) + "\n" + "\n";
+			
+	
+		}
+
+			JTextArea area = new JTextArea();
+			area.setText(textResults);
+			area.setEditable(false);
+			
+			//Creates new window to display grade results
+			JFrame resultsFrame = new JFrame("Student Grades");
+			resultsFrame.setSize(300,500);
+			resultsFrame.setDefaultCloseOperation(resultsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+			resultsFrame.setVisible(true);
+			resultsFrame.add(area, BorderLayout.NORTH);
+
+}
+
+
+
 	
 //Method to assign student score with corresponding letter grade value (includes rounding values)
 	public void defaultLetterGrade(double lineValue)
@@ -121,8 +128,9 @@ public void importGrades()
 		{
 			studentLetterList.add('E');
 		}
+		return;
 	}
 
 
-	
+
 }//End of ImportGrades.java
