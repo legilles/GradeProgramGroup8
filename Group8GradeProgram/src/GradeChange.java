@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -82,6 +83,8 @@ public class GradeChange extends gradeAnalyticsGUI {
 					
 					studentScoreList.add(ScoreString);//add Student Score to studentScoreList
 					
+					JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
+					
 					addGradeFrame.dispose(); //closes add grade window
 				}
 				}); //values inputed only get added if user clicks "Enter"
@@ -99,50 +102,92 @@ public class GradeChange extends gradeAnalyticsGUI {
 		replaceGradeFrame.setVisible(true);
 		
 		//Creating panel
-		JPanel replaceOldGradePanel = new JPanel();
-		replaceOldGradePanel.setBackground(Color.cyan);
+		JPanel replaceGradePanel = new JPanel();
+		replaceGradePanel.setBackground(Color.cyan);
 		
-		JPanel replaceNewGradePanel = new JPanel();
-		replaceNewGradePanel.setBackground(Color.cyan);
+		//JPanel replaceNewGradePanel = new JPanel();
+		//replaceNewGradePanel.setBackground(Color.cyan);
 		
 		//Add confirmation "Enter" button
 		JButton replaceEnterButton = new JButton("Enter");
 		
 		//Creating labels
 		JLabel replaceOldStudentLabel = new JLabel("Student/ID:");
-		JLabel replaceOldGradeScoreLabel = new JLabel("Old Score: ");
+		//JLabel replaceOldGradeScoreLabel = new JLabel("Old Score: ");
 		//JLabel replaceNewStudentLabel = new JLabel("New Student/ID:");
 		JLabel replaceNewGradeScoreLabel = new JLabel("New Score: ");
 		
 		//Creating text fields 
-		JTextField replaceOldStudentID = new JTextField(20);
-		JTextField replaceOldGradeScore = new JTextField(20);
+		JTextField replaceOldStudentIDField = new JTextField(20);
+		//JTextField replaceOldGradeScore = new JTextField(20);
 		//JTextField replaceNewStudentID = new JTextField(20);
-		JTextField replaceNewGradeScore = new JTextField(20);
+		JTextField replaceNewGradeScoreField = new JTextField(20);
 		
 		//Adding labels/text fields to panel
-		replaceOldGradePanel.add(replaceOldStudentLabel);
-		replaceOldGradePanel.add(replaceOldStudentID);
-		replaceOldGradePanel.add(replaceOldGradeScoreLabel);
-		replaceOldGradePanel.add(replaceOldGradeScore);
+		replaceGradePanel.add(replaceOldStudentLabel);
+		replaceGradePanel.add(replaceOldStudentIDField);
+		//replaceOldGradePanel.add(replaceOldGradeScoreLabel);
+		//replaceOldGradePanel.add(replaceOldGradeScore);
 		
 		//replaceNewGradePanel.add(replaceNewStudentLabel);
 		//replaceNewGradePanel.add(replaceNewStudentID);
-		replaceNewGradePanel.add(replaceNewGradeScoreLabel);
-		replaceNewGradePanel.add(replaceNewGradeScore);
+		replaceGradePanel.add(replaceNewGradeScoreLabel);
+		replaceGradePanel.add(replaceNewGradeScoreField);
 		
 		//Adding replaceEnterButton to panel
-		replaceNewGradePanel.add(replaceEnterButton);
+		replaceGradePanel.add(replaceEnterButton);
 		
 		//add a grade panel layout
-		replaceOldGradePanel.setLayout(new BoxLayout(replaceOldGradePanel, BoxLayout.X_AXIS));
-		replaceNewGradePanel.setLayout(new BoxLayout(replaceNewGradePanel, BoxLayout.X_AXIS));
+		replaceGradePanel.setLayout(new BoxLayout(replaceGradePanel, BoxLayout.X_AXIS));
+		//replaceNewGradePanel.setLayout(new BoxLayout(replaceNewGradePanel, BoxLayout.X_AXIS));
 		
 		//adding panel to frame
-		replaceGradeFrame.add(replaceOldGradePanel,BorderLayout.NORTH);
-		replaceGradeFrame.add(replaceNewGradePanel,BorderLayout.SOUTH);
+		replaceGradeFrame.add(replaceGradePanel);
+		//replaceGradeFrame.add(replaceGradePanel,BorderLayout.NORTH);
+		//replaceGradeFrame.add(replaceNewGradePanel,BorderLayout.SOUTH);
 		
-	}
+		
+		//Text Field Action Listener for replaceOldStudentIDField
+		replaceOldStudentIDField.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e)
+			 {
+				 System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
+				 IDString = replaceOldStudentIDField.getText();
+			 }
+		});
+	
+		//Text Field Action Listener for replaceNewGradeScoreField
+		replaceNewGradeScoreField.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e)
+			 {
+				 System.out.println("Replace Student Score: " +  replaceNewGradeScoreField.getText()); //prints user Student score input to console
+				 ScoreString = replaceNewGradeScoreField.getText();
+			 }
+		});
+		 
+		 //Button clicked Action Listener for replaceEnterButton
+		 replaceEnterButton.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{ 
+					for (int listIndex = 0;listIndex < studentIDList.size(); listIndex++)
+					{
+						if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find matching ID
+						{
+							studentScoreList.get(listIndex).replace(studentScoreList.get(listIndex), ScoreString); //replace old score with new score in array list at listIndex
+							JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
+						}
+					else
+					{
+						JOptionPane.showMessageDialog(screenFrame, "Grade not Replaced.", "Remove Grade Status",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					replaceGradeFrame.dispose(); //closes add grade window
+				}
+				}
+				}); 
+		
+	} //End of replaceGrade()
 	
 //Method to delete addStudentID input and corresponding addGradeScore from array lists
 	public void deleteGrade()
@@ -217,6 +262,12 @@ public class GradeChange extends gradeAnalyticsGUI {
 						{
 							studentIDList.remove(listIndex); //removes matching student ID at index found
 							studentScoreList.remove(listIndex); //removes corresponding student score at same index
+							
+							JOptionPane.showMessageDialog(screenFrame, "Grade Deleted.", "Delete Grade Status",JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(screenFrame, "Grade not Deleted.", "Delete Grade Status",JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					
