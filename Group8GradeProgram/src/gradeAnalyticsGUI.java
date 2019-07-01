@@ -366,116 +366,30 @@ public class gradeAnalyticsGUI
 						{
 							public void actionPerformed(ActionEvent e)
 							{
-						
-						
-						
-						//call GradeChange addGrade() method
-						new GradeChange().addGrade();
-						
+								new GradeChange().addGrade(); //calls on GradeChange class method
 							}	
 						}); //ADD A GRADE BUTTON LISTENER
 						
 						
-						//JButton Action Listener for Replace a Grade
+				//JButton Action Listener for Replace a Grade
 						replaceGrade.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent e)
 							{
 						
-						//Creating new window for "replace a grade"
-						JFrame replaceGradeFrame = new JFrame("Replace a Grade");
-						replaceGradeFrame.setSize(400,100);
-						replaceGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-						replaceGradeFrame.setVisible(true);
-						
-						//Creating panel
-						JPanel replaceOldGradePanel = new JPanel();
-						replaceOldGradePanel.setBackground(Color.cyan);
-						
-						JPanel replaceNewGradePanel = new JPanel();
-						replaceNewGradePanel.setBackground(Color.cyan);
-						
-						//Creating labels
-						JLabel replaceOldStudentLabel = new JLabel("Student/ID:");
-						JLabel replaceOldGradeScoreLabel = new JLabel("Old Score: ");
-						//JLabel replaceNewStudentLabel = new JLabel("New Student/ID:");
-						JLabel replaceNewGradeScoreLabel = new JLabel("New Score: ");
-						
-						//Creating text fields 
-						JTextField replaceOldStudentID = new JTextField(20);
-						JTextField replaceOldGradeScore = new JTextField(20);
-						//JTextField replaceNewStudentID = new JTextField(20);
-						JTextField replaceNewGradeScore = new JTextField(20);
-						
-						//Adding labels/text fields to panel
-						replaceOldGradePanel.add(replaceOldStudentLabel);
-						replaceOldGradePanel.add(replaceOldStudentID);
-						replaceOldGradePanel.add(replaceOldGradeScoreLabel);
-						replaceOldGradePanel.add(replaceOldGradeScore);
-						
-						//replaceNewGradePanel.add(replaceNewStudentLabel);
-						//replaceNewGradePanel.add(replaceNewStudentID);
-						replaceNewGradePanel.add(replaceNewGradeScoreLabel);
-						replaceNewGradePanel.add(replaceNewGradeScore);
-						
-						
-						//add a grade panel layout
-						replaceOldGradePanel.setLayout(new BoxLayout(replaceOldGradePanel, BoxLayout.X_AXIS));
-						replaceNewGradePanel.setLayout(new BoxLayout(replaceNewGradePanel, BoxLayout.X_AXIS));
-						
-						//adding panel to frame
-						replaceGradeFrame.add(replaceOldGradePanel,BorderLayout.NORTH);
-						replaceGradeFrame.add(replaceNewGradePanel,BorderLayout.SOUTH);
-						
-
+								new GradeChange().replaceGrade(); //calls on GradeChange class method
 							}	
 						}); //REPLACE A GRADE BUTTON LISTENER
 						
 						
 						
-						//JButton Action Listener for Delete a Grade
+				//JButton Action Listener for Delete a Grade
 						deleteGrade.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent e)
 							{
+								new GradeChange().deleteGrade(); //calls on GradeChange class method
 						
-						//Creating new window for "delete a grade"
-						JFrame deleteGradeFrame = new JFrame("Delete a Grade");
-						deleteGradeFrame.setSize(400,90);
-						deleteGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-						deleteGradeFrame.setVisible(true);
-						
-						//Creating panel 
-						JPanel deleteGradePanel = new JPanel();
-						deleteGradePanel.setBackground(Color.cyan);
-						
-						
-						//Creating labels
-						JLabel whichToDeleteLabel = new JLabel("Which grade do you want to delete?");
-						JLabel deleteStudentLabel = new JLabel("Student/ID:");
-						JLabel deleteGradeScoreLabel = new JLabel("Score: ");
-						
-						//Creating text fields 
-						JTextField deleteStudentID = new JTextField(20);
-						JTextField deleteGradeScore = new JTextField(20);
-						
-						//Adding labels/text fields to panel
-						deleteGradePanel.add(whichToDeleteLabel);
-						deleteGradePanel.add(deleteStudentLabel);
-						deleteGradePanel.add(deleteStudentID);
-						deleteGradePanel.add(deleteGradeScoreLabel);
-						deleteGradePanel.add(deleteGradeScore);
-						
-						
-						//add a grade panel layout
-						deleteGradePanel.setLayout(new BoxLayout(deleteGradePanel, BoxLayout.X_AXIS));
-						
-						
-						//adding panel to frame
-						deleteGradeFrame.add(whichToDeleteLabel,BorderLayout.NORTH);
-						deleteGradeFrame.add(deleteGradePanel,BorderLayout.SOUTH);
-						
-
 							}	
 						}); //DELETE A GRADE BUTTON LISTENER
 							
