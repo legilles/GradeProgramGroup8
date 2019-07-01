@@ -20,43 +20,8 @@ public class ImportGrades extends gradeAnalyticsGUI {
 	
 	BufferedReader reader = null;
 	int lineIndex = 0;
-	int lineValue;
+	String lineValue;
 
-	
-//Method to assign student score with corresponding letter grade value (includes rounding values)
-	public void defaultLetterGrade()
-	{
-		//Default A Letter Range
-		if (lineValue <= 100.0 || lineValue >= 89.5 )
-		{
-			studentLetterList.add('A');
-		}
-		//Default B Letter Range
-		if (lineValue <= 89.4 || lineValue >= 79.5 )
-		{
-			studentLetterList.add('B');
-		}
-		//Default C Letter Range
-		if (lineValue <= 79.4 || lineValue >= 69.5 )
-		{
-			studentLetterList.add('C');
-		}
-		//Default D Letter Range
-		if (lineValue <= 69.4 || lineValue >= 59.5 )
-		{
-			studentLetterList.add('D');
-		}
-		//Default F Letter Range
-		if (lineValue <= 49.4 || lineValue >= 39.5 )
-		{
-			studentLetterList.add('F');
-		}
-		//Default E Letter Range
-		if (lineValue <= 39.4 )
-		{
-			studentLetterList.add('E');
-		}
-	}
 	
 public void importGrades()
 {
@@ -67,7 +32,7 @@ public void importGrades()
 	try  {
 		reader = new BufferedReader(new FileReader("C:\\Users\\Laura\\Documents\\gradeAnalyticsTester.txt"));
 	
-		while (reader.readLine() != null)
+		while ((lineValue = reader.readLine()) != null)
 		{
 			//System.out.println(lineValue); //print results to console
 			lineIndex++;
@@ -78,7 +43,8 @@ public void importGrades()
 			if (lineIndex % 2 == 0) //even line number is Student Score
 			{
 				studentScoreList.add(lineValue); //store in Score Array List
-				defaultLetterGrade(); //call defaultLetterGrade() method to get Letter Grade equivalent
+				double lineScore = Double.parseDouble(lineValue);
+				defaultLetterGrade(lineScore); //call defaultLetterGrade() method to get Letter Grade equivalent
 			}
 		}
 		reader.close();
@@ -86,8 +52,10 @@ public void importGrades()
 		System.out.println("File Uploaded"); //check console if file uploaded
 		JOptionPane.showMessageDialog(screenFrame, "File Uploaded.", "File Status",JOptionPane.INFORMATION_MESSAGE); //tells user text file was uploaded
 		
+		System.out.println(studentIDList);
 		
-		//Prints studentIDList/studentScoreList/studentLetterList in a friendly format
+		
+		//Prints studentIDList/studentScoreList/studentLetterList in a friendly format in console
 		for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
 		{
 			System.out.println("StudentID: " + studentIDList.get(listIndex) + " GradeScore: " + studentScoreList.get(listIndex) + " LetterGrade: " + studentLetterList.get(listIndex) );
@@ -120,7 +88,40 @@ public void importGrades()
 	
 }
 	
-
+//Method to assign student score with corresponding letter grade value (includes rounding values)
+	public void defaultLetterGrade(double lineValue)
+	{
+		//Default A Letter Range
+		if (lineValue <= 100.0 || lineValue >= 89.5 )
+		{
+			studentLetterList.add('A');
+		}
+		//Default B Letter Range
+		if (lineValue <= 89.4 || lineValue >= 79.5 )
+		{
+			studentLetterList.add('B');
+		}
+		//Default C Letter Range
+		if (lineValue <= 79.4 || lineValue >= 69.5 )
+		{
+			studentLetterList.add('C');
+		}
+		//Default D Letter Range
+		if (lineValue <= 69.4 || lineValue >= 59.5 )
+		{
+			studentLetterList.add('D');
+		}
+		//Default F Letter Range
+		if (lineValue <= 49.4 || lineValue >= 39.5 )
+		{
+			studentLetterList.add('F');
+		}
+		//Default E Letter Range
+		if (lineValue <= 39.4 )
+		{
+			studentLetterList.add('E');
+		}
+	}
 
 
 	

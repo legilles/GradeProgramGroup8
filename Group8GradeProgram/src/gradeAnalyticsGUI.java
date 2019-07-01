@@ -20,8 +20,8 @@ import javax.swing.SwingUtilities;
 public class gradeAnalyticsGUI 
 {
 	
-	ArrayList<Integer> studentIDList = new ArrayList<Integer>(); //array list to hold Student ID's 
-	ArrayList<Integer> studentScoreList = new ArrayList<Integer>(); //array list to hold Student Scores
+	ArrayList<String> studentIDList = new ArrayList<String>(); //array list to hold Student ID's 
+	ArrayList<String> studentScoreList = new ArrayList<String>(); //array list to hold Student Scores
 	ArrayList<Character> studentLetterList = new ArrayList<Character>(); //array list to hold letter equivalent of scores
 	
 	protected  int returnFile;
