@@ -26,10 +26,6 @@ public class gradeAnalyticsGUI
 	
 	protected  int returnFile;
 	protected JFrame screenFrame;
-	protected JPanel userPanel;
-	protected JPanel showResultsPanel;
-	
-	
 	
 	public static void main(String[] args)
 	{
@@ -519,10 +515,6 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Import File Button Clicked");
-						
-						//final JFileChooser gradeFileFinder = new JFileChooser();
-						//int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
-						//gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 						
 						new ImportGrades().importGrades(); //calls on ImportGrade class methods 
 					}	

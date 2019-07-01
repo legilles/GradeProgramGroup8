@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,12 +21,17 @@ public class ImportGrades extends gradeAnalyticsGUI {
 	
 public void importGrades()
 {
+	final JFileChooser gradeFileFinder = new JFileChooser();
+	int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
+	gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 	
-	//if (returnFile == JFileChooser.APPROVE_OPTION)
-	//{
+	if (returnFile == JFileChooser.APPROVE_OPTION)
+	{
+		File selectedFile = gradeFileFinder.getSelectedFile();
+		System.out.println(selectedFile.getAbsolutePath()); //prints file path to console
 
 	try  {
-		reader = new BufferedReader(new FileReader("C:\\Users\\Laura\\Documents\\gradeAnalyticsTester.txt"));
+		reader = new BufferedReader(new FileReader(selectedFile));
 	
 		while ((lineValue = reader.readLine()) != null)
 		{
@@ -48,22 +55,14 @@ public void importGrades()
 		
 		printGrades();
 		
-	} catch (FileNotFoundException notFound)
-	{
-		System.out.println("File Not Found"); //check console if file not found
-		JOptionPane.showMessageDialog(screenFrame, "File Not Found.", "File Status",JOptionPane.ERROR_MESSAGE); //warns user if file not found
-	
 	} catch (IOException ioe)
 	{
-		System.out.println("File Not Readable"); //check console if file didn't load
-		JOptionPane.showMessageDialog(screenFrame, "File Not Readable.", "File Status",JOptionPane.ERROR_MESSAGE); //warns user if file not uploaded
+		System.out.println("File Not Uploaded"); //check console if file didn't load
+		JOptionPane.showMessageDialog(screenFrame, "File Not Uploaded.", "File Status",JOptionPane.ERROR_MESSAGE); //warns user if file not uploaded
 	
 	}
 	return;
-	//}
-	
-	
-	
+	}	
 }
 
 
