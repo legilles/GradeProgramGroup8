@@ -59,7 +59,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		 addStudentIDField.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
 			 {
-				 System.out.println(" Add Student ID: " +  addStudentIDField.getText()); //prints user Student ID input to console
+				 System.out.println("Add Student ID: " +  addStudentIDField.getText()); //prints user Student ID input to console
 				 IDString = addStudentIDField.getText();
 			 }
 		});
@@ -68,7 +68,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		 addGradeScoreField.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
 			 {
-				 System.out.println(" Add Student Score: " +  addGradeScoreField.getText()); //prints user Student score input to console
+				 System.out.println("Add Student Score: " +  addGradeScoreField.getText()); //prints user Student score input to console
 				 ScoreString = addGradeScoreField.getText();
 			 }
 		});
@@ -82,7 +82,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 					
 					studentScoreList.add(ScoreString);//add Student Score to studentScoreList
 					
-					new ImportGrades().printGrades();
+					addGradeFrame.dispose(); //closes add grade window
 				}
 				}); //values inputed only get added if user clicks "Enter"
 		 	 
@@ -144,7 +144,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		
 	}
 	
-	//Method to delete addStudentID and addGradeScore text field inputs from array lists
+//Method to delete addStudentID input and corresponding addGradeScore from array lists
 	public void deleteGrade()
 	{
 		//Creating new window for "delete a grade"
@@ -163,18 +163,18 @@ public class GradeChange extends gradeAnalyticsGUI {
 		//Creating labels
 		JLabel whichToDeleteLabel = new JLabel("Which grade do you want to delete?");
 		JLabel deleteStudentLabel = new JLabel("Student/ID:");
-		JLabel deleteGradeScoreLabel = new JLabel("Score: ");
+		//JLabel deleteGradeScoreLabel = new JLabel("Score: ");
 		
 		//Creating text fields 
-		JTextField deleteStudentID = new JTextField(20);
-		JTextField deleteGradeScore = new JTextField(20);
+		JTextField deleteStudentIDField = new JTextField(20);
+		//JTextField deleteGradeScoreField = new JTextField(20);
 		
 		//Adding labels/text fields to panel
 		deleteGradePanel.add(whichToDeleteLabel);
 		deleteGradePanel.add(deleteStudentLabel);
-		deleteGradePanel.add(deleteStudentID);
-		deleteGradePanel.add(deleteGradeScoreLabel);
-		deleteGradePanel.add(deleteGradeScore);
+		deleteGradePanel.add(deleteStudentIDField);
+		//deleteGradePanel.add(deleteGradeScoreLabel);
+		//deleteGradePanel.add(deleteGradeScoreField);
 		
 		//Adding deleteEnterButton to panel
 		deleteGradePanel.add(deleteEnterButton);
@@ -186,6 +186,52 @@ public class GradeChange extends gradeAnalyticsGUI {
 		//adding panel to frame
 		deleteGradeFrame.add(whichToDeleteLabel,BorderLayout.NORTH);
 		deleteGradeFrame.add(deleteGradePanel,BorderLayout.SOUTH);
+		
+		
+		//Text Field Action Listener for deleteStudentIDField
+		 deleteStudentIDField.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e)
+			 {
+				 System.out.println("Delete Student ID: " +  deleteStudentIDField.getText()); //prints user Student ID input to console
+				 IDString = deleteStudentIDField.getText();
+			 }
+		});
+	
+		//Text Field Action Listener for addGradeScoreField	
+		// deleteGradeScoreField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			 //{
+				// System.out.println("Delete Student Score: " +  deleteGradeScoreField.getText()); //prints user Student score input to console
+				 //ScoreString = deleteGradeScoreField.getText();
+			 //}
+		//});
+		 
+		 //Button clicked Action Listener for addEnterButton
+		 deleteEnterButton.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{ 
+					for (int listIndex = 0;listIndex < studentIDList.size(); listIndex++)
+					{
+						if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find match
+						{
+							studentIDList.remove(listIndex); //removes matching student ID at index found
+							studentScoreList.remove(listIndex); //removes corresponding student score at same index
+						}
+					}
+					
+					deleteGradeFrame.dispose(); //closes delete window
+				}
+				}); //grade gets deleted only if user clicks "Enter"
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	} //End of deleteGrade()
 	

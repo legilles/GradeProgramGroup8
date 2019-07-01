@@ -394,6 +394,8 @@ public class gradeAnalyticsGUI
 						}); //DELETE A GRADE BUTTON LISTENER
 							
 					}	
+					//printGrades(); //re- print grades after making changes
+					
 				}); //CHANGE A GRADE BUTTON LISTENER
 		
 			
