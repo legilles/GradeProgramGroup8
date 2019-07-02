@@ -16,6 +16,7 @@ public class ImportGrades extends gradeAnalyticsGUI {
 	
 	BufferedReader reader = null;
 	int lineIndex = 0;
+	int totalPointsPossible = 0;
 	String lineValue;
 	String textResults = "";
 	
@@ -35,7 +36,8 @@ public void importGrades()
 	
 		while ((lineValue = reader.readLine()) != null)
 		{
-			//System.out.println(lineValue); //print results to console
+			System.out.println(lineValue); //print results to console
+			
 			lineIndex++;
 			if (lineIndex % 2 != 0) // odd line number is Student ID
 			{
@@ -47,6 +49,7 @@ public void importGrades()
 				double lineScore = Double.parseDouble(lineValue);
 				defaultLetterGrade(lineScore); //call defaultLetterGrade() method to get Letter Grade equivalent
 			}
+			
 		}
 		reader.close();
 		
@@ -103,7 +106,7 @@ public void printGrades()
 			studentLetterList.add('A');
 		}
 		//Default B Letter Range
-		if (lineValue <= 89.4 || lineValue >= 79.5 )
+		if (lineValue <= 89.5 || lineValue >= 79.5 )
 		{
 			studentLetterList.add('B');
 		}

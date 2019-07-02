@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -28,15 +27,17 @@ public class gradeAnalyticsGUI
 	protected JFrame screenFrame;
 	protected JFrame makeChangesFrame;
 	
+	
+	//Main Body of code
 	public static void main(String[] args)
 	{
-		SwingUtilities.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() { 
 			public void run() {
 		
-		JFrame screenFrame = new JFrame("Grade Analytics Program");
+		JFrame screenFrame = new JFrame("Grade Analytics Program"); //creates opening window frame
 		screenFrame.setSize(900,500); //sets frame size
 		screenFrame.setDefaultCloseOperation(screenFrame.EXIT_ON_CLOSE); //program will quit if user clicks "x"
-		screenFrame.setVisible(true); 
+		screenFrame.setVisible(true);  
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
@@ -76,7 +77,7 @@ public class gradeAnalyticsGUI
 		//Results label added to panel
 		showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
 				
-		//Adds buttons to button panel
+		//Adds buttons to button panel and spacing
 		buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(inputFileButton);
 		buttonPanel.add(Box.createVerticalStrut(30)); //adds spacing
@@ -120,25 +121,7 @@ public class gradeAnalyticsGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("Create Grade Report Button Clicked");
-				
-				JFrame createReportFrame = new JFrame("Create Grade Report");
-				createReportFrame.setSize(400,100); //sets frame size
-				createReportFrame.setDefaultCloseOperation(createReportFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-				createReportFrame.setVisible(true); 
-				
-				JPanel createReportPanel = new JPanel();
-				createReportPanel.setBackground(Color.orange);
-				
-				JTextField reportNameTextField = new JTextField(20);
-				
-				JLabel nameReportPrompt = new JLabel("Please Enter a Name for the Grade Report.");
-				
-				createReportPanel.add(nameReportPrompt,BorderLayout.NORTH);
-				createReportPanel.add(reportNameTextField,BorderLayout.SOUTH);
-				
-				createReportPanel.add(reportNameTextField); //adds report name text field to report panel
-				createReportFrame.add(createReportPanel); //adds panel to report window
+				new CreateReport().createReport(); //calls on CreateReport call methods
 			}	
 		});
 		
@@ -361,7 +344,7 @@ public class gradeAnalyticsGUI
 						
 						
 						
-				//JButton Action Listener for Add a Grade
+		//JButton Action Listener for Add a Grade
 						addGrade.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent e)
@@ -383,7 +366,7 @@ public class gradeAnalyticsGUI
 						
 						
 						
-				//JButton Action Listener for Delete a Grade
+	//JButton Action Listener for Delete a Grade
 						deleteGrade.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent e)

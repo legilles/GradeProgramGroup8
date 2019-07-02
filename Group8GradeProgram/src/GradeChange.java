@@ -85,6 +85,8 @@ public class GradeChange extends gradeAnalyticsGUI {
 					
 					JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
 					
+					System.out.println(studentIDList);
+					
 					addGradeFrame.dispose(); //closes add grade window
 				}
 				}); //values inputed only get added if user clicks "Enter"
@@ -206,7 +208,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		JButton deleteEnterButton = new JButton("Enter");
 		
 		//Creating labels
-		JLabel whichToDeleteLabel = new JLabel("Which grade do you want to delete?");
+		JLabel whichToDeleteLabel = new JLabel("Which student grade do you want to delete?");
 		JLabel deleteStudentLabel = new JLabel("Student/ID:");
 		//JLabel deleteGradeScoreLabel = new JLabel("Score: ");
 		
