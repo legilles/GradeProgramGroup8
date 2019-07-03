@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,9 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CreateReport {
+
+
+public class CreateReport extends gradeAnalyticsGUI {
 	
-	 String reportFileName = "";
+	 String reportFileName = ""; //user entered string for file name
 	 protected JFrame createReportFrame;
 	
 	public void createReport()
@@ -70,28 +71,34 @@ public class CreateReport {
 		 public void actionPerformed(ActionEvent e)
 		 {
 			 writeToTextFile(reportFileName); //calls on method to create text file
-			 createReportFrame.dispose(); //closes createReportFrame after enter clicked
+			 //createReportFrame.dispose(); //closes createReportFrame after enter clicked
 		 }
 	});
 	}
 	
-//Method to write to a text file
+//Method to Write Grades to a Text File
 	public void writeToTextFile(String reportFileName)
 	{
 		try {
-	FileWriter writer = new FileWriter(reportFileName); //creates a text file called
+	FileWriter writer = new FileWriter(reportFileName); //creates a text file called the name the user entered
 	
-	writer.write("Text File works.");
+	//for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
+	//{
+		//textResults += "Student ID: " + studentIDList.get(listIndex) + " Grade Score: " + studentScoreList.get(listIndex) + " Letter Grade: " + studentLetterList.get(listIndex) + "\n" + "\n";
+	//}
+	
+	//writer.write(textResults); //data in array lists written to text file
+	writer.close(); //closes text file
 	
 	JOptionPane.showMessageDialog(createReportFrame, "Grade Report Created.", "Create Grade Report Status",JOptionPane.INFORMATION_MESSAGE); //notifies user that text file was created
 	
 		} catch (IOException e)
 		{
 			System.out.println("Text File Not Created"); //prints to console that text file was not created
-			JOptionPane.showMessageDialog(createReportFrame, "Grade Report Not Created.", "Create Grade Report Status",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(createReportFrame, "Grade Report Not Created.", "Create Grade Report Status",JOptionPane.ERROR_MESSAGE); //notifies user that text file wasn't created
 		}
 		
-		System.out.println("Text File Created: " + reportFileName + " txt"); //prints to console that text file was created
+		System.out.println("Text File Created: " + reportFileName + ".txt"); //prints to console that text file was created
 	}
 	
 

@@ -26,7 +26,7 @@ public class gradeAnalyticsGUI
 	protected  int returnFile;
 	protected JFrame screenFrame;
 	protected JFrame makeChangesFrame;
-	
+	protected String textResults;
 	
 	//Main Body of code
 	public static void main(String[] args)
