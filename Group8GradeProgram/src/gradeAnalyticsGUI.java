@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -20,7 +17,7 @@ public class gradeAnalyticsGUI
 {
 	
 	ArrayList<String> studentIDList = new ArrayList<String>(); //array list to hold Student ID's 
-	ArrayList<String> studentScoreList = new ArrayList<String>(); //array list to hold Student Scores
+	ArrayList<Double> studentScoreList = new ArrayList<Double>(); //array list to hold Student Scores
 	ArrayList<Character> studentLetterList = new ArrayList<Character>(); //array list to hold letter equivalent of scores
 	
 	protected  int returnFile;
@@ -35,13 +32,13 @@ public class gradeAnalyticsGUI
 			public void run() {
 		
 		JFrame screenFrame = new JFrame("Grade Analytics Program"); //creates opening window frame
-		screenFrame.setSize(900,500); //sets frame size
+		screenFrame.setSize(900,200); //sets frame size
 		screenFrame.setDefaultCloseOperation(screenFrame.EXIT_ON_CLOSE); //program will quit if user clicks "x"
 		screenFrame.setVisible(true);  
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
-		JLabel resultsLabel = new JLabel("Student Grades");
+		//JLabel resultsLabel = new JLabel("Student Grades");
 		
 		//Creates buttons
 		JButton inputFileButton = new JButton("Import File");
@@ -62,7 +59,7 @@ public class gradeAnalyticsGUI
 		
 		//Panel to Hold Buttons
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		
 		//Panel to hold all user components
 		JPanel userPanel = new JPanel();
@@ -70,25 +67,30 @@ public class gradeAnalyticsGUI
 		userPanel.add(programTitle, BorderLayout.NORTH);
 	
 		//Panel to show results
-		JPanel showResultsPanel = new JPanel();
-		showResultsPanel.setBackground(Color.white);
-		userPanel.add(showResultsPanel,BorderLayout.CENTER);
+		//JPanel showResultsPanel = new JPanel();
+		//showResultsPanel.setBackground(Color.white);
+		//userPanel.add(showResultsPanel,BorderLayout.CENTER);
 				
 		//Results label added to panel
-		showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
+		//showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
 				
 		//Adds buttons to button panel and spacing
-		buttonPanel.add(Box.createVerticalStrut(30));
+		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(inputFileButton);
-		buttonPanel.add(Box.createVerticalStrut(30)); //adds spacing
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		//buttonPanel.add(Box.createVerticalStrut(30)); //adds spacing
 		buttonPanel.add(makeChangesButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(changeGradeDistriButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(seeStatisticsButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(createReportButton);
-		buttonPanel.add(Box.createVerticalStrut(30));
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(quitButton);
 		
 		//Add button panel to user panel
@@ -107,6 +109,7 @@ public class gradeAnalyticsGUI
 	
 				if (confirmation == JOptionPane.YES_OPTION) //user clicks yes
 				{
+					System.out.println("Program Closed"); //prints to console that program closed
 					System.exit(0); //closes program
 				}	
 			}	
@@ -389,7 +392,7 @@ public class gradeAnalyticsGUI
 					{
 						System.out.println("Import File Button Clicked");
 						
-						new ImportGrades().importGrades(); //calls on ImportGrade class methods 
+						new ImportGrades().getTotalPointsPossible(); //calls on ImportGrades() class methods 
 					}	
 				});
 		

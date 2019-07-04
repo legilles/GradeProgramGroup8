@@ -81,7 +81,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 				{ 
 					studentIDList.add(IDString); //add Student ID to studentIDList array list
 					
-					studentScoreList.add(ScoreString);//add Student Score to studentScoreList
+					//studentScoreList.add(ScoreString);//add Student Score to studentScoreList
 					
 					JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
 					
@@ -176,7 +176,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 					{
 						if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find matching ID
 						{
-							studentScoreList.get(listIndex).replace(studentScoreList.get(listIndex), ScoreString); //replace old score with new score in array list at listIndex
+							//studentScoreList.get(listIndex).replace(studentScoreList.get(listIndex), ScoreString); //replace old score with new score in array list at listIndex
 							JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
 						}
 					else
