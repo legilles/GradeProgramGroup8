@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,9 +28,10 @@ public class CreateReport extends gradeAnalyticsGUI {
 	
 	//Creates frame for create report
 	JFrame createReportFrame = new JFrame("Create Grade Report");
-	createReportFrame.setSize(400,100); //sets frame size
+	createReportFrame.setSize(500,90); //sets frame size
 	createReportFrame.setDefaultCloseOperation(createReportFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	createReportFrame.setVisible(true); 
+	createReportFrame.setResizable(false);
 	
 	//Creates panel
 	JPanel createReportPanel = new JPanel();
@@ -39,13 +42,14 @@ public class CreateReport extends gradeAnalyticsGUI {
 	
 	//Creates label
 	JLabel nameReportPrompt = new JLabel("Please Enter a Name for the Grade Report.");
-	JLabel nameLabel = new JLabel("Grade Report Name:");
+	JLabel nameLabel = new JLabel("Grade Report Name : ");
 	
 	//Creates "Enter" button
 	JButton createReportEnter = new JButton("Enter");
 	
 	//Add text field and button to panel
 	createReportPanel.add(nameLabel);
+	createReportPanel.add(Box.createHorizontalStrut(50));
 	createReportPanel.add(reportNameTextField);
 	createReportPanel.add(createReportEnter);
 			
@@ -56,6 +60,7 @@ public class CreateReport extends gradeAnalyticsGUI {
 	//Add prompt and panel to frame
 	createReportFrame.add(nameReportPrompt,BorderLayout.NORTH);
 	createReportFrame.add(createReportPanel,BorderLayout.SOUTH);
+	//createReportFrame.add(createReportPanel);
 			
 //Action listener for reportNameTextField
 	reportNameTextField.addActionListener(new ActionListener() {

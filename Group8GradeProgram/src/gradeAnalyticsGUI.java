@@ -16,9 +16,11 @@ import javax.swing.SwingUtilities;
 public class gradeAnalyticsGUI 
 {
 	
-	ArrayList<String> studentIDList = new ArrayList<String>(); //array list to hold Student ID's 
-	ArrayList<Double> studentScoreList = new ArrayList<Double>(); //array list to hold Student Scores
-	ArrayList<Character> studentLetterList = new ArrayList<Character>(); //array list to hold letter equivalent of scores
+	ArrayList<String> studentIDList = new ArrayList<String>(); 			//array list to hold Student ID's 
+	ArrayList<Double> studentScoreList = new ArrayList<Double>(); 			//array list to hold Student Scores
+	ArrayList<Character> studentLetterList = new ArrayList<Character>();		 //array list to hold letter equivalent of scores
+	ArrayList<Double> computedScoreList = new ArrayList<Double>();				 	//array list to hold computed scores
+	
 	
 	protected  int returnFile;
 	protected JFrame screenFrame;
@@ -32,9 +34,10 @@ public class gradeAnalyticsGUI
 			public void run() {
 		
 		JFrame screenFrame = new JFrame("Grade Analytics Program"); //creates opening window frame
-		screenFrame.setSize(900,200); //sets frame size
+		screenFrame.setSize(900,100); //sets frame size
 		screenFrame.setDefaultCloseOperation(screenFrame.EXIT_ON_CLOSE); //program will quit if user clicks "x"
 		screenFrame.setVisible(true);  
+		screenFrame.setResizable(false); //user can't resize window
 	
 		//Creates Labels
 		JLabel programTitle = new JLabel("Grade Analytics Program");
@@ -77,19 +80,19 @@ public class gradeAnalyticsGUI
 		//Adds buttons to button panel and spacing
 		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(inputFileButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(Box.createHorizontalStrut(10));
 		//buttonPanel.add(Box.createVerticalStrut(30)); //adds spacing
 		buttonPanel.add(makeChangesButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(Box.createHorizontalStrut(10));
 		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(changeGradeDistriButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(Box.createHorizontalStrut(10));
 		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(seeStatisticsButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(Box.createHorizontalStrut(10));
 		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(createReportButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(Box.createHorizontalStrut(10));
 		//buttonPanel.add(Box.createVerticalStrut(30));
 		buttonPanel.add(quitButton);
 		
@@ -323,10 +326,11 @@ public class gradeAnalyticsGUI
 						
 						
 						JFrame makeChangesFrame = new JFrame("Make a Grade Change");
-						makeChangesFrame.setSize(200, 200);
+						makeChangesFrame.setSize(350, 100);
 						makeChangesFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 						makeChangesFrame.setVisible(true); 
-						
+						makeChangesFrame.setResizable(false); //user can't resize window
+						 
 					//Created add,replace,delete buttons
 						JButton addGrade = new JButton("Add Grade");
 						JButton replaceGrade = new JButton("Replace Grade");
@@ -337,12 +341,12 @@ public class gradeAnalyticsGUI
 						JPanel makeChangesPanel = new JPanel();
 						makeChangesPanel.setBackground(Color.cyan);
 						makeChangesPanel.add(addGrade);
-						makeChangesPanel.add(Box.createVerticalStrut(30));
+						makeChangesPanel.add(Box.createHorizontalStrut(10));
 						makeChangesPanel.add(replaceGrade);
-						makeChangesPanel.add(Box.createVerticalStrut(30));
+						makeChangesPanel.add(Box.createHorizontalStrut(10));
 						makeChangesPanel.add(deleteGrade);
 						
-						makeChangesPanel.setLayout(new BoxLayout(makeChangesPanel, BoxLayout.Y_AXIS));
+						makeChangesPanel.setLayout(new BoxLayout(makeChangesPanel, BoxLayout.X_AXIS));
 						makeChangesFrame.add(makeChangesPanel);
 						
 						

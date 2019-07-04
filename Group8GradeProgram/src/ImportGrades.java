@@ -4,10 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -28,11 +27,10 @@ public class ImportGrades extends gradeAnalyticsGUI {
 	String totalPointsPossible; 	//max value score can be out of
 	String lineValue; 				//value of the text line at a single line
 	String textResults = ""; 			//string value that holds value of array lists
-	double computedStudentScore = 0.0; 		// studentScore divided by totalPointsPossible value
+	double computedStudentScore; 		// studentScore divided by totalPointsPossible value
+	double roundedComputedScore;
 	
-	double scoreToLetter = 0.0; 
 	
-	ArrayList<Double> computedScoreList = new ArrayList<Double>(); //array list to hold computed scores
 	
 //Method to prompt user and retrieve the totalPointsPossible value to apply to student scores
 	public void getTotalPointsPossible()
@@ -42,9 +40,10 @@ public class ImportGrades extends gradeAnalyticsGUI {
 		pointsPossibleFrame.setSize(300, 100); //sets size of frame
 		pointsPossibleFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		pointsPossibleFrame.setVisible(true);
+		pointsPossibleFrame.setResizable(false); //user can't re-size frame
 		
 		//creates label, text field, button
-		JLabel promptPointsLabel = new JLabel("Out of how many point?");
+		JLabel promptPointsLabel = new JLabel("Out of how many points?");
 		JTextField pointsPossibleField = new JTextField(20);
 		JButton pointsPossibleEnterButton = new JButton("Enter");
 		
@@ -67,32 +66,39 @@ public class ImportGrades extends gradeAnalyticsGUI {
 		pointsPossibleField.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
 			 {
+	
 				totalPointsPossible = pointsPossibleField.getText(); //sets totalPointsPossible equal to contents entered in text field
 				System.out.println("Total Points Possible: " + totalPointsPossible); //prints to console total points possible value entered
-			 }
+				
+		//Action Listener for pointsPossibleEnterButton
+				pointsPossibleEnterButton.addActionListener(new ActionListener() { //user can't move on until value is entered for points possible
+					 public void actionPerformed(ActionEvent e)
+					 {
+						 pointsPossibleFrame.dispose(); //closes point prompt window after "Enter" is clicked
+						 
+						 importGrades(); //calls on importGrades() method after enter is clicked
+					 }
+				});			
+			} 
 		});
 		
-		//Action Listener for pointsPossibleEnterButton
-		pointsPossibleEnterButton.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 pointsPossibleFrame.dispose(); //closes point prompt window after "Enter" is clicked
-				 importGrades(); //calls on importGrades() method after enter is clicked
-			 }
-		});
-				
-	}
+	} //End of getTotalPointsPossible
+	
+	
 //Method to compute the score earned by student	out of total points possible
 public void computeStudentScore()
 {
-
 	for (int listIndex = 0; listIndex < studentScoreList.size(); listIndex++)
 	{
-		computedStudentScore = studentScoreList.get(listIndex) +  Double.parseDouble(totalPointsPossible); //converts variables to double than computes student score earned
-		computedScoreList.add(computedStudentScore); //adds computed score to computed score array list
+		computedStudentScore = (studentScoreList.get(listIndex) /  Double.parseDouble(totalPointsPossible)) * 100.0; //converts variables to double than computes student score earned
+		
+		roundedComputedScore = Math.round((computedStudentScore * 100) / 100); //rounds computed Score list to 1 decimal place
+		
+		computedScoreList.add(roundedComputedScore); //adds rounded computed score to computed score array list
 	}
 	
-	//defaultLetterGrade(computedStudentScore); //calls defaultLetterGrade() method to get Letter Grade equivalent
+	//defaultLetterGrade(); 	//calls defaultLetterGrade() method to get Letter Grade equivalent
+
 }
 	
 	
@@ -115,7 +121,7 @@ public void importGrades()
 	
 		while ((lineValue = reader.readLine()) != null)
 		{
-			System.out.println(lineValue); //print results to console
+			System.out.println(lineValue); //prints line of text file to console
 
 			lineIndex++;
 			if (lineIndex % 2 != 0) // odd line number is Student ID and not last number which is total points possible
@@ -136,6 +142,7 @@ public void importGrades()
 		JOptionPane.showMessageDialog(screenFrame, "File Uploaded.", "File Status",JOptionPane.INFORMATION_MESSAGE); //tells user text file was uploaded
 		
 		computeStudentScore(); //calls to compute student score to determine letter grade
+	
 		printGrades(); //calls to print out results from text file
 		
 	} catch (IOException ioe)
@@ -145,7 +152,7 @@ public void importGrades()
 	
 	}
 	}	
-}
+} //End of importGrades()
 
 
 
@@ -155,66 +162,75 @@ public void printGrades()
 		System.out.println( "Student ID's: " + studentIDList); //prints studentIDList to console
 		System.out.println("Student Scores: " + studentScoreList); //prints studentScoreList to console
 		System.out.println("Computed Scores: " + computedScoreList); //prints computedScoreList to console
+		//System.out.println("Letter Grades: " + studentLetterList);
 	
-	
+
 //Prints studentIDList/studentScoreList/studentLetterList in a friendly format in console
-			for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
+			for (int listIndex = 0; listIndex < computedScoreList.size(); listIndex++)
 		{
-			textResults += "Student ID: " + studentIDList.get(listIndex) + "  Grade Score: " + studentScoreList.get(listIndex);// + "  Letter Grade: " + studentLetterList.get(listIndex) + "\n" + "\n";
+			textResults += "Student ID: " + studentIDList.get(listIndex) + "  Grade Score: " + studentScoreList.get(listIndex) 
+			+  "  Calculated Score: " + Math.round(computedScoreList.get(listIndex)) + "%" + "\n" + "\n";
 			
-	
 		}
+			//System.out.println(textResults); //prints text results to console
+			
 			//Creates text area and places textResults onto area
 			JTextArea area = new JTextArea();
 			area.setText(textResults); //set text of area to textResults
+			area.setBackground(Color.yellow);
 			area.setEditable(false); //text area not able to be edited
 			
 			//Creates new window to display grade results
 			JFrame resultsFrame = new JFrame("Student Grades");
-			resultsFrame.setSize(300,500);
+			
+			resultsFrame.setSize(500,500);
 			resultsFrame.setDefaultCloseOperation(resultsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 			resultsFrame.setVisible(true);
 			resultsFrame.add(area, BorderLayout.NORTH);
-}
-
+			
+} //End of printGrades()
 
 
 	
-//Method to assign student score with corresponding letter grade value (includes rounding values)
-	public void defaultLetterGrade(double scoreToLetter)
+//Method to loop through computedScoreList and assign student scores with corresponding letter grade value (includes rounding values)
+	public void defaultLetterGrade()
 	{
-		//Default A Letter Range
-		if (scoreToLetter <= 1 || scoreToLetter >= 0.85 )
+		
+		for (int listIndex = 0; listIndex < computedScoreList.get(listIndex); listIndex++)
 		{
-			studentLetterList.add('A');
+			//Default A Letter Range
+			if (computedScoreList.get(listIndex) >= 90.0 ) 
+			{
+				studentLetterList.add('A');
+			}
+			//Default B Letter Range
+			if (computedScoreList.get(listIndex) >= 80.0  )
+			{
+				studentLetterList.add('B');
+			}
+			//Default C Letter Range
+			if (computedScoreList.get(listIndex) >= 70.0 )
+			{
+				studentLetterList.add('C');
+			}
+			//Default D Letter Range
+			if (computedScoreList.get(listIndex) >=  60.0 )
+			{
+				studentLetterList.add('D');
+			}
+			//Default F Letter Range
+			if (computedScoreList.get(listIndex) <= 59.0 )
+			{
+				studentLetterList.add('F');
+			}
+			else
+			{
+				studentLetterList.add(' ');
+			}
+			
 		}
-		//Default B Letter Range
-		if (scoreToLetter <= 0.89 || scoreToLetter >= 0.79 )
-		{
-			studentLetterList.add('B');
-		}
-		//Default C Letter Range
-		if (scoreToLetter <= 0.79 || scoreToLetter >= 0.69 )
-		{
-			studentLetterList.add('C');
-		}
-		//Default D Letter Range
-		if (scoreToLetter <= 0.69 || scoreToLetter >= 0.59 )
-		{
-			studentLetterList.add('D');
-		}
-		//Default F Letter Range
-		if (scoreToLetter <= 0.49 || scoreToLetter >= 0.39 )
-		{
-			studentLetterList.add('F');
-		}
-		//Default E Letter Range
-		if (scoreToLetter <= 0.39 )
-		{
-			studentLetterList.add('E');
-		}
-		return;
-	}
+		//*/
+	} //End of defaultLetterGrades()
 
 
 
