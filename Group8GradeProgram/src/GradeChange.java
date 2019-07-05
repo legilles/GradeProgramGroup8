@@ -25,6 +25,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		addGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		addGradeFrame.setVisible(true);
 		addGradeFrame.setResizable(false);
+		addGradeFrame.setLocationRelativeTo(null);
 		
 		//Creating panel for "add a grade"
 		JPanel addGradePanel = new JPanel();
@@ -112,6 +113,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		replaceGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		replaceGradeFrame.setVisible(true);
 		replaceGradeFrame.setResizable(false);
+		replaceGradeFrame.setLocationRelativeTo(null);
 		
 		//Creating panel
 		JPanel replaceGradePanel = new JPanel();
@@ -203,6 +205,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 		deleteGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		deleteGradeFrame.setVisible(true);
 		deleteGradeFrame.setResizable(false); //user can't resize window
+		deleteGradeFrame.setLocationRelativeTo(null);
 		
 		//Creating panel 
 		JPanel deleteGradePanel = new JPanel();

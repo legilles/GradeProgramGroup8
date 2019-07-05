@@ -41,6 +41,7 @@ public class ImportGrades extends gradeAnalyticsGUI {
 		pointsPossibleFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		pointsPossibleFrame.setVisible(true);
 		pointsPossibleFrame.setResizable(false); //user can't re-size frame
+		pointsPossibleFrame.setLocationRelativeTo(null); //opens window to center of screen
 		
 		//creates label, text field, button
 		JLabel promptPointsLabel = new JLabel("Out of how many points?");
@@ -182,11 +183,11 @@ public void printGrades()
 			
 			//Creates new window to display grade results
 			JFrame resultsFrame = new JFrame("Student Grades");
-			
 			resultsFrame.setSize(500,500);
 			resultsFrame.setDefaultCloseOperation(resultsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 			resultsFrame.setVisible(true);
 			resultsFrame.add(area, BorderLayout.NORTH);
+			resultsFrame.setLocationRelativeTo(null); //
 			
 } //End of printGrades()
 

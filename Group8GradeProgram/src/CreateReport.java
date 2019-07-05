@@ -32,6 +32,7 @@ public class CreateReport extends gradeAnalyticsGUI {
 	createReportFrame.setDefaultCloseOperation(createReportFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	createReportFrame.setVisible(true); 
 	createReportFrame.setResizable(false);
+	createReportFrame.setLocationRelativeTo(null);
 	
 	//Creates panel
 	JPanel createReportPanel = new JPanel();
