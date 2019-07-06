@@ -82,7 +82,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 						{ 
 							studentIDList.add(IDString); //add Student ID to studentIDList array list
 							
-							double doubleScoreString = Double.parseDouble(ScoreString); //converts ScoreString to double to add to double studentScore array list
+							doubleScoreString = Double.parseDouble(ScoreString); //converts ScoreString to double to add to double studentScore array list
 							studentScoreList.add(doubleScoreString);//add Student Score to studentScoreList
 							
 							JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
@@ -174,9 +174,15 @@ public class GradeChange extends gradeAnalyticsGUI {
 						{ 
 							for (int listIndex = 0;listIndex < studentIDList.size(); listIndex++)
 							{
+								doubleScoreString = Double.parseDouble(ScoreString);
+								
 								if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find matching ID
 								{
-									//studentScoreList.get(listIndex).replace(studentScoreList.get(listIndex), doubleScoreString); //replace old score with new score in array list at listIndex
+									//studentScoreList.set(studentScoreList.get(listIndex), doubleScoreString); //replace old score with new score in array list at listIndex
+									
+									System.out.println(studentIDList); //prints list to console to check if replaced
+									System.out.println(studentScoreList);
+									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
 								}
 							else

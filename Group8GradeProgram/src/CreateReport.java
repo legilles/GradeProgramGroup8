@@ -28,7 +28,7 @@ public class CreateReport extends gradeAnalyticsGUI {
 	
 	//Creates frame for create report
 	JFrame createReportFrame = new JFrame("Create Grade Report");
-	createReportFrame.setSize(500,90); //sets frame size
+	createReportFrame.setSize(500,90); 
 	createReportFrame.setDefaultCloseOperation(createReportFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	createReportFrame.setVisible(true); 
 	createReportFrame.setResizable(false);
@@ -58,7 +58,7 @@ public class CreateReport extends gradeAnalyticsGUI {
 	createReportPanel.setLayout(new BoxLayout(createReportPanel, BoxLayout.X_AXIS));
 			
 			
-	//Add prompt and panel to frame
+	//Adds prompt and panel to frame
 	createReportFrame.add(nameReportPrompt,BorderLayout.NORTH);
 	createReportFrame.add(createReportPanel,BorderLayout.SOUTH);
 	//createReportFrame.add(createReportPanel);
@@ -88,12 +88,9 @@ public class CreateReport extends gradeAnalyticsGUI {
 		try {
 	FileWriter writer = new FileWriter(reportFileName); //creates a text file called the name the user entered
 	
-	//for (int listIndex = 0; listIndex < studentIDList.size(); listIndex++)
-	//{
-		//textResults += "Student ID: " + studentIDList.get(listIndex) + " Grade Score: " + studentScoreList.get(listIndex) + " Letter Grade: " + studentLetterList.get(listIndex) + "\n" + "\n";
-	//}
+		textResults = "data will go here";
 	
-	//writer.write(textResults); //data in array lists written to text file
+	writer.write(textResults); //data in array lists written to text file
 	writer.close(); //closes text file
 	
 	JOptionPane.showMessageDialog(createReportFrame, "Grade Report Created.", "Create Grade Report Status",JOptionPane.INFORMATION_MESSAGE); //notifies user that text file was created

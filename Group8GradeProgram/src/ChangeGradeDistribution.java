@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,6 +20,19 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 	double doublenewPointsPossible;
 	double newRoundedComputedScore;
 	double newComputedScore;
+	
+	//Variables for new grade ranges
+	String aLow;
+	String aHigh;
+	String bLow;
+	String bHigh;
+	String cLow;
+	String cHigh;
+	String dLow;
+	String dHigh;
+	String fLow;
+	String fHigh;
+	
 	
 	ArrayList<Double> newComputedScoreList = new ArrayList<Double>();	//array list to store new grades with changed point scale
 	
@@ -102,8 +116,8 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 					{
 						changePointFrame.dispose(); //closes window
 						
-						calculateNewStudentGrades(); //calls method to re-calculate scores
-						printNewGrades(); //prints out new grade results
+						//calculateNewStudentGrades(); //calls method to re-calculate scores
+						//printNewGrades(); //prints out new grade results
 						
 							}	
 						}); 
@@ -113,10 +127,10 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 			}	
 		}); //CHANGE TOTAL POINTS POSSIBLE ACTION LISTENER
 		
-	}
 	
 	
-/*
+	
+
 //Change Grade Letter Ranges JButton Action Listener
 		changeGradeRangeButton.addActionListener(new ActionListener()
 		{
@@ -124,118 +138,209 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 			{
 				
 		JFrame gradeRangeFrame = new JFrame("Change Grade Distribution");
-		gradeRangeFrame.setSize(450,90);
+		gradeRangeFrame.setSize(200,300);
 		gradeRangeFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-		gradeRangeFrame.setVisible(true); 	
+		gradeRangeFrame.setVisible(true); 
+		gradeRangeFrame.setLocationRelativeTo(null);
+		gradeRangeFrame.setResizable(false);
 		
 		//Creating Panel
 		JPanel gradeRangePanel = new JPanel();
 		gradeRangePanel.setBackground(Color.red);
 		
 		//Grade Letter Labels
-		JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
-		JLabel letterALabel = new JLabel("A:");
-		JLabel letterBLabel = new JLabel("B:");
-		JLabel letterCLabel = new JLabel("C:");
-		JLabel letterDLabel = new JLabel("D:");
-		JLabel letterFLabel = new JLabel("F:");
-		JLabel letterELabel = new JLabel("E:");
+		//JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
+		JLabel letterALabel = new JLabel("A");
+		JLabel letterBLabel = new JLabel("B");
+		JLabel letterCLabel = new JLabel("C");
+		JLabel letterDLabel = new JLabel("D");
+		JLabel letterFLabel = new JLabel("F");
+	
+		//Creating enter button
+		JButton rangeEnterButton = new JButton("Enter");
 		
 		//Adding letter labels to gradeChangerPanel
 		gradeRangePanel.setLayout(new BoxLayout(gradeRangePanel, BoxLayout.Y_AXIS));
-		gradeRangePanel.add(letterChangeTitle);
 		gradeRangePanel.add(letterALabel);
+		gradeRangePanel.add(Box.createVerticalGlue());
 		gradeRangePanel.add(letterBLabel);
+		gradeRangePanel.add(Box.createVerticalGlue());
 		gradeRangePanel.add(letterCLabel);
+		gradeRangePanel.add(Box.createVerticalGlue());
 		gradeRangePanel.add(letterDLabel);
+		gradeRangePanel.add(Box.createVerticalGlue());
 		gradeRangePanel.add(letterFLabel);
-		gradeRangePanel.add(letterELabel);
 		
 		
-		//Adding text fields for each letter
-		JTextField letterATextField = new JTextField(20);
-		JTextField letterBTextField = new JTextField(20);
-		JTextField letterCTextField = new JTextField(20);
-		JTextField letterDTextField = new JTextField(20);
-		JTextField letterFTextField = new JTextField(20);
-		JTextField letterETextField = new JTextField(20);
+		//Adding low/high text fields for each letter
+		JTextField ALowTextField = new JTextField(4);
+		JTextField AHighTextField = new JTextField(4);
+		JTextField BLowTextField = new JTextField(4);
+		JTextField BHighTextField = new JTextField(4);
+		JTextField CLowTextField = new JTextField(4);
+		JTextField CHighTextField = new JTextField(4);
+		JTextField DLowTextField = new JTextField(4);
+		JTextField DHighTextField = new JTextField(4);
+		JTextField FLowTextField = new JTextField(4);
+		JTextField FHighTextField = new JTextField(4);
 		
+	
+		//Low grade ranges panel
+		JPanel lowTextPanel = new JPanel();
+		lowTextPanel.setLayout(new BoxLayout(lowTextPanel, BoxLayout.Y_AXIS));
 		
-		JPanel letterTextFields = new JPanel();
-		letterTextFields.setLayout(new BoxLayout(letterTextFields, BoxLayout.Y_AXIS));
+
+		//High grade ranges panel
+		JPanel highTextPanel = new JPanel();
+		highTextPanel.setLayout(new BoxLayout(highTextPanel, BoxLayout.Y_AXIS));
 		
+		//Adding low letter ranges to panel;
+		lowTextPanel.add(ALowTextField);
+		lowTextPanel.add(Box.createVerticalGlue());
+		lowTextPanel.add(BLowTextField);
+		lowTextPanel.add(Box.createVerticalGlue());
+		lowTextPanel.add(CLowTextField);
+		lowTextPanel.add(Box.createVerticalGlue());
+		lowTextPanel.add(DLowTextField);
+		lowTextPanel.add(Box.createVerticalGlue());
+		lowTextPanel.add(FLowTextField);
 		
-		//Adding letter text fields to letterTextFields Panel
-		letterTextFields.add(letterATextField);
-		letterTextFields.add(letterBTextField);
-		letterTextFields.add(letterCTextField);
-		letterTextFields.add(letterDTextField);
-		letterTextFields.add(letterFTextField);
-		letterTextFields.add(letterETextField);
+		//Adding high letter ranges to panel
+		highTextPanel.add(AHighTextField);
+		highTextPanel.add(BHighTextField);
+		highTextPanel.add(CHighTextField);
+		highTextPanel.add(DHighTextField);
+		highTextPanel.add(FHighTextField);
 		
-		
+		//Add components to panel
 		gradeRangeFrame.add(gradeRangePanel, BorderLayout.WEST);
-		gradeRangeFrame.add(letterTextFields, BorderLayout.EAST);
+		gradeRangePanel.add(Box.createRigidArea(new Dimension(100,0)));
+		gradeRangeFrame.add(lowTextPanel, BorderLayout.CENTER);
+		gradeRangeFrame.add(highTextPanel, BorderLayout.EAST);
+		gradeRangeFrame.add(rangeEnterButton, BorderLayout.SOUTH);
+		
+		
+		//Action Listener for ALowTextField
+				ALowTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						aLow = ALowTextField.getText();
+						System.out.println("Low A: " + aLow);
+					}
+				});
+		
+		//Action Listener for AHighTextField
+				AHighTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						aHigh = AHighTextField.getText();
+						System.out.println("High A: " + aHigh);
+					}
+				});
+		
+		//Action Listener for BLowTextField
+				BLowTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						bLow = BLowTextField.getText();
+						System.out.println("B Low: " + bLow);
+					}
+				});
+		
+		//Action Listener for BHighTextField
+				BHighTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						bHigh = BHighTextField.getText();
+						System.out.println("B High: " +  bHigh);
+					}
+				});
+		
+
+		//Action Listener for CLowTextField
+				CLowTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						cLow = CLowTextField.getText();
+						System.out.println("C Low: " + cLow);
+					}
+				});
+		
+		//Action Listener for BHighTextField
+				CHighTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						cHigh = CHighTextField.getText();
+						System.out.println("C High: " +  cHigh);
+					}
+				});
+				
+				
+//Action Listener for DLowTextField
+				DLowTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						dLow = DLowTextField.getText();
+						System.out.println("D Low: " + dLow);
+					}
+				});
+		
+//Action Listener for DHighTextField
+				DHighTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						dHigh = DHighTextField.getText();
+						System.out.println("D High: " +  dHigh);
+					}
+				});
+				
+//Action Listener for FLowTextField
+				FLowTextField.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						fLow = FLowTextField.getText();
+						System.out.println("F Low: " + fLow);
+					}
+				});			
+				
+		
+//Action Listener for FHighTextField
+		FHighTextField.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				fHigh = FHighTextField.getText();
+				System.out.println("F High: " + fHigh);
+				
+//Action Listener for rangeEnterButton
+			rangeEnterButton.addActionListener(new ActionListener() //enter button only closes window if value entered into high f text field
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					gradeRangeFrame.dispose(); //closes window	
+				}
+			}); 
+			
+			}
+		}); 
+		
+		
+		
 		}	
 	}); //CHANGE GRADE LETTER RANGES ACTION LISTENER
 }
-	//*/
 	
 	
 	
-	
-	
-	
-//Method to re-calculate scores with doubleNewPointsPossible value	
-	public void calculateNewStudentGrades()
-	{
-		for (int listIndex = 0; listIndex < studentScoreList.size(); listIndex++)
-		{
-			 newComputedScore = (studentScoreList.get(listIndex) /  doublenewPointsPossible) * 100.0; //converts variables to double than computes student score earned
-			
-			newRoundedComputedScore = Math.round((newComputedScore * 100) / 100); //rounds computed Score list to 1 decimal place
-			
-			newComputedScoreList.add(newRoundedComputedScore); //adds new rounded computed score to computed score array list
-		}
-		
-	}
-
-//Prints out grades with new point scale
-	public void printNewGrades()
-	{
-		System.out.println( "Student ID's: " + studentIDList); //prints studentIDList to console
-		System.out.println("Student Scores: " + studentScoreList); //prints studentScoreList to console
-		System.out.println("Computed Scores: " + computedScoreList); //prints computedScoreList to console
-		//System.out.println("Letter Grades: " + studentLetterList);
-	
-	
-//Prints studentIDList/studentScoreList/studentLetterList in a friendly format in console
-			for (int listIndex = 0; listIndex < computedScoreList.size(); listIndex++)
-		{
-			textResults += "Student ID: " + studentIDList.get(listIndex) + "  Grade Score: " + studentScoreList.get(listIndex) 
-			+  "  Calculated Score: " + Math.round(newComputedScoreList.get(listIndex)) + "%" + "\n" + "\n";
-			
-		}
-			System.out.println(textResults); //prints text results to console
-			
-			//Creates text area and places textResults onto area
-			JTextArea newArea = new JTextArea();
-			newArea.setText(textResults); //set text of area to textResults
-			newArea.setBackground(Color.yellow);
-			newArea.setEditable(false); //text area not able to be edited
-			
-			//Creates new window to display grade results
-			JFrame newResultsFrame = new JFrame("Student Grades");
-			
-			newResultsFrame.setSize(500,500);
-			newResultsFrame.setDefaultCloseOperation(newResultsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-			newResultsFrame.setVisible(true);
-			newResultsFrame.add(newArea, BorderLayout.NORTH);
-	}
-
-
-
-
 	
 	
 } //End of ChangeGradeDistribution.java
