@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,14 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GradeChange extends gradeAnalyticsGUI {
+public class GradeChange extends ImportGrades {
 	
 	String IDString;		 //entered student ID value from user
 	String ScoreString;			//entered student score from user
-	double doubleScoreString; 		//convert text field String to double to place into array list
+	
 
+	ArrayList<Student> updatedStudentList = new ArrayList<Student>(studentList); //creates a copy of studentList
+	
 	//Method to add addStudentID and addGradeScore text field inputs into array list
-	public void addGrade()
+	public void addGrade(ArrayList<Student> studentList)
 	{
 		//Creating new window for "add a grade"
 		JFrame addGradeFrame = new JFrame("Add a Grade");
@@ -57,54 +61,61 @@ public class GradeChange extends gradeAnalyticsGUI {
 		//adding panel to frame
 		addGradeFrame.add(addGradePanel);
 		
-		
-		
 		//Text Field Action Listener for addStudentIDField
-		 addStudentIDField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 System.out.println("Add Student ID: " +  addStudentIDField.getText()); //prints user Student ID input to console
-				 IDString = addStudentIDField.getText();
-			 }
-		});
+		// addStudentIDField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			// {
+				 
+				 
+		//	 }
+		//});
 	
 	//Text Field Action Listener for addGradeScoreField	
-		 addGradeScoreField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 System.out.println("Add Student Score: " +  addGradeScoreField.getText()); //prints user Student score input to console
-				 ScoreString = addGradeScoreField.getText();
-				 
+		 //addGradeScoreField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			 //{
+				 			
 	//Button clicked Action Listener for addEnterButton
 				 addEnterButton.addActionListener(new ActionListener() //user can only close window if a new score is entered into text field
 					{
 						public void actionPerformed(ActionEvent e)
 						{ 
-							studentIDList.add(IDString); //add Student ID to studentIDList array list
+							String id = addStudentIDField.getText();
+							Student studentObj = new Student(id);
+							System.out.println("Add Student ID: " +  id); //prints user Student ID input to console
+						 	
+							double score = Double.parseDouble(addGradeScoreField.getText()); //converts string into double
+							studentObj.setScore(score); //sets student score
+							System.out.println("Add Student Score: " +  studentObj.getScore()); //prints user Student score input to console
+						 
+							computedScore = Math.round((studentObj.getScore() / GUIObj.getTotal()) * 100);
+							System.out.println("Computed Score: " + computedScore + " %");
 							
-							doubleScoreString = Double.parseDouble(ScoreString); //converts ScoreString to double to add to double studentScore array list
-							studentScoreList.add(doubleScoreString);//add Student Score to studentScoreList
+							studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); //sets letter grade for score
+							
+							
+							updatedStudentList.add(studentObj); //add to dynamic updatedList
+							
 							
 							JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
 							
-							System.out.println(studentIDList); //prints list to console to check if added
-							System.out.println(studentScoreList);
+							System.out.println("Student Grade Added");
 							
-							
+							System.out.println(studentList);
+							System.out.println(updatedStudentList); //prints list to console to check if added
+										
 							addGradeFrame.dispose(); //closes add grade window
 						}
 						});  	 
-			 }
-		});
-		 
-		 
+			// }
+		//});	 
 	} //End of addGrade()
 	
 	
 	
 	
 //Method to replace a grade
-	public void replaceGrade()
+	public void replaceGrade(ArrayList<Student> studentList)
 	{
 
 		//Creating new window for "replace a grade"
@@ -149,53 +160,56 @@ public class GradeChange extends gradeAnalyticsGUI {
 		//adding panel to frame
 		replaceGradeFrame.add(replaceGradePanel);
 	
-		
-		
+	
 		//Text Field Action Listener for replaceOldStudentIDField
-		replaceOldStudentIDField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
-				 IDString = replaceOldStudentIDField.getText();
-			 }
-		});
+		//replaceOldStudentIDField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			 //{
+				 
+		//	 }
+		//});
 	
 	//Text Field Action Listener for replaceNewGradeScoreField
-		replaceNewGradeScoreField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 System.out.println("Replace Student Score: " +  replaceNewGradeScoreField.getText()); //prints user Student score input to console
-				 ScoreString = replaceNewGradeScoreField.getText();
+		//replaceNewGradeScoreField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			 //{
+				
 				 
 	//Button clicked Action Listener for replaceEnterButton
 				 replaceEnterButton.addActionListener(new ActionListener() //replace window closes only if new score is entered into text field
 					{
 						public void actionPerformed(ActionEvent e)
 						{ 
-							for (int listIndex = 0;listIndex < studentIDList.size(); listIndex++)
+							System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
+							 String ID = replaceOldStudentIDField.getText();
+							 
+							 System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
+							 double newScore = Double.parseDouble(replaceNewGradeScoreField.getText());
+							
+							for (Student individualStudent: updatedStudentList)
 							{
-								doubleScoreString = Double.parseDouble(ScoreString);
 								
-								if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find matching ID
+								if (id == individualStudent.getID()) //search through studenIDList to find matching ID
 								{
-									//studentScoreList.set(studentScoreList.get(listIndex), doubleScoreString); //replace old score with new score in array list at listIndex
 									
-									System.out.println(studentIDList); //prints list to console to check if replaced
-									System.out.println(studentScoreList);
+									individualStudent.setScore(newScore);
 									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
+									System.out.println("Student Grade Replaced.");
 								}
 							else
 							{
-								JOptionPane.showMessageDialog(screenFrame, "Grade not Replaced.", "Remove Grade Status",JOptionPane.ERROR_MESSAGE);
+								//JOptionPane.showMessageDialog(screenFrame, "Grade not Replaced.", "Remove Grade Status",JOptionPane.ERROR_MESSAGE);
+								System.out.println("Student Grade Not Replaced.");
 							}
 							
 							replaceGradeFrame.dispose(); //closes add grade window
 						}
 						}
 						}); 
-			 }
-		});
+						
+			// }
+		//});
 		 
 	
 	} //End of replaceGrade()
@@ -203,7 +217,7 @@ public class GradeChange extends gradeAnalyticsGUI {
 	
 	
 //Method to delete addStudentID input and corresponding addGradeScore from array lists
-	public void deleteGrade()
+	public void deleteGrade(ArrayList<Student> studentList)
 	{
 		//Creating new window for "delete a grade"
 		JFrame deleteGradeFrame = new JFrame("Delete a Grade");
@@ -249,43 +263,49 @@ public class GradeChange extends gradeAnalyticsGUI {
 		
 		
 //Text Field Action Listener for deleteStudentIDField
-		 deleteStudentIDField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				 System.out.println("Delete Student ID: " +  deleteStudentIDField.getText()); //prints user Student ID input to console
-				 IDString = deleteStudentIDField.getText();
+		 //deleteStudentIDField.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e)
+			 //{
 				 
-	//Button clicked Action Listener for addEnterButton
+				 
+	//Button clicked Action Listener for deleteEnterButton
 				 deleteEnterButton.addActionListener(new ActionListener() //delete window only closes if a ID is entered into the text field
 					{
 						public void actionPerformed(ActionEvent e)
 						{ 
-							for (int listIndex = 0;listIndex < studentIDList.size(); listIndex++)
+							System.out.println("Delete Student ID: " +  deleteStudentIDField.getText()); //prints user Student ID input to console
+							 String id = deleteStudentIDField.getText();
+							 
+							for (Student individualStudent: updatedStudentList)
 							{
-								if (IDString == studentIDList.get(listIndex)) //search through studenIDList to find match
+								if (id == individualStudent.getID()) //search through studenIDList to find match
 								{
-									studentIDList.remove(listIndex);		 //removes matching student ID at index found
-									studentScoreList.remove(listIndex); 		//removes corresponding student score at same index
+									updatedStudentList.remove(studentObj); 		//removes student from updated list
 									
-									System.out.println(studentIDList); 			//prints to console to check if value was deleted
-									System.out.println(studentScoreList); 			//prints to console to check if value was deleted
+									System.out.println(updatedStudentList); 			//prints to console to check if value was deleted
+									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Deleted.", "Delete Grade Status",JOptionPane.INFORMATION_MESSAGE);
+									System.out.println("Student Grade Deleted");
 								}
 								else
 								{
-									JOptionPane.showMessageDialog(screenFrame, "Grade not Deleted.", "Delete Grade Status",JOptionPane.ERROR_MESSAGE);
+									//JOptionPane.showMessageDialog(screenFrame, "Grade not Deleted.", "Delete Grade Status",JOptionPane.ERROR_MESSAGE);
+									deleteGradeFrame.dispose();
+									System.out.println("Student Grade Not Deleted.");
+									
 								}
 							}
 							
 							deleteGradeFrame.dispose(); //closes delete window
 						}
-						}); //grade gets deleted only if user clicks "Enter"	
-			 }
-		});
+						}); //grade gets deleted only if user clicks "Enter"
+						
+			// }
+		//});
 	
 	} //End of deleteGrade()
 	
-	
+		 
 	
 	
 } //End of GradeChange.java

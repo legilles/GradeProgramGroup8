@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -10,25 +11,67 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class gradeAnalyticsGUI 
 {
 	
-	ArrayList<String> studentIDList = new ArrayList<String>(); 			//array list to hold Student ID's 
-	ArrayList<Double> studentScoreList = new ArrayList<Double>(); 			//array list to hold Student Scores
-	ArrayList<Character> studentLetterList = new ArrayList<Character>();		 //array list to hold letter equivalent of scores
-	ArrayList<Double> computedScoreList = new ArrayList<Double>();				 	//array list to hold computed scores
+	//ArrayList<String> studentIDList = new ArrayList<String>(); 			//array list to hold Student ID's 
+	//ArrayList<Double> studentScoreList = new ArrayList<Double>(); 			//array list to hold Student Scores
+	//ArrayList<Character> studentLetterList = new ArrayList<Character>();		 //array list to hold letter equivalent of scores
+	//ArrayList<Double> computedScoreList = new ArrayList<Double>();				 	//array list to hold computed scores
+	
 	
 	
 	protected  int returnFile;
 	protected JFrame screenFrame;
 	protected JFrame makeChangesFrame;
-	protected String textResults;
+	protected static String textResults;
+	protected JPanel userPanel;
+	protected JFrame statisticsFrame;
 	
+	double totalPointsPossible;	 //variable in ImportGrades to get total points
+	double computedScore; 			// studentScore divided by totalPointsPossible value
+	
+	Student studentObj;
+	String id;
+	
+	static ArrayList<Student> studentList; //array list from import file must be static to reference
+	ArrayList<Student> updatedStudentList; //dynamic array list, copy of studentList
+	
+	protected static double total;
+	
+	//Method to return student list
+		public ArrayList<Student> getStudentList()
+		{
+			return studentList;
+		}
+		
+	//Method to get and return total possible score
+		public double getTotal()
+		{
+			return total;
+		}
+		
+		public void setTotal(double newTotal)
+		{
+			total = newTotal;
+		}
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	//Main Body of code
 	public static void main(String[] args)
 	{
@@ -76,7 +119,7 @@ public class gradeAnalyticsGUI
 		JPanel showResultsPanel = new JPanel();
 		showResultsPanel.setBackground(Color.white);
 		userPanel.add(showResultsPanel,BorderLayout.CENTER);
-				
+					
 		//Results label added to panel
 		//showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
 				
@@ -185,14 +228,14 @@ public class gradeAnalyticsGUI
 						makeChangesPanel.setLayout(new BoxLayout(makeChangesPanel, BoxLayout.X_AXIS));
 						makeChangesFrame.add(makeChangesPanel);
 						
-						
+					
 						
 		//JButton Action Listener for Add a Grade
 						addGrade.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent e)
 							{
-								new GradeChange().addGrade(); //calls on GradeChange class method
+								new GradeChange().addGrade(studentList); //calls on GradeChange class method
 							}	
 						}); //ADD A GRADE BUTTON LISTENER
 						
@@ -202,7 +245,7 @@ public class gradeAnalyticsGUI
 						{
 							public void actionPerformed(ActionEvent e)
 							{
-								new GradeChange().replaceGrade(); //calls on GradeChange class method
+								new GradeChange().replaceGrade(studentList); //calls on GradeChange class method
 							}	
 						}); //REPLACE A GRADE BUTTON LISTENER
 						
@@ -213,7 +256,7 @@ public class gradeAnalyticsGUI
 						{
 							public void actionPerformed(ActionEvent e)
 							{
-								new GradeChange().deleteGrade(); //calls on GradeChange class method
+								new GradeChange().deleteGrade(studentList); //calls on GradeChange class method
 						
 							}	
 						}); //DELETE A GRADE BUTTON LISTENER
@@ -234,7 +277,7 @@ public class gradeAnalyticsGUI
 					}	
 				});
 		
-		
+				
 			}
 		});
 	}
