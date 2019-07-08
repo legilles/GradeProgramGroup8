@@ -2,8 +2,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -63,21 +66,19 @@ public class CreateReport extends gradeAnalyticsGUI {
 	createReportFrame.add(createReportPanel,BorderLayout.SOUTH);
 	//createReportFrame.add(createReportPanel);
 			
-//Action listener for reportNameTextField
-	reportNameTextField.addActionListener(new ActionListener() {
-		 public void actionPerformed(ActionEvent e)
-		 {
-		reportFileName = reportNameTextField.getText();
-		System.out.println("Create Report File Name: " + reportFileName); //prints input by user in reportNameTextField text field
-		 }
-	});
+
 	
 //Action listener for createReportEnter button
 	createReportEnter.addActionListener(new ActionListener() {
 		 public void actionPerformed(ActionEvent e)
 		 {
+			 
+			 reportFileName = reportNameTextField.getText();
+			 System.out.println("Create Report File Name: " + reportFileName); //prints input by user in reportNameTextField text field
+			 
+			 
 			 writeToTextFile(reportFileName); //calls on method to create text file
-			 //createReportFrame.dispose(); //closes createReportFrame after enter clicked
+			 createReportFrame.dispose(); //closes createReportFrame after enter clicked
 		 }
 	});
 	}
@@ -85,23 +86,16 @@ public class CreateReport extends gradeAnalyticsGUI {
 //Method to Write Grades to a Text File
 	public void writeToTextFile(String reportFileName)
 	{
-		try {
-	FileWriter writer = new FileWriter(reportFileName); //creates a text file called the name the user entered
-	
-		textResults = "data will go here";
-	
-	writer.write(textResults); //data in array lists written to text file
-	writer.close(); //closes text file
-	
-	JOptionPane.showMessageDialog(createReportFrame, "Grade Report Created.", "Create Grade Report Status",JOptionPane.INFORMATION_MESSAGE); //notifies user that text file was created
-	
-		} catch (IOException e)
-		{
-			System.out.println("Text File Not Created"); //prints to console that text file was not created
-			JOptionPane.showMessageDialog(createReportFrame, "Grade Report Not Created.", "Create Grade Report Status",JOptionPane.ERROR_MESSAGE); //notifies user that text file wasn't created
-		}
 		
-		System.out.println("Text File Created: " + reportFileName + ".txt"); //prints to console that text file was created
+		File tempName = new File("nameReport.txt");
+		File userName = new File(reportFileName); 
+		
+		if (tempName.exists())
+		{
+		tempName.renameTo(userName); //re-name file
+		}	
+		JOptionPane.showMessageDialog(createReportFrame, "Grade Report Created.", "Create Grade Report Status",JOptionPane.INFORMATION_MESSAGE); //notifies user that text file was created
+	
 	}
 	
 

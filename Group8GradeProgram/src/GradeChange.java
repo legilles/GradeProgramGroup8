@@ -18,7 +18,9 @@ public class GradeChange extends ImportGrades {
 	String ScoreString;			//entered student score from user
 	
 
-	ArrayList<Student> updatedStudentList = new ArrayList<Student>(studentList); //creates a copy of studentList
+	ArrayList<Student> updatedStudentList = new ArrayList<Student>(studentList); 	//creates a copy of studentList and is a dynamic array list
+	
+	
 	
 	//Method to add addStudentID and addGradeScore text field inputs into array list
 	public void addGrade(ArrayList<Student> studentList)
@@ -89,7 +91,7 @@ public class GradeChange extends ImportGrades {
 							System.out.println("Add Student Score: " +  studentObj.getScore()); //prints user Student score input to console
 						 
 							computedScore = Math.round((studentObj.getScore() / GUIObj.getTotal()) * 100);
-							System.out.println("Computed Score: " + computedScore + " %");
+							System.out.println("Computed Score: " + computedScore + "%");
 							
 							studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); //sets letter grade for score
 							
@@ -98,10 +100,8 @@ public class GradeChange extends ImportGrades {
 							
 							
 							JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
-							
 							System.out.println("Student Grade Added");
-							
-							System.out.println(studentList);
+							System.out.println(studentList); //text file student list
 							System.out.println(updatedStudentList); //prints list to console to check if added
 										
 							addGradeFrame.dispose(); //closes add grade window
@@ -192,15 +192,22 @@ public class GradeChange extends ImportGrades {
 								if (id == individualStudent.getID()) //search through studenIDList to find matching ID
 								{
 									
-									individualStudent.setScore(newScore);
+									individualStudent.setScore(newScore); //sets matching student grade with a new set score
+									
+									computedScore = Math.round((studentObj.getScore() / totalPointsPossible) * 100);
+									System.out.println(computedScore);
+											
+									studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); 	//sets letter grade for score
 									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
 									System.out.println("Student Grade Replaced.");
+									System.out.println(updatedStudentList); //prints to show if student grade replaced
 								}
 							else
 							{
 								//JOptionPane.showMessageDialog(screenFrame, "Grade not Replaced.", "Remove Grade Status",JOptionPane.ERROR_MESSAGE);
-								System.out.println("Student Grade Not Replaced.");
+								//System.out.println("Student Grade Not Replaced.");
+								replaceGradeFrame.dispose();
 							}
 							
 							replaceGradeFrame.dispose(); //closes add grade window
@@ -260,12 +267,7 @@ public class GradeChange extends ImportGrades {
 		//deleteGradeFrame.add(whichToDeleteLabel,BorderLayout.NORTH);
 		//deleteGradeFrame.add(deleteGradePanel,BorderLayout.SOUTH);
 		deleteGradeFrame.add(deleteGradePanel);
-		
-		
-//Text Field Action Listener for deleteStudentIDField
-		 //deleteStudentIDField.addActionListener(new ActionListener() {
-			// public void actionPerformed(ActionEvent e)
-			 //{
+
 				 
 				 
 	//Button clicked Action Listener for deleteEnterButton
@@ -275,6 +277,7 @@ public class GradeChange extends ImportGrades {
 						{ 
 							System.out.println("Delete Student ID: " +  deleteStudentIDField.getText()); //prints user Student ID input to console
 							 String id = deleteStudentIDField.getText();
+							
 							 
 							for (Student individualStudent: updatedStudentList)
 							{
@@ -282,26 +285,21 @@ public class GradeChange extends ImportGrades {
 								{
 									updatedStudentList.remove(studentObj); 		//removes student from updated list
 									
-									System.out.println(updatedStudentList); 			//prints to console to check if value was deleted
-									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Deleted.", "Delete Grade Status",JOptionPane.INFORMATION_MESSAGE);
-									System.out.println("Student Grade Deleted");
+									System.out.println("Student Grade Deleted.");
+									System.out.println(updatedStudentList); 			//prints to console to check if value was deleted
 								}
 								else
 								{
 									//JOptionPane.showMessageDialog(screenFrame, "Grade not Deleted.", "Delete Grade Status",JOptionPane.ERROR_MESSAGE);
 									deleteGradeFrame.dispose();
-									System.out.println("Student Grade Not Deleted.");
 									
 								}
 							}
 							
 							deleteGradeFrame.dispose(); //closes delete window
 						}
-						}); //grade gets deleted only if user clicks "Enter"
-						
-			// }
-		//});
+						}); //grade gets deleted only if user clicks "Enter"		
 	
 	} //End of deleteGrade()
 	

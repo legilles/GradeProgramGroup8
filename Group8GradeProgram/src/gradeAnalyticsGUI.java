@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,19 +25,14 @@ import javax.swing.SwingUtilities;
 public class gradeAnalyticsGUI 
 {
 	
-	//ArrayList<String> studentIDList = new ArrayList<String>(); 			//array list to hold Student ID's 
-	//ArrayList<Double> studentScoreList = new ArrayList<Double>(); 			//array list to hold Student Scores
-	//ArrayList<Character> studentLetterList = new ArrayList<Character>();		 //array list to hold letter equivalent of scores
-	//ArrayList<Double> computedScoreList = new ArrayList<Double>();				 	//array list to hold computed scores
-	
-	
-	
 	protected  int returnFile;
 	protected JFrame screenFrame;
 	protected JFrame makeChangesFrame;
+
 	protected static String textResults;
-	protected JPanel userPanel;
+	//protected JPanel userPanel;
 	protected JFrame statisticsFrame;
+	public JPanel showPanel;
 	
 	double totalPointsPossible;	 //variable in ImportGrades to get total points
 	double computedScore; 			// studentScore divided by totalPointsPossible value
@@ -63,18 +62,27 @@ public class gradeAnalyticsGUI
 			total = newTotal;
 		}
 	
+
 		
 		
 		
 		
 		
-		
-		
-		
-		
-	//Main Body of code
+//Main Body of code
 	public static void main(String[] args)
 	{
+	
+		/*
+//Creates stream to take console output and place into text file	
+	try {	
+		PrintStream myConsole = new PrintStream("nameReport.txt");
+		System.setOut(myConsole);
+	}
+	catch (FileNotFoundException fx)
+	{
+		System.out.println(fx);
+	}
+	/*/	
 		SwingUtilities.invokeLater(new Runnable() { 
 			public void run() {
 		
@@ -116,9 +124,9 @@ public class gradeAnalyticsGUI
 		userPanel.add(programTitle, BorderLayout.NORTH);
 	
 		//Panel to show results
-		JPanel showResultsPanel = new JPanel();
-		showResultsPanel.setBackground(Color.white);
-		userPanel.add(showResultsPanel,BorderLayout.CENTER);
+		JPanel showPanel = new JPanel();
+		showPanel.setBackground(Color.white);
+		userPanel.add(showPanel,BorderLayout.CENTER);
 					
 		//Results label added to panel
 		//showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
@@ -144,6 +152,9 @@ public class gradeAnalyticsGUI
 		
 		//Add button panel to user panel
 		userPanel.add(buttonPanel,BorderLayout.WEST);
+		
+
+		
 			
 //JButton Action Listeners (organized upside down from menu)
 		
@@ -153,12 +164,17 @@ public class gradeAnalyticsGUI
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("Close Program Button Clicked"); //to see if listener worked
+				
+				
 				screenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				int confirmation = JOptionPane.showConfirmDialog(screenFrame, "Are you sure you want to quit?", "Close Program",JOptionPane.YES_NO_OPTION); //warning message prompts yes/no to close program
 	
 				if (confirmation == JOptionPane.YES_OPTION) //user clicks yes
 				{
 					System.out.println("Program Closed"); //prints to console that program closed
+					
+					
+					
 					System.exit(0); //closes program
 				}	
 			}	
@@ -202,6 +218,7 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Make Grade Change Button Clicked");
+						
 							
 						JFrame makeChangesFrame = new JFrame("Make a Grade Change");
 						makeChangesFrame.setSize(350, 100);
@@ -272,8 +289,9 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Import File Button Clicked");
-						
 						new ImportGrades().getTotalPointsPossible(); //calls on ImportGrades() class methods 
+					
+						
 					}	
 				});
 		
@@ -282,4 +300,6 @@ public class gradeAnalyticsGUI
 		});
 	}
 
+
+		
 } //End of gradeAnalyticsGUI.java

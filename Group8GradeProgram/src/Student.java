@@ -51,16 +51,23 @@ public class Student implements Comparable<Student> {
 		LetterGrade = newLetterGrade;
 	}
 	
-
+//Grade percentile
+	private double percentile;
+	
+	public double getPercentile()
+	{
+		return percentile;
+	}
 	
 		
+	public void setPercentile (double newPercentile)
+	{
+		percentile = newPercentile;
+	}
 	
 	
 	
-	
-	
-	
-	
+
 //Set Default Letter Grades
 	public Character defaultLetterGrade(double scoreEarned)
 	{

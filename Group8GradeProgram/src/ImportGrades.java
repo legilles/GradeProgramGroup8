@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -17,8 +18,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -67,34 +70,26 @@ public class ImportGrades extends gradeAnalyticsGUI {
 		
 		//adds panel to frame
 		pointsPossibleFrame.add(pointsPossiblePanel);
-		
-		
-	
-		
-		//Action Listener for pointsPossibleField to retrieve points possible value
-		pointsPossibleField.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e)
-			 {
-				totalPointsPossible = Double.parseDouble(pointsPossibleField.getText()); //sets totalPointsPossible equal to contents entered in text field
-		
-				
-				
-				//sets total points possible
-				GUIObj.setTotal(totalPointsPossible);
-				
-				System.out.println("Total Points Possible: " + GUIObj.getTotal()); //prints to console total points possible value entered
-				
+			
 		//Action Listener for pointsPossibleEnterButton
 				pointsPossibleEnterButton.addActionListener(new ActionListener() { //user can't move on until value is entered for points possible
 					 public void actionPerformed(ActionEvent e)
 					 {
+
+						 totalPointsPossible = Double.parseDouble(pointsPossibleField.getText()); //sets totalPointsPossible equal to contents entered in text field
+							
+							//sets total points possible
+							GUIObj.setTotal(totalPointsPossible);
+							
+							System.out.println("Total Points Possible: " + GUIObj.getTotal()); //prints to console total points possible value entered
+							
+						 
 						 pointsPossibleFrame.dispose(); //closes point prompt window after "Enter" is clicked
 						 
 						 importGrades(); //calls on importGrades() method after enter is clicked
 					 }
 				});			
-			} 
-		});
+		
 		return totalPointsPossible;
 	} //End of getTotalPointsPossible
 	
@@ -118,12 +113,12 @@ public void importGrades()
 		
 		while (line.hasNext())
 		{
-			
-			String id = line.next(); //gets ID
+			String id = line.next(); //reads in ID
 			Student studentObj = new Student(id);
+			//studentObj.setID(id); //set ID
 			System.out.println(id);
 			
-			double score = line.nextDouble();
+			double score = line.nextDouble(); //reads in score
 			studentObj.setScore(score); //sets student score
 			System.out.println(score);
 		
@@ -164,11 +159,12 @@ private void printGrades(ArrayList<Student> studentList)
 		
 		textResults += "Student ID: " + individualStudent.getID() + "  Student Score: " + 
 		individualStudent.getScore() + "  Percent Score: " + Math.round(individualStudent.getScore()/totalPointsPossible * 100 ) + "%   " + "  Letter Grade: " + individualStudent.getLetterGrade() + "\n" + "\n";
-	
+		
 	}	
+	printGradesToPanel(textResults);
 	}
 
-public void printGradesWindow(String textReults) 
+public void printGradesToPanel(String textReults) 
 {
 			//Creates text area and places textResults onto area
 			JTextArea area = new JTextArea();
@@ -176,16 +172,17 @@ public void printGradesWindow(String textReults)
 			area.setBackground(Color.yellow);
 			area.setEditable(false); //text area not able to be edited
 			
-			JPanel gradeResultsPanel = new JPanel();
-			gradeResultsPanel.add(area);
+			JFrame gradeResultsFrame = new JFrame();
+			gradeResultsFrame.setSize(500,450); //sets frame size
+			gradeResultsFrame.setDefaultCloseOperation(screenFrame.DISPOSE_ON_CLOSE); //program will quit if user clicks "x"
+			gradeResultsFrame.setVisible(true);  
+			gradeResultsFrame.setLocationRelativeTo(null); //displays window in center of screen
+			gradeResultsFrame.setResizable(false); //user can't resize window
+			gradeResultsFrame.add(area);
 			
-			//Creates new window to display grade results
-			JFrame resultsFrame = new JFrame("Student Grades");
-			resultsFrame.setSize(500,500);
-			resultsFrame.setDefaultCloseOperation(resultsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-			resultsFrame.setVisible(true);
-			resultsFrame.add(area, BorderLayout.NORTH);
-			resultsFrame.setLocationRelativeTo(null); 
+		
+		
+			
 }
 
 
