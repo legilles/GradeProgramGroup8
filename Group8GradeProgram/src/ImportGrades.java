@@ -123,7 +123,7 @@ public void importGrades()
 			System.out.println(score);
 		
 			computedScore = Math.round((studentObj.getScore() / totalPointsPossible) * 100);
-			System.out.println(computedScore);
+			//System.out.println(computedScore);
 					
 			studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); //sets letter grade for score
 			

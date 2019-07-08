@@ -1,12 +1,15 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 
@@ -20,6 +23,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	int F_counter = 0;
 	
 	String percentileResults;
+	
 	
 	//Methods to get letter grade counter values
 	public int getA()
@@ -74,10 +78,16 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	JLabel counterF = new JLabel("E's: " + getF());
 
 	
-	
-	
 	//Labels for grade percentiles
 	JLabel gradePercLabel = new JLabel("Grade Percentiles:");
+	JLabel whatPercLabel = new JLabel("What Percentile?:");
+	
+	
+	//Text field for percentile value
+	JTextField givenPercentilesField = new JTextField(5);
+	
+	//Percentile "Enter" button 
+	JButton percEnterButton = new JButton("Enter");
 	
 	//Adding Labels to panel
 	statisticsPanel.add(highScoreLabel);
@@ -97,11 +107,33 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	statisticsPanel.add(counterF);
 	statisticsPanel.add(Box.createVerticalStrut(10));
 	statisticsPanel.add(gradePercLabel);
+	statisticsPanel.add(whatPercLabel);
+	statisticsPanel.add(givenPercentilesField);
+	statisticsPanel.add(percEnterButton);
 	
 	
 	
 	statisticsPanel.setLayout(new BoxLayout(statisticsPanel, BoxLayout.Y_AXIS));
 	statisticsFrame.add(statisticsPanel);	
+	
+	
+	percEnterButton.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e)
+				{ 
+					double userPercentile = Double.parseDouble(givenPercentilesField.getText());
+					System.out.println("Percentile: " + userPercentile);
+					
+					//percentileScore(studentList, userPercentile);
+					//percentileList(studentList, userPercentile);
+					
+					//System.out.println("Percentile List: " + percentileList(studentList, userPercentile));
+					
+				//	JLabel percResults = new JLabel("Percentile List: " + percentileList(studentList, userPercentile));
+					//statisticsPanel.add(percResults);
+					
+				}
+			});
 	
 	} //End of seeStatistics()
 	
@@ -240,9 +272,6 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	}
 	
-	
-	
-	
 	private double percentileScore (ArrayList<Student> studentList, double Score)
 	{	
 		if (studentList.size() == 0) 
@@ -277,7 +306,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
         return (lowerCount + 0.5 * sameCount) / n * 100;
 	}
 	
-	private void percentileList (ArrayList<Student> studentList, double userPercentile)
+	private String percentileList (ArrayList<Student> studentList, double userPercentile)
 	{
 		//ArrayList<Student> percentileList = new ArrayList<>();
 		//if (pStudentList.getPercentile() < userPercentile)
@@ -296,9 +325,8 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 				System.out.println("The studentList is empty.");
 			}
     	}
+		return percentileResults;
 	}
 	
 
-
-	
 } //End of SeeStatistics.java

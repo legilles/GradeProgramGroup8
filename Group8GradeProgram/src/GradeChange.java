@@ -183,17 +183,17 @@ public class GradeChange extends ImportGrades {
 							System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
 							 String ID = replaceOldStudentIDField.getText();
 							 
-							 System.out.println("Student ID to Replace Grade: " +  replaceOldStudentIDField.getText()); //prints user Student ID input to console
+							 System.out.println("Student Score to Replace " +  replaceNewGradeScoreField.getText()); //prints user Student ID input to console
 							 double newScore = Double.parseDouble(replaceNewGradeScoreField.getText());
 							
 							for (Student individualStudent: updatedStudentList)
 							{
 								
-								if (id == individualStudent.getID()) //search through studenIDList to find matching ID
+								if (individualStudent.getID().equals(id)) //search through studenIDList to find matching ID
 								{
 									
 									individualStudent.setScore(newScore); //sets matching student grade with a new set score
-									
+									System.out.println(totalPointsPossible);
 									computedScore = Math.round((studentObj.getScore() / totalPointsPossible) * 100);
 									System.out.println(computedScore);
 											
@@ -281,7 +281,7 @@ public class GradeChange extends ImportGrades {
 							 
 							for (Student individualStudent: updatedStudentList)
 							{
-								if (id == individualStudent.getID()) //search through studenIDList to find match
+								if (individualStudent.getID().equals(id)) //search through studenIDList to find match
 								{
 									updatedStudentList.remove(studentObj); 		//removes student from updated list
 									

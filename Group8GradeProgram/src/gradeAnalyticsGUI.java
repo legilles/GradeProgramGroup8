@@ -62,27 +62,22 @@ public class gradeAnalyticsGUI
 			total = newTotal;
 		}
 	
-
-		
-		
-		
-		
-		
 //Main Body of code
 	public static void main(String[] args)
 	{
 	
 		/*
-//Creates stream to take console output and place into text file	
-	try {	
-		PrintStream myConsole = new PrintStream("nameReport.txt");
-		System.setOut(myConsole);
-	}
-	catch (FileNotFoundException fx)
-	{
-		System.out.println(fx);
-	}
-	/*/	
+	//Creates stream to take console output and place into text file	
+			try {	
+				PrintStream myConsole = new PrintStream("nameReport.txt");
+				System.setOut(myConsole);
+			}
+			catch (FileNotFoundException fx)
+			{
+				System.out.println(fx);
+			}
+	/*/
+		
 		SwingUtilities.invokeLater(new Runnable() { 
 			public void run() {
 		
