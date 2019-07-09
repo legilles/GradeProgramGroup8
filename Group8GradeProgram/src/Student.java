@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Student implements Comparable<Student> {
 
-	private String ID;
+	String ID; //saved visibility to package
 	private double Score;
 	private Character LetterGrade;
 	private double totalPoints;
@@ -117,7 +118,20 @@ public class Student implements Comparable<Student> {
 		else
 			result = 0;
 		
-		return result;
-		
+		return result;	
 	}
-	} //End of Student.java
+	
+}	
+
+	class SortbyID implements Comparator<Student> 
+	{ 
+		@Override
+	    public int compare(Student a, Student b) 
+	    { 
+	        return (a.ID).compareTo(b.ID); 
+	    } 
+	}
+	
+	
+	
+	

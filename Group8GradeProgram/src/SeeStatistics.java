@@ -62,11 +62,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	statisticsFrame.setBounds(850,300,400,300);
 	
 	
-	
-	//Percentile results panel
-	JPanel percPanel = new JPanel();
-	percPanel.setBackground(Color.white);
-	percPanel.setSize(300,300);
+
 	
 	JPanel statisticsPanel = new JPanel();
 	statisticsPanel.setBackground(Color.green);
@@ -135,7 +131,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 	p.add(statisticsPanel, BorderLayout.WEST);
-	p.add(percPanel, BorderLayout.CENTER);
+	
 	
 	
 	
@@ -160,17 +156,25 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 					percenArea.setBackground(Color.green);
 					
 					
+					JButton percClose = new JButton("Close");
+					
 					JFrame temp = new JFrame();
-					temp.setSize(500, 500);
-					temp.add(percenArea);
+					//temp.setSize(500, 500);
+					temp.add(percenArea, BorderLayout.CENTER);
 					temp.setDefaultCloseOperation(screenFrame.DISPOSE_ON_CLOSE); //program will quit if user clicks "x"
 					temp.setVisible(true);  
-					temp.setBounds(850,50,500,500); //displays window in center of screen
-					temp.setResizable(true); //user can't resize window
+					temp.setBounds(850,350,450,400); //displays window in center of screen
+					temp.add(percClose, BorderLayout.SOUTH);
 					
-				//percPanel.add(percResults);
-				//statisticsFrame.revalidate();
-				//statisticsFrame.repaint();
+				
+					
+					percClose.addActionListener(new ActionListener() 
+					{
+						public void actionPerformed(ActionEvent e)
+						{ 
+							temp.dispose();
+						}
+					});
 				
 					
 				}
@@ -208,9 +212,10 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 		    		//System.out.println("Student Size: " + studentList.size());
 		    	}	
 				percentileList(studentList, userPercentile);
+				Collections.sort(studentList, new SortbyID()); 
 	}
 	
-	private double findMaxScore (ArrayList<Student> studentList)
+	double findMaxScore (ArrayList<Student> studentList)
 	{
 		double maxScore = 0;
 		Student MaxStudent = null;
@@ -224,10 +229,11 @@ public class SeeStatistics extends gradeAnalyticsGUI {
     	}
 		//System.out.println(maxScore);
 		System.out.println("Highest Score: ID: " + MaxStudent.getID() + " Score: " + MaxStudent.getScore());
+		setMaxPosScore(MaxStudent.getScore());
 		return MaxStudent.getScore();
 	}
 	
-	private double findMinScore (ArrayList<Student> studentList)
+	double findMinScore (ArrayList<Student> studentList)
 	{
 		double minScore = Double.POSITIVE_INFINITY;
 		Student MinStudent = null;
@@ -241,6 +247,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
     	}
 		//System.out.println(minScore);
 		System.out.println("Lowest Score : ID: " + MinStudent.getID() + " Score: " + MinStudent.getScore());
+		setMinPosScore(MinStudent.getScore());
 		return MinStudent.getScore();
 	}
 	
@@ -310,7 +317,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	}
 	
-	private double percentileScore (ArrayList<Student> studentList, double Score) 
+	protected double percentileScore (ArrayList<Student> studentList, double Score) 
 	{
         int lowerCount = 0;
         int sameCount = 0;

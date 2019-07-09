@@ -137,6 +137,9 @@ public void importGrades()
 		 
 		printGrades(studentList); //calls to print out results from text file
 		
+		new SeeStatistics().findMinScore(studentList);
+		new SeeStatistics().findMaxScore(studentList);
+		
 	} catch (IOException ioe)
 	{
 		System.out.println("File Not Uploaded"); //check console if file didn't load

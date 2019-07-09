@@ -2,16 +2,22 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +30,7 @@ import javax.swing.SwingUtilities;
 
 public class gradeAnalyticsGUI 
 {
+	private BufferedImage gradeImage;
 	
 	protected  int returnFile;
 	protected JFrame screenFrame;
@@ -40,6 +47,9 @@ public class gradeAnalyticsGUI
 	Student studentObj;
 	String id;
 	
+	protected static double maxPosScore;
+	protected static double minPosScore;
+	
 	static ArrayList<Student> studentList; //array list from import file must be static to reference
 	ArrayList<Student> updatedStudentList; //dynamic array list, copy of studentList
 	
@@ -51,6 +61,11 @@ public class gradeAnalyticsGUI
 			return studentList;
 		}
 		
+		public void setStudentList (ArrayList<Student> pStudentList)
+		{
+			studentList = pStudentList;
+		}
+		
 	//Method to get and return total possible score
 		public double getTotal()
 		{
@@ -60,6 +75,30 @@ public class gradeAnalyticsGUI
 		public void setTotal(double newTotal)
 		{
 			total = newTotal;
+		}
+		
+	// Max/Min Methods	
+		public double getMaxPosScore()
+		{
+			return maxPosScore;
+		}
+		
+		public double getMinPosScore()
+		{
+			return minPosScore;
+		}
+		
+		public void setMaxPosScore (double newMaxPosScore)
+		{
+			maxPosScore = newMaxPosScore;
+		}
+		
+		/**
+		 * Mutator method for mMinPosScore
+		 */
+		public void setMinPosScore (double newMinPosScore)
+		{
+			minPosScore = newMinPosScore;
 		}
 	
 //Main Body of code
@@ -124,8 +163,16 @@ public class gradeAnalyticsGUI
 		showPanel.setBackground(Color.white);
 		userPanel.add(showPanel,BorderLayout.CENTER);
 					
-		//Results label added to panel
-		//showResultsPanel.add(resultsLabel,BorderLayout.CENTER);
+
+		//Add image to screen
+		ImageIcon image = new ImageIcon("gradesImage.jpg");
+		JLabel imageLabel = new JLabel("",image,JLabel.CENTER);
+		userPanel.add(imageLabel);
+		
+		
+		
+		
+		
 				
 		//Adds buttons to button panel and spacing
 		buttonPanel.add(Box.createVerticalStrut(30));
