@@ -31,7 +31,9 @@ public class GradeChange extends ImportGrades {
 		addGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		addGradeFrame.setVisible(true);
 		addGradeFrame.setResizable(false);
-		addGradeFrame.setLocationRelativeTo(null);
+		addGradeFrame.setBounds(850,350,400,100);
+		
+		//addGradeFrame.setLocationRelativeTo(null);
 		
 		//Creating panel for "add a grade"
 		JPanel addGradePanel = new JPanel();
@@ -124,7 +126,8 @@ public class GradeChange extends ImportGrades {
 		replaceGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		replaceGradeFrame.setVisible(true);
 		replaceGradeFrame.setResizable(false);
-		replaceGradeFrame.setLocationRelativeTo(null);
+		//replaceGradeFrame.setLocationRelativeTo(null);
+		replaceGradeFrame.setBounds(850,350,400,100);
 		
 		//Creating panel
 		JPanel replaceGradePanel = new JPanel();
@@ -232,7 +235,8 @@ public class GradeChange extends ImportGrades {
 		deleteGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		deleteGradeFrame.setVisible(true);
 		deleteGradeFrame.setResizable(false); //user can't resize window
-		deleteGradeFrame.setLocationRelativeTo(null);
+		//deleteGradeFrame.setLocationRelativeTo(null);
+		deleteGradeFrame.setBounds(850,350,500,90);
 		
 		//Creating panel 
 		JPanel deleteGradePanel = new JPanel();

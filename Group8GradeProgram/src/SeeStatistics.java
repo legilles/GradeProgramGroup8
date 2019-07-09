@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
@@ -22,7 +24,8 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	int D_counter = 0;
 	int F_counter = 0;
 	
-	String percentileResults;
+	String percentileResults = "";
+	
 	
 	
 	//Methods to get letter grade counter values
@@ -56,10 +59,20 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	statisticsFrame.setSize(400, 300);
 	statisticsFrame.setDefaultCloseOperation(statisticsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	statisticsFrame.setVisible(true); 
-	statisticsFrame.setLocationRelativeTo(null);
+	statisticsFrame.setBounds(850,300,400,300);
+	
+	
+	
+	//Percentile results panel
+	JPanel percPanel = new JPanel();
+	percPanel.setBackground(Color.white);
+	percPanel.setSize(300,300);
 	
 	JPanel statisticsPanel = new JPanel();
 	statisticsPanel.setBackground(Color.green);
+	
+	JPanel p = new JPanel();
+	
 	
 	
 	//Labels for high,low,average,median score
@@ -86,6 +99,8 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	//Text field for percentile value
 	JTextField givenPercentilesField = new JTextField(5);
 	
+
+	
 	//Percentile "Enter" button 
 	JButton percEnterButton = new JButton("Enter");
 	
@@ -108,13 +123,26 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	statisticsPanel.add(Box.createVerticalStrut(10));
 	statisticsPanel.add(gradePercLabel);
 	statisticsPanel.add(whatPercLabel);
+	
+	
+	//Adding layout to statisticsPanel
 	statisticsPanel.add(givenPercentilesField);
 	statisticsPanel.add(percEnterButton);
 	
 	
-	
 	statisticsPanel.setLayout(new BoxLayout(statisticsPanel, BoxLayout.Y_AXIS));
-	statisticsFrame.add(statisticsPanel);	
+	
+	
+	p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+	p.add(statisticsPanel, BorderLayout.WEST);
+	p.add(percPanel, BorderLayout.CENTER);
+	
+	
+	
+	//Add to frame
+	statisticsFrame.add(p);
+	
+	
 	
 	
 	percEnterButton.addActionListener(new ActionListener() 
@@ -124,13 +152,26 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 					double userPercentile = Double.parseDouble(givenPercentilesField.getText());
 					System.out.println("Percentile: " + userPercentile);
 					
-					//percentileScore(studentList, userPercentile);
-					//percentileList(studentList, userPercentile);
+					CalcStatistics(getStudentList(), userPercentile);
 					
-					//System.out.println("Percentile List: " + percentileList(studentList, userPercentile));
 					
-				//	JLabel percResults = new JLabel("Percentile List: " + percentileList(studentList, userPercentile));
-					//statisticsPanel.add(percResults);
+					JTextArea percenArea = new JTextArea();
+					percenArea.setText("Percentile Results For: "+ userPercentile + "\n"+ percentileResults);
+					percenArea.setBackground(Color.green);
+					
+					
+					JFrame temp = new JFrame();
+					temp.setSize(500, 500);
+					temp.add(percenArea);
+					temp.setDefaultCloseOperation(screenFrame.DISPOSE_ON_CLOSE); //program will quit if user clicks "x"
+					temp.setVisible(true);  
+					temp.setBounds(850,50,500,500); //displays window in center of screen
+					temp.setResizable(true); //user can't resize window
+					
+				//percPanel.add(percResults);
+				//statisticsFrame.revalidate();
+				//statisticsFrame.repaint();
+				
 					
 				}
 			});
@@ -138,38 +179,35 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	} //End of seeStatistics()
 	
 	
-	public void CalcStatistics (ArrayList<Student> studentList)
+	public void CalcStatistics (ArrayList<Student> studentList , double userPercentile)
 	{
-		for (Student individualStudent: studentList)
-    	{
-    		System.out.println("Student ID: " + individualStudent.getID() + ", Student Score: " + individualStudent.getScore());
-    	}
+		//for (Student individualStudent: studentList)
+    	//{
+    		//System.out.println("Student ID: " + individualStudent.getID() + ", Student Score: " + individualStudent.getScore());
+    	//}
 		//Student MaxStudent = findMaxScore (studentList);
 		//Student MinStudent = findMinScore (studentList);
-		double aveScore = findAveScore (studentList);
-		System.out.println("AveScore: " + aveScore);
-		System.out.println("2nd Student's score: " + studentList.get(studentList.size()/2-1).getScore());
-		double medianScore = findMedian(studentList);
-		System.out.println(medianScore);
+		//double aveScore = findAveScore (studentList);
+		//System.out.println("AveScore: " + aveScore);
+		//System.out.println("2nd Student's score: " + studentList.get(studentList.size()/2-1).getScore());
+		//double medianScore = findMedian(studentList);
+		//System.out.println(medianScore);
 		
 		//letterGradeDistribution(studentList);
-		//percentileScore(studentList, 79.1);
 				//double score = 80.7;
 				//System.out.println("Percentile("+score+"): " + percentileScore(studentList, score));
 				
 				
 				for (Student individualStudent: studentList)
 		    	{
-					double percentileForEach = percentileScore(studentList, individualStudent.getScore());
+					double percentileForEach = percentileScore(studentList, individualStudent.getScore()); 
+					//System.out.println("Percentile " + percentileForEach);
 					//System.out.println(percentileForEach);
-		    		individualStudent.setPercentile( percentileForEach );
+		    		individualStudent.setPercentile(percentileForEach);
 		    		//System.out.println(individualStudent.getPercentile());
 		    		//System.out.println("Student Size: " + studentList.size());
-		    	}
-				
-				double userPercentile = 70;
+		    	}	
 				percentileList(studentList, userPercentile);
-		        
 	}
 	
 	private double findMaxScore (ArrayList<Student> studentList)
@@ -272,16 +310,16 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	}
 	
-	private double percentileScore (ArrayList<Student> studentList, double Score)
-	{	
-		if (studentList.size() == 0) 
-        {
-            throw new IllegalArgumentException("studentList is empty");
-        }
- 
+	private double percentileScore (ArrayList<Student> studentList, double Score) 
+	{
         int lowerCount = 0;
         int sameCount = 0;
         int n = studentList.size();
+        
+		if (studentList.size() != 0) 
+        {
+        
+
         for (int i = 0; i < n; i++) 
         {
             if (studentList.get(i).getScore() < Score) 
@@ -297,16 +335,17 @@ public class SeeStatistics extends gradeAnalyticsGUI {
                 break;
             }
         }        
-         
+       
         if (sameCount == 0) 
         {
-            throw new IllegalArgumentException("Provided value do not exists in dataset: " + Score);
+            //System.out.println("Provided value do not exists in dataset: " + Score);
         }
- 
+        }
         return (lowerCount + 0.5 * sameCount) / n * 100;
+       
 	}
 	
-	private String percentileList (ArrayList<Student> studentList, double userPercentile)
+	private void percentileList(ArrayList<Student> studentList, double userPercentile) //user value
 	{
 		//ArrayList<Student> percentileList = new ArrayList<>();
 		//if (pStudentList.getPercentile() < userPercentile)
@@ -317,16 +356,15 @@ public class SeeStatistics extends gradeAnalyticsGUI {
     	{
 			if (individualStudent.getPercentile() <= userPercentile)
 			{
-				System.out.println("Student ID: " + individualStudent.getID() + ", Student Score: " + individualStudent.getScore() + ", Percentile: " + individualStudent.getPercentile());
-				percentileResults = "Student ID: " + individualStudent.getID() + ", Student Score: " + individualStudent.getScore() + ", Percentile: " + individualStudent.getPercentile();
+				System.out.println("Student ID: " + individualStudent.getID() + " Student Score: " + individualStudent.getScore() + " Percentile: " + individualStudent.getPercentile());
+				percentileResults += "Student ID: " + individualStudent.getID() + " Student Score: " + individualStudent.getScore() + " Percentile: " + individualStudent.getPercentile() + "\n";
 			}
 			if (studentList.size() == 0)
 			{
 				System.out.println("The studentList is empty.");
 			}
     	}
-		return percentileResults;
+		//return percentileResults;
 	}
-	
 
 } //End of SeeStatistics.java

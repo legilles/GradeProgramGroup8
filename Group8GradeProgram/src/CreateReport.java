@@ -3,10 +3,12 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,11 +21,24 @@ import javax.swing.JTextField;
 
 
 
-public class CreateReport extends gradeAnalyticsGUI {
+public class CreateReport extends GradeChange {
 	
 	 String reportFileName = ""; //user entered string for file name
+	 String finalGrades = "";
 	 protected JFrame createReportFrame;
-	
+	 
+	 
+	 public String printFinalGrades(ArrayList<Student> updatedStudentList)
+		{
+		for (Student individualStudent: updatedStudentList)
+		{
+			finalGrades += "Student ID: " + individualStudent.getID() + " Student Score: " + 
+		individualStudent.getScore() + "  Letter Grade: " + individualStudent.getLetterGrade() + "\n";
+			
+		}
+		return finalGrades;	
+		}
+	 
 	public void createReport()
 	{
 	
@@ -35,7 +50,7 @@ public class CreateReport extends gradeAnalyticsGUI {
 	createReportFrame.setDefaultCloseOperation(createReportFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	createReportFrame.setVisible(true); 
 	createReportFrame.setResizable(false);
-	createReportFrame.setLocationRelativeTo(null);
+	createReportFrame.setBounds(850,350,500,90);
 	
 	//Creates panel
 	JPanel createReportPanel = new JPanel();
@@ -69,35 +84,38 @@ public class CreateReport extends gradeAnalyticsGUI {
 
 	
 //Action listener for createReportEnter button
-	createReportEnter.addActionListener(new ActionListener() {
+	createReportEnter.addActionListener(new ActionListener() 
+	{
 		 public void actionPerformed(ActionEvent e)
 		 {
 			 
 			 reportFileName = reportNameTextField.getText();
 			 System.out.println("Create Report File Name: " + reportFileName); //prints input by user in reportNameTextField text field
 			 
-			 
-			 writeToTextFile(reportFileName); //calls on method to create text file
+			 writeToTextFile(reportFileName, printFinalGrades(updatedStudentList)); //calls on method to create text file
+			
 			 createReportFrame.dispose(); //closes createReportFrame after enter clicked
 		 }
 	});
 	}
 	
 //Method to Write Grades to a Text File
-	public void writeToTextFile(String reportFileName)
+	public void writeToTextFile(String reportFileName, String finalGrades) 
 	{
+			
+		try {
+			FileWriter fw = new FileWriter(reportFileName);
+			fw.write(finalGrades); //writes grades to file
+			fw.close(); //close text file
+			
+		} catch (IOException e) {
+			System.out.println("Text File Not Created.");
+		}
 		
-		File tempName = new File("nameReport.txt");
-		File userName = new File(reportFileName); 
 		
-		if (tempName.exists())
-		{
-		tempName.renameTo(userName); //re-name file
-		}	
 		JOptionPane.showMessageDialog(createReportFrame, "Grade Report Created.", "Create Grade Report Status",JOptionPane.INFORMATION_MESSAGE); //notifies user that text file was created
 	
-	}
-	
 
+	}
 
 } //End of CreateReport.java

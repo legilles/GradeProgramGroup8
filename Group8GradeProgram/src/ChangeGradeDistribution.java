@@ -16,8 +16,10 @@ import javax.swing.JTextField;
 
 public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 	
-	String newPointsPossible; 
-	double doublenewPointsPossible;
+	String newMaxPointsPossible; 
+	String newMinPointsPossible;
+	double doubleMaxPointsPossible;
+	double doubleMinPointsPossible;
 	double newRoundedComputedScore;
 	double newComputedScore;
 	
@@ -43,11 +45,11 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		
 		//Creating frame
 		JFrame gradeDisFrame = new JFrame("Change Grade Distribution");
-		gradeDisFrame.setSize(450,90);
+		gradeDisFrame.setSize(700,90);
 		gradeDisFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		gradeDisFrame.setVisible(true); 
 		gradeDisFrame.setResizable(false);
-		gradeDisFrame.setLocationRelativeTo(null);
+		gradeDisFrame.setBounds(750,350,700,90);
 		
 		//Creating Panel
 		JPanel gradeDisPanel = new JPanel();
@@ -55,7 +57,8 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		
 		//Creating buttons
 		JButton changeGradeRangeButton = new JButton("Change Letter Grade Ranges");
-		JButton changeTotalPointsButton = new JButton("Change Total Points Possible");
+		JButton changeMaxPointsButton = new JButton("Change Maximum Points Possible");
+		JButton changeMinPointsButton = new JButton("Change Minimum Points Possible");
 		
 		gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.X_AXIS));
 		
@@ -63,58 +66,60 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
 		gradeDisPanel.add(changeGradeRangeButton);
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
-		gradeDisPanel.add(changeTotalPointsButton);
+		gradeDisPanel.add(changeMaxPointsButton);
+		gradeDisPanel.add(Box.createHorizontalStrut(10));
+		gradeDisPanel.add(changeMinPointsButton);
 		
 		gradeDisFrame.add(gradeDisPanel);
 		
-//Change Total Points Possible JButton Action Listener
-		changeTotalPointsButton.addActionListener(new ActionListener()
+//Change Min Points Possible JButton Action Listener
+		changeMinPointsButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				//Creating frame
-				JFrame changePointFrame = new JFrame("Change Total Points");
-				changePointFrame.setSize(500,100);
-				changePointFrame.setDefaultCloseOperation(changePointFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-				changePointFrame.setVisible(true); 
-				changePointFrame.setResizable(false);
-				changePointFrame.setLocationRelativeTo(null);
+				JFrame changeMinFrame = new JFrame("Change Total Points");
+				changeMinFrame.setSize(500,100);
+				changeMinFrame.setDefaultCloseOperation(changeMinFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+				changeMinFrame.setVisible(true); 
+				changeMinFrame.setResizable(false);
+				changeMinFrame.setBounds(850,350,500,100);
 				
 				//Creating Panel
-				JPanel changePointPanel = new JPanel();
-				changePointPanel.setBackground(Color.red);
+				JPanel changeMinPanel = new JPanel();
+				changeMinPanel.setBackground(Color.red);
 				
 				//Creating label,text field, button
-				JLabel setTotalLabel = new JLabel("Out of How Many Points?");
-				JTextField newTotalField = new JTextField(10);
-				JButton newPointsEnterButton = new JButton("Enter");
+				JLabel setMinTotalLabel = new JLabel("Out of How Many Minimum Total Points?");
+				JTextField newMinTotalField = new JTextField(10);
+				JButton newMinPointsEnterButton = new JButton("Enter");
 
 				//Adding components to panel
-				changePointPanel.add(setTotalLabel);
-				changePointPanel.add(newTotalField);
-				changePointPanel.add(newPointsEnterButton);
+				changeMinPanel.add(setMinTotalLabel);
+				changeMinPanel.add(newMinTotalField);
+				changeMinPanel.add(newMinPointsEnterButton);
 				
 				//Panel layout
-				changePointPanel.setLayout(new BoxLayout(changePointPanel, BoxLayout.X_AXIS));
+				changeMinPanel.setLayout(new BoxLayout(changeMinPanel, BoxLayout.X_AXIS));
 				
 				//Add panel to frame
-				changePointFrame.add(changePointPanel);
+				changeMinFrame.add(changeMinPanel);
 				
 //Action Listener for newTotalField
-				newTotalField.addActionListener(new ActionListener()
+				newMinTotalField.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						newPointsPossible = newTotalField.getText(); 
-						doublenewPointsPossible = Double.parseDouble(newPointsPossible); //converts string to double
-						System.out.println("New Point Total: " + newPointsPossible);
+						newMinPointsPossible = newMinTotalField.getText(); 
+						doubleMinPointsPossible = Double.parseDouble(newMinPointsPossible); //converts string to double
+						System.out.println("New Point Total: " + newMinPointsPossible);
 					
 //Action Listener for newPointsEnterButton
-				newPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
+				newMinPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						changePointFrame.dispose(); //closes window
+						changeMinFrame.dispose(); //closes window
 						
 						//calculateNewStudentGrades(); //calls method to re-calculate scores
 						//printNewGrades(); //prints out new grade results
@@ -123,13 +128,75 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 						}); 
 					}	
 				}); 
-				
-			}	
-		}); //CHANGE TOTAL POINTS POSSIBLE ACTION LISTENER
+			}
+		});
 		
-	
-	
-	
+				
+//Change Max Points Possible JButton Action Listener
+				changeMaxPointsButton.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						//Creating frame
+						JFrame changeMaxFrame = new JFrame("Change Total Points");
+						changeMaxFrame.setSize(500,100);
+						changeMaxFrame.setDefaultCloseOperation(changeMaxFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+						changeMaxFrame.setVisible(true); 
+						changeMaxFrame.setResizable(false);
+						changeMaxFrame.setLocationRelativeTo(null);
+						
+						//Creating Panel
+						JPanel changeMaxPanel = new JPanel();
+						changeMaxPanel.setBackground(Color.red);
+						
+						//Creating label,text field, button
+						JLabel setMaxTotalLabel = new JLabel("Out of How Many Maximum Total Points?");
+						JTextField newMaxTotalField = new JTextField(10);
+						JButton newMaxPointsEnterButton = new JButton("Enter");
+
+						//Adding components to panel
+						changeMaxPanel.add(setMaxTotalLabel);
+						changeMaxPanel.add(newMaxTotalField);
+						changeMaxPanel.add(newMaxPointsEnterButton);
+						
+						//Panel layout
+						changeMaxPanel.setLayout(new BoxLayout(changeMaxPanel, BoxLayout.X_AXIS));
+						
+						//Add panel to frame
+						changeMaxFrame.add(changeMaxPanel);
+						
+		//Action Listener for newTotalField
+						newMaxTotalField.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent e)
+							{
+								newMaxPointsPossible = newMaxTotalField.getText(); 
+								doubleMaxPointsPossible = Double.parseDouble(newMaxPointsPossible); //converts string to double
+								System.out.println("New Point Total: " + newMaxPointsPossible);
+							
+		//Action Listener for newPointsEnterButton
+						newMaxPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
+						{
+							public void actionPerformed(ActionEvent e)
+							{
+								changeMaxFrame.dispose(); //closes window
+								
+								//calculateNewStudentGrades(); //calls method to re-calculate scores
+								//printNewGrades(); //prints out new grade results
+								
+									}	
+								}); 
+							}	
+						}); 	
+					}
+				});
+				
+						
+				
+		
+			
+				
+		
 
 //Change Grade Letter Ranges JButton Action Listener
 		changeGradeRangeButton.addActionListener(new ActionListener()
@@ -141,7 +208,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		gradeRangeFrame.setSize(200,300);
 		gradeRangeFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		gradeRangeFrame.setVisible(true); 
-		gradeRangeFrame.setLocationRelativeTo(null);
+		gradeRangeFrame.setBounds(850,350,200,300);
 		gradeRangeFrame.setResizable(false);
 		
 		//Creating Panel
@@ -150,11 +217,11 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		
 		//Grade Letter Labels
 		//JLabel letterChangeTitle = new JLabel("Change Grade Letter Ranges");
-		JLabel letterALabel = new JLabel("A");
-		JLabel letterBLabel = new JLabel("B");
-		JLabel letterCLabel = new JLabel("C");
-		JLabel letterDLabel = new JLabel("D");
-		JLabel letterFLabel = new JLabel("F");
+		JLabel letterALabel = new JLabel("A  >=");
+		JLabel letterBLabel = new JLabel("B  >=");
+		JLabel letterCLabel = new JLabel("C >=");
+		JLabel letterDLabel = new JLabel("D >=");
+		JLabel letterFLabel = new JLabel("F  <");
 	
 		//Creating enter button
 		JButton rangeEnterButton = new JButton("Enter");
@@ -174,15 +241,15 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		
 		//Adding low/high text fields for each letter
 		JTextField ALowTextField = new JTextField(4);
-		JTextField AHighTextField = new JTextField(4);
+		//JTextField AHighTextField = new JTextField(4);
 		JTextField BLowTextField = new JTextField(4);
-		JTextField BHighTextField = new JTextField(4);
+		//JTextField BHighTextField = new JTextField(4);
 		JTextField CLowTextField = new JTextField(4);
-		JTextField CHighTextField = new JTextField(4);
+		//JTextField CHighTextField = new JTextField(4);
 		JTextField DLowTextField = new JTextField(4);
-		JTextField DHighTextField = new JTextField(4);
+		//JTextField DHighTextField = new JTextField(4);
 		JTextField FLowTextField = new JTextField(4);
-		JTextField FHighTextField = new JTextField(4);
+		//JTextField FHighTextField = new JTextField(4);
 		
 	
 		//Low grade ranges panel
@@ -206,11 +273,11 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		lowTextPanel.add(FLowTextField);
 		
 		//Adding high letter ranges to panel
-		highTextPanel.add(AHighTextField);
-		highTextPanel.add(BHighTextField);
-		highTextPanel.add(CHighTextField);
-		highTextPanel.add(DHighTextField);
-		highTextPanel.add(FHighTextField);
+		//highTextPanel.add(AHighTextField);
+		//highTextPanel.add(BHighTextField);
+		//highTextPanel.add(CHighTextField);
+		//highTextPanel.add(DHighTextField);
+		//highTextPanel.add(FHighTextField);
 		
 		//Add components to panel
 		gradeRangeFrame.add(gradeRangePanel, BorderLayout.WEST);
@@ -231,6 +298,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 				});
 		
 		//Action Listener for AHighTextField
+				/*
 				AHighTextField.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -239,6 +307,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 						System.out.println("High A: " + aHigh);
 					}
 				});
+				/*/
 		
 		//Action Listener for BLowTextField
 				BLowTextField.addActionListener(new ActionListener()
@@ -251,6 +320,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 				});
 		
 		//Action Listener for BHighTextField
+				/*
 				BHighTextField.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -259,6 +329,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 						System.out.println("B High: " +  bHigh);
 					}
 				});
+				/*/
 		
 
 		//Action Listener for CLowTextField
@@ -272,6 +343,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 				});
 		
 		//Action Listener for BHighTextField
+				/*
 				CHighTextField.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -280,6 +352,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 						System.out.println("C High: " +  cHigh);
 					}
 				});
+				/*/
 				
 				
 //Action Listener for DLowTextField
@@ -293,6 +366,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 				});
 		
 //Action Listener for DHighTextField
+				/*
 				DHighTextField.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -301,6 +375,7 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 						System.out.println("D High: " +  dHigh);
 					}
 				});
+				/*/
 				
 //Action Listener for FLowTextField
 				FLowTextField.addActionListener(new ActionListener()
@@ -314,12 +389,14 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 				
 		
 //Action Listener for FHighTextField
+				/*
 		FHighTextField.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				fHigh = FHighTextField.getText();
 				System.out.println("F High: " + fHigh);
+				/*/
 				
 //Action Listener for rangeEnterButton
 			rangeEnterButton.addActionListener(new ActionListener() //enter button only closes window if value entered into high f text field
@@ -335,12 +412,12 @@ public class ChangeGradeDistribution extends gradeAnalyticsGUI {
 		
 		
 		
-		}	
-	}); //CHANGE GRADE LETTER RANGES ACTION LISTENER
+	//	}	
+//	}); //CHANGE GRADE LETTER RANGES ACTION LISTENER
 }
 	
 	
 	
 	
 	
-} //End of ChangeGradeDistribution.java
+}  //End of ChangeGradeDistribution.java

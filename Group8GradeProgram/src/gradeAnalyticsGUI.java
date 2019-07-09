@@ -69,7 +69,7 @@ public class gradeAnalyticsGUI
 		/*
 	//Creates stream to take console output and place into text file	
 			try {	
-				PrintStream myConsole = new PrintStream("nameReport.txt");
+				PrintStream myConsole = new PrintStream("UserHistoryReport.txt");
 				System.setOut(myConsole);
 			}
 			catch (FileNotFoundException fx)
@@ -84,8 +84,9 @@ public class gradeAnalyticsGUI
 		JFrame screenFrame = new JFrame("Grade Analytics Program"); //creates opening window frame
 		screenFrame.setSize(900,450); //sets frame size
 		screenFrame.setDefaultCloseOperation(screenFrame.EXIT_ON_CLOSE); //program will quit if user clicks "x"
-		screenFrame.setVisible(true);  
-		screenFrame.setLocationRelativeTo(null); //displays window in center of screen
+		screenFrame.setVisible(true);
+		screenFrame.setBounds(500,200,900,450);
+		//screenFrame.setLocationRelativeTo(null); //displays window in center of screen
 		screenFrame.setResizable(false); //user can't resize window
 		
 		//Creates Labels
@@ -220,7 +221,8 @@ public class gradeAnalyticsGUI
 						makeChangesFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 						makeChangesFrame.setVisible(true); 
 						makeChangesFrame.setResizable(false); //user can't resize window
-						makeChangesFrame.setLocationRelativeTo(null);
+						//makeChangesFrame.setLocationRelativeTo(null);
+						makeChangesFrame.setBounds(850,350,350,100);
 						 
 					//Created add,replace,delete buttons
 						JButton addGrade = new JButton("Add Grade");

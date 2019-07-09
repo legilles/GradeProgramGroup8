@@ -72,7 +72,7 @@ public class Student implements Comparable<Student> {
 	public Character defaultLetterGrade(double scoreEarned)
 	{
 	//Default A Letter Range
-			if (scoreEarned <= 100.0 && scoreEarned >= 90.0 )
+			if (scoreEarned >= 90.0 )
 			{
 				return 'A';
 			}
@@ -105,9 +105,19 @@ public class Student implements Comparable<Student> {
 		}
 
 	@Override
-	public int compareTo(Student o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Student compareStudent) 
+	{
+        //int compareage=((Student)comparestu).getStudentage();
+        /* For Ascending order*/
+		int result;
+		if (this.getScore() - compareStudent.getScore() < 0)
+			result = -1;
+		else if (this.getScore() - compareStudent.getScore() > 0)
+			result = 1;
+		else
+			result = 0;
+		
+		return result;
+		
 	}
-	
 	} //End of Student.java
