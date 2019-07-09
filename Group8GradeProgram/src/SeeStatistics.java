@@ -56,10 +56,10 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	System.out.println("See Satistics Button Clicked");
 	
 	JFrame statisticsFrame = new JFrame("See Statistics");
-	statisticsFrame.setSize(400, 300);
 	statisticsFrame.setDefaultCloseOperation(statisticsFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 	statisticsFrame.setVisible(true); 
 	statisticsFrame.setBounds(850,300,400,300);
+	statisticsFrame.setResizable(false);
 	
 	
 
@@ -99,6 +99,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	//Percentile "Enter" button 
 	JButton percEnterButton = new JButton("Enter");
+	JButton percCloseButton = new JButton("Close");
 	
 	//Adding Labels to panel
 	statisticsPanel.add(highScoreLabel);
@@ -123,20 +124,24 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 	
 	//Adding layout to statisticsPanel
 	statisticsPanel.add(givenPercentilesField);
-	statisticsPanel.add(percEnterButton);
+	
 	
 	
 	statisticsPanel.setLayout(new BoxLayout(statisticsPanel, BoxLayout.Y_AXIS));
-	
-	
 	p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
-	p.add(statisticsPanel, BorderLayout.WEST);
+	p.setBackground(Color.green);
 	
+
+	//p.add(statisticsPanel, BorderLayout.WEST);
+	p.add(percEnterButton);
+	statisticsPanel.add(Box.createVerticalStrut(25));
+	p.add(percCloseButton);
 	
 	
 	
 	//Add to frame
-	statisticsFrame.add(p);
+	statisticsFrame.add(statisticsPanel);
+	statisticsFrame.add(p, BorderLayout.SOUTH);
 	
 	
 	
@@ -180,11 +185,21 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 				}
 			});
 	
+	percCloseButton.addActionListener(new ActionListener() 
+	{
+		public void actionPerformed(ActionEvent e)
+		{ 
+			statisticsFrame.dispose();
+		}
+	});
+	
+	
 	} //End of seeStatistics()
 	
 	
 	public void CalcStatistics (ArrayList<Student> studentList , double userPercentile)
 	{
+		Collections.sort(studentList);
 		//for (Student individualStudent: studentList)
     	//{
     		//System.out.println("Student ID: " + individualStudent.getID() + ", Student Score: " + individualStudent.getScore());

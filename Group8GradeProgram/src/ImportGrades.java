@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
@@ -97,20 +98,24 @@ public class ImportGrades extends gradeAnalyticsGUI {
 //Method to import a text file and separate data line by line into array lists
 public void importGrades()
 {
-	final JFileChooser gradeFileFinder = new JFileChooser();
-	int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
-	gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
+	//final JFileChooser gradeFileFinder = new JFileChooser();
+	//int returnFile = gradeFileFinder.showOpenDialog(screenFrame); //dialog opens on screen frame
+	//gradeFileFinder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //user can look for file using directory
 	
-	if (returnFile == JFileChooser.APPROVE_OPTION)
-	{
-		File selectedFile = gradeFileFinder.getSelectedFile();
-		System.out.println(selectedFile.getAbsolutePath()); //prints file path to console
+	//if (returnFile == JFileChooser.APPROVE_OPTION)
+	//{
+		//File selectedFile = gradeFileFinder.getSelectedFile();
+		//System.out.println(selectedFile.getAbsolutePath()); //prints file path to console
 
+	File file = new File("gradeAnalyticsTester.txt");
+
+	
 	try  {
 		
-		Scanner line = new Scanner(new FileReader(selectedFile));
+		//Scanner line = new Scanner(new FileReader(selectedFile));
+		Scanner line = new Scanner(file);
 		studentList = new ArrayList<>();
-		
+
 		while (line.hasNext())
 		{
 			String id = line.next(); //reads in ID
@@ -137,8 +142,8 @@ public void importGrades()
 		 
 		printGrades(studentList); //calls to print out results from text file
 		
-		new SeeStatistics().findMinScore(studentList);
-		new SeeStatistics().findMaxScore(studentList);
+		//new SeeStatistics().findMinScore(studentList);
+		//new SeeStatistics().findMaxScore(studentList);
 		
 	} catch (IOException ioe)
 	{
@@ -147,7 +152,7 @@ public void importGrades()
 	
 	}
 	}	
-} //End of importGrades()
+//} //End of importGrades()
 
 
 

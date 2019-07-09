@@ -27,7 +27,6 @@ public class GradeChange extends ImportGrades {
 	{
 		//Creating new window for "add a grade"
 		JFrame addGradeFrame = new JFrame("Add a Grade");
-		addGradeFrame.setSize(400,100);
 		addGradeFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		addGradeFrame.setVisible(true);
 		addGradeFrame.setResizable(false);
@@ -85,7 +84,6 @@ public class GradeChange extends ImportGrades {
 						public void actionPerformed(ActionEvent e)
 						{ 
 							String id = addStudentIDField.getText();
-							Student studentObj = new Student(id);
 							System.out.println("Add Student ID: " +  id); //prints user Student ID input to console
 						 	
 							double score = Double.parseDouble(addGradeScoreField.getText()); //converts string into double
@@ -103,8 +101,8 @@ public class GradeChange extends ImportGrades {
 							
 							JOptionPane.showMessageDialog(screenFrame, "Grade Added.", "Add Grade Status",JOptionPane.INFORMATION_MESSAGE);
 							System.out.println("Student Grade Added");
-							System.out.println(studentList); //text file student list
-							System.out.println(updatedStudentList); //prints list to console to check if added
+							//System.out.println(studentList); //text file student list
+							//System.out.println(updatedStudentList); //prints list to console to check if added
 										
 							addGradeFrame.dispose(); //closes add grade window
 						}
@@ -192,7 +190,7 @@ public class GradeChange extends ImportGrades {
 							for (Student individualStudent: updatedStudentList)
 							{
 								
-								if (individualStudent.getID().equals(id)) //search through studenIDList to find matching ID
+								if (individualStudent.getID().equals(ID)) //search through studenIDList to find matching ID
 								{
 									
 									individualStudent.setScore(newScore); //sets matching student grade with a new set score
@@ -280,12 +278,12 @@ public class GradeChange extends ImportGrades {
 						public void actionPerformed(ActionEvent e)
 						{ 
 							System.out.println("Delete Student ID: " +  deleteStudentIDField.getText()); //prints user Student ID input to console
-							 String id = deleteStudentIDField.getText();
+							 String ID = deleteStudentIDField.getText();
 							
 							 
 							for (Student individualStudent: updatedStudentList)
 							{
-								if (individualStudent.getID().equals(id)) //search through studenIDList to find match
+								if (individualStudent.getID().equals(ID)) //search through studenIDList to find match
 								{
 									updatedStudentList.remove(studentObj); 		//removes student from updated list
 									

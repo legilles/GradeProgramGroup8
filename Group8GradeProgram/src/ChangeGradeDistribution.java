@@ -21,8 +21,8 @@ public class ChangeGradeDistribution extends SeeStatistics {
 	String newMaxPointsPossible; 
 	String newMinPointsPossible;
 	String reCalcGrades = "";
-	double doubleMaxPointsPossible;
-	double doubleMinPointsPossible;
+	double doubleMaxPointsPossible = 0.0;
+	double doubleMinPointsPossible = 0.0;
 	double newRoundedComputedScore;
 	double newComputedScore;
 	
@@ -40,6 +40,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 	
 	ArrayList<Double> newComputedScoreList = new ArrayList<Double>();	//array list to store new grades with changed point scale
 	
+	
 	public void changeGradeDistribution()
 	{
 		System.out.println("Change Grade Distribution Button Clicked");
@@ -49,200 +50,102 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		JFrame gradeDisFrame = new JFrame("Change Grade Distribution");
 		gradeDisFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		gradeDisFrame.setVisible(true); 
-		gradeDisFrame.setResizable(false);
-		gradeDisFrame.setBounds(750,350,400,90);
+		//gradeDisFrame.setResizable(false);
+		gradeDisFrame.setBounds(800,300,700,90);
 		
 		//Creating Panel
 		JPanel gradeDisPanel = new JPanel();
 		gradeDisPanel.setBackground(Color.red);
 		
+		
 		//Creating buttons
-		JButton changeButton = new JButton("Change Grade Distribution Based on Lowest/Highest Scores");
-		//JButton changeGradeRangeButton = new JButton("Change Grade Distribution Based on Lowest/Highest Scores");
-		//JButton changeMaxPointsButton = new JButton("Change Maximum Points Possible");
-		//JButton changeMinPointsButton = new JButton("Change Minimum Points Possible");
+		JButton closeButton = new JButton("Close");
+		JButton changeGradeRangeButton = new JButton("Change Letter Grade Ranges");
+		JButton changeMinMaxPointsButton = new JButton("Change Lowest/Highest Points Possible");
 		
 		gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.X_AXIS));
 		
 		//Adding buttons to panel and spacing
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
-		gradeDisPanel.add(changeButton);
-		//gradeDisPanel.add(changeGradeRangeButton);
+		gradeDisPanel.add(changeGradeRangeButton);
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
-		//gradeDisPanel.add(changeMaxPointsButton);
+		gradeDisPanel.add(changeMinMaxPointsButton);
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
-		//gradeDisPanel.add(changeMinPointsButton);
+		gradeDisPanel.add(closeButton);
+		
 		
 		gradeDisFrame.add(gradeDisPanel);
 		
-//Change Min Points Possible JButton Action Listener
-		/*
-		changeMinPointsButton.addActionListener(new ActionListener()
+		
+		closeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				gradeDisFrame.dispose();
+			}	
+		}); 
+	
+		
+//Change Max/Min Points Possible JButton Action Listener
+		
+		changeMinMaxPointsButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				//Creating frame
-				JFrame changeMinFrame = new JFrame("Change Total Points");
-				changeMinFrame.setSize(500,100);
-				changeMinFrame.setDefaultCloseOperation(changeMinFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-				changeMinFrame.setVisible(true); 
-				changeMinFrame.setResizable(false);
-				changeMinFrame.setBounds(850,350,500,100);
+				JFrame changeMinMaxFrame = new JFrame("Change Total Min/Max Points");
+				changeMinMaxFrame.setDefaultCloseOperation(changeMinMaxFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
+				changeMinMaxFrame.setVisible(true); 
+				changeMinMaxFrame.setResizable(false);
+				changeMinMaxFrame.setBounds(850,350,500,100);
 				
 				//Creating Panel
-				JPanel changeMinPanel = new JPanel();
-				changeMinPanel.setBackground(Color.red);
+				JPanel changeMinMaxPanel = new JPanel();
+				changeMinMaxPanel.setBackground(Color.red);
 				
 				//Creating label,text field, button
-				JLabel setMinTotalLabel = new JLabel("Out of How Many Minimum Total Points?");
+				JLabel setMinMaxTotalLabel = new JLabel("Out of How Many Minimum/Maximum Total Points?");
 				JTextField newMinTotalField = new JTextField(10);
-				JButton newMinPointsEnterButton = new JButton("Enter");
+				JTextField newMaxTotalField = new JTextField(10);
+				JButton newMinMaxPointsEnterButton = new JButton("Enter");
 
 				//Adding components to panel
-				changeMinPanel.add(setMinTotalLabel);
-				changeMinPanel.add(newMinTotalField);
-				changeMinPanel.add(newMinPointsEnterButton);
+				changeMinMaxPanel.add(setMinMaxTotalLabel);
+				changeMinMaxPanel.add(newMinTotalField);
+				changeMinMaxPanel.add(newMaxTotalField);
+				changeMinMaxPanel.add(newMinMaxPointsEnterButton);
 				
 				//Panel layout
-				changeMinPanel.setLayout(new BoxLayout(changeMinPanel, BoxLayout.X_AXIS));
+				changeMinMaxPanel.setLayout(new BoxLayout(changeMinMaxPanel, BoxLayout.X_AXIS));
 				
 				//Add panel to frame
-				changeMinFrame.add(changeMinPanel);
+				changeMinMaxFrame.add(changeMinMaxPanel);
 				
-//Action Listener for newTotalField
-				newMinTotalField.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						newMinPointsPossible = newMinTotalField.getText(); 
-						doubleMinPointsPossible = Double.parseDouble(newMinPointsPossible); //converts string to double
-						System.out.println("New Point Total: " + newMinPointsPossible);
-						setMinPosScore(doubleMinPointsPossible);
-					
-//Action Listener for newPointsEnterButton
-				newMinPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						changeMinFrame.dispose(); //closes window
-						
-						//calculateNewStudentGrades(); //calls method to re-calculate scores
-						//printNewGrades(); //prints out new grade results
-						
-							}	
-						}); 
-					}	
-				}); 
-			}
-		});
-		
-				
-//Change Max Points Possible JButton Action Listener
-				changeMaxPointsButton.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						//Creating frame
-						JFrame changeMaxFrame = new JFrame("Change Total Points");
-						changeMaxFrame.setSize(500,100);
-						changeMaxFrame.setDefaultCloseOperation(changeMaxFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-						changeMaxFrame.setVisible(true); 
-						changeMaxFrame.setResizable(false);
-						changeMaxFrame.setLocationRelativeTo(null);
-						
-						//Creating Panel
-						JPanel changeMaxPanel = new JPanel();
-						changeMaxPanel.setBackground(Color.red);
-						
-						//Creating label,text field, button
-						JLabel setMaxTotalLabel = new JLabel("Out of How Many Maximum Total Points?");
-						JTextField newMaxTotalField = new JTextField(10);
-						JButton newMaxPointsEnterButton = new JButton("Enter");
 
-						//Adding components to panel
-						changeMaxPanel.add(setMaxTotalLabel);
-						changeMaxPanel.add(newMaxTotalField);
-						changeMaxPanel.add(newMaxPointsEnterButton);
-						
-						//Panel layout
-						changeMaxPanel.setLayout(new BoxLayout(changeMaxPanel, BoxLayout.X_AXIS));
-						
-						//Add panel to frame
-						changeMaxFrame.add(changeMaxPanel);
-						
-		//Action Listener for newTotalField
-						newMaxTotalField.addActionListener(new ActionListener()
-						{
-							public void actionPerformed(ActionEvent e)
-							{
+				
+//Min/Max Enter button clicked
+				newMinMaxPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+								newMinPointsPossible = newMinTotalField.getText(); 
+								doubleMinPointsPossible = Double.parseDouble(newMinPointsPossible); //converts string to double
+								System.out.println("New Lowest Point Range: " + newMinPointsPossible);
+								setMinPosScore(doubleMinPointsPossible);
+								
+								
 								newMaxPointsPossible = newMaxTotalField.getText(); 
 								doubleMaxPointsPossible = Double.parseDouble(newMaxPointsPossible); //converts string to double
-								System.out.println("New Point Total: " + newMaxPointsPossible);
-								setMaxPosScore(doubleMaxPointsPossible);
-							
-		//Action Listener for newPointsEnterButton
-						newMaxPointsEnterButton.addActionListener(new ActionListener() //window only closes if user entered new point value into text field
-						{
-							public void actionPerformed(ActionEvent e)
-							{
-								changeMaxFrame.dispose(); //closes window
+								System.out.println("New Highest Point Range: " + newMaxPointsPossible);
+								setMaxPosScore(doubleMinPointsPossible);
 								
-								//calculateNewStudentGrades(); //calls method to re-calculate scores
-								//printNewGrades(); //prints out new grade results
-								
-									}	
-								}); 
-							}	
-						}); 	
+						gradeRecalculator (studentList); //calls
+						changeMinMaxFrame.dispose(); //closes window
+	
 					}
-				});
-	/*/			
-						
+				}); //End of change Min/Max Enter Button
+		
 				
-		//Change Max Points Possible JButton Action Listener
-		changeButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				//Creating frame
-				JFrame changeFrame = new JFrame("Change Total Points");
-				changeFrame.setSize(500,400);
-				changeFrame.setDefaultCloseOperation(changeFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
-				changeFrame.setVisible(true); 
-				changeFrame.setResizable(false);
-				changeFrame.setBounds(750,350,600,400);
-				
-				//Creating Panel
-				JPanel changePanel = new JPanel();
-				changePanel.setBackground(Color.red);
-				
-				gradeRecalculator(studentList);
-				
-				//Add panel to frame
-				changeFrame.add(changePanel);
-				
-				JButton disGradeClose = new JButton("Close");
-				
-				JTextArea disResults = new JTextArea();
-				disResults.setText(reCalcGrades);
-				disResults.setBackground(Color.red);
-				
-					changeFrame.add(disGradeClose, BorderLayout.SOUTH);	
-					changeFrame.add(disResults, BorderLayout.CENTER);
-				
-						disGradeClose.addActionListener(new ActionListener() 
-						{
-							public void actionPerformed(ActionEvent e)
-							{ 
-								changeFrame.dispose();
-							}
-						});
-					
-						
-					}
-				});
-	}
-		/*
 //Change Grade Letter Ranges JButton Action Listener
 		changeGradeRangeButton.addActionListener(new ActionListener()
 		{
@@ -371,42 +274,33 @@ public class ChangeGradeDistribution extends SeeStatistics {
 					}
 				});
 		
-
-				
-//Action Listener for F
-				//FLowTextField.addActionListener(new ActionListener()
-				//{
-					//public void actionPerformed(ActionEvent e)
-					//{
-						//f = Double.parseDouble(FLowTextField.getText());
-						//System.out.println("F" + f);
-						//redefinedGrade_F= f;
-					//}
-				//});			
-				
+		
+						
 						
 //Action Listener for rangeEnterButton
 			rangeEnterButton.addActionListener(new ActionListener() //enter button only closes window if value entered into high f text field
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					
+					redefinedLetterGrade(pScoreEarned, redefinedGrade_A, redefinedGrade_B, redefinedGrade_C, redefinedGrade_D); //calls to re-organize letter grades on new range
 					gradeRangeFrame.dispose(); //closes window	
 				}
-			}); 
+			});
+			
+			
 			
 			}
-		}); 
+		}); //end of change letter ranges
+	
+			}
+		});
+	} //End of change distribution
+
 		
-		
-		
-	//	}	
-//	}); //CHANGE GRADE LETTER RANGES ACTION LISTENER
-}
-	/*/
-		
+///////////////////////////////////////////////////////////////////////////////////////////
 	public String gradeRecalculator (ArrayList<Student> pStudentList)
 	{
-		
 		Collections.sort(pStudentList);
 		System.out.println("Size of the studentList: " + pStudentList.size());
 		
@@ -531,9 +425,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 			return 'I'; // I for invalid.
 		}
 	}
-
-
 	
 	
-	
-}  //End of ChangeGradeDistribution.java
+						
+	} //End of java file

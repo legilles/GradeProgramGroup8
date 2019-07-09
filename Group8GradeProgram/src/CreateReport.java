@@ -105,7 +105,7 @@ public class CreateReport extends GradeChange {
 			
 		try {
 			FileWriter fw = new FileWriter(reportFileName);
-			fw.write(finalGrades); //writes grades to file
+			fw.write(finalGrades); //writes updated array list to file
 			fw.close(); //close text file
 			
 		} catch (IOException e) {

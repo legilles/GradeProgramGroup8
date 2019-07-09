@@ -50,8 +50,8 @@ public class gradeAnalyticsGUI
 	protected static double maxPosScore;
 	protected static double minPosScore;
 	
-	static ArrayList<Student> studentList; //array list from import file must be static to reference
-	ArrayList<Student> updatedStudentList; //dynamic array list, copy of studentList
+	static ArrayList<Student> studentList = new ArrayList<Student>(); //array list from import file must be static to reference
+	ArrayList<Student> updatedStudentList = new ArrayList<Student>(); //dynamic array list, copy of studentList
 	
 	protected static double total;
 	
@@ -105,7 +105,7 @@ public class gradeAnalyticsGUI
 	public static void main(String[] args)
 	{
 	
-		/*
+/*
 	//Creates stream to take console output and place into text file	
 			try {	
 				PrintStream myConsole = new PrintStream("UserHistoryReport.txt");
@@ -264,17 +264,17 @@ public class gradeAnalyticsGUI
 						
 							
 						JFrame makeChangesFrame = new JFrame("Make a Grade Change");
-						makeChangesFrame.setSize(350, 100);
 						makeChangesFrame.setDefaultCloseOperation(makeChangesFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 						makeChangesFrame.setVisible(true); 
 						makeChangesFrame.setResizable(false); //user can't resize window
 						//makeChangesFrame.setLocationRelativeTo(null);
-						makeChangesFrame.setBounds(850,350,350,100);
+						makeChangesFrame.setBounds(850,350,450,100);
 						 
 					//Created add,replace,delete buttons
 						JButton addGrade = new JButton("Add Grade");
 						JButton replaceGrade = new JButton("Replace Grade");
 						JButton deleteGrade = new JButton("Delete Grade");
+						JButton changeClose = new JButton("Close");
 						
 						
 					//Added buttons to panel
@@ -285,11 +285,19 @@ public class gradeAnalyticsGUI
 						makeChangesPanel.add(replaceGrade);
 						makeChangesPanel.add(Box.createHorizontalStrut(10));
 						makeChangesPanel.add(deleteGrade);
+						makeChangesPanel.add(Box.createHorizontalStrut(10));
+						makeChangesPanel.add(changeClose);
 						
 						makeChangesPanel.setLayout(new BoxLayout(makeChangesPanel, BoxLayout.X_AXIS));
 						makeChangesFrame.add(makeChangesPanel);
 						
-					
+						changeClose.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent e)
+							{
+								makeChangesFrame.dispose();
+							}	
+						}); 
 						
 		//JButton Action Listener for Add a Grade
 						addGrade.addActionListener(new ActionListener()
