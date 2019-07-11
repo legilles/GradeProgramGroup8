@@ -41,19 +41,21 @@ public class gradeAnalyticsGUI
 	protected JFrame statisticsFrame;
 	public JPanel showPanel;
 	
-	double totalPointsPossible;	 //variable in ImportGrades to get total points
+	static double totalPointsPossible = 0.0;	 //variable in ImportGrades to get total points
 	double computedScore; 			// studentScore divided by totalPointsPossible value
 	
 	Student studentObj;
 	String id;
 	
 	protected static double maxPosScore;
-	protected static double minPosScore;
+	protected static double minPosScore = 0.0;
 	
-	static ArrayList<Student> studentList = new ArrayList<Student>(); //array list from import file must be static to reference
-	ArrayList<Student> updatedStudentList = new ArrayList<Student>(); //dynamic array list, copy of studentList
+	protected static ArrayList<Student> studentList = new ArrayList<Student>(); //array list from import file must be static to reference
+	static ArrayList<Student> updatedStudentList = new ArrayList<>(); //dynamic array list, copy of studentList
 	
 	protected static double total;
+	
+
 	
 	//Method to return student list
 		public ArrayList<Student> getStudentList()
@@ -116,6 +118,11 @@ public class gradeAnalyticsGUI
 				System.out.println(fx);
 			}
 	/*/
+		
+		
+		//creates object of GUI
+		gradeAnalyticsGUI GUIObj = new gradeAnalyticsGUI();
+		
 		
 		SwingUtilities.invokeLater(new Runnable() { 
 			public void run() {
@@ -341,8 +348,9 @@ public class gradeAnalyticsGUI
 					public void actionPerformed(ActionEvent e)
 					{
 						System.out.println("Import File Button Clicked");
-						new ImportGrades().getTotalPointsPossible(); //calls on ImportGrades() class methods 
 					
+						studentList = new ImportGrades().getTotalPointsPossible(studentList);
+						updatedStudentList = studentList;
 						
 					}	
 				});

@@ -12,13 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GradeChange extends ImportGrades {
+public class GradeChange extends gradeAnalyticsGUI {
 	
 	String IDString;		 //entered student ID value from user
 	String ScoreString;			//entered student score from user
 	
 
-	ArrayList<Student> updatedStudentList = new ArrayList<Student>(studentList); 	//creates a copy of studentList and is a dynamic array list
+	//ArrayList<Student> updatedStudentList = new ArrayList<Student>(studentList); 	//creates a copy of studentList and is a dynamic array list
+	String finalGrades = "";
 	
 	
 	
@@ -84,13 +85,14 @@ public class GradeChange extends ImportGrades {
 						public void actionPerformed(ActionEvent e)
 						{ 
 							String id = addStudentIDField.getText();
+							Student studentObj = new Student(id);
 							System.out.println("Add Student ID: " +  id); //prints user Student ID input to console
 						 	
 							double score = Double.parseDouble(addGradeScoreField.getText()); //converts string into double
 							studentObj.setScore(score); //sets student score
 							System.out.println("Add Student Score: " +  studentObj.getScore()); //prints user Student score input to console
 						 
-							computedScore = Math.round((studentObj.getScore() / GUIObj.getTotal()) * 100);
+							computedScore = Math.round((studentObj.getScore() / totalPointsPossible) * 100);
 							System.out.println("Computed Score: " + computedScore + "%");
 							
 							studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); //sets letter grade for score
@@ -198,9 +200,9 @@ public class GradeChange extends ImportGrades {
 									computedScore = Math.round((studentObj.getScore() / totalPointsPossible) * 100);
 									System.out.println(computedScore);
 											
-									studentObj.setLetterGrade(studentObj.defaultLetterGrade(computedScore)); 	//sets letter grade for score
+									individualStudent.setLetterGrade(individualStudent.defaultLetterGrade(computedScore)); 	//sets letter grade for score
 									
-									JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
+									//JOptionPane.showMessageDialog(screenFrame, "Grade Replaced.", "Replaced Grade Status",JOptionPane.INFORMATION_MESSAGE);
 									System.out.println("Student Grade Replaced.");
 									System.out.println(updatedStudentList); //prints to show if student grade replaced
 								}
@@ -285,7 +287,7 @@ public class GradeChange extends ImportGrades {
 							{
 								if (individualStudent.getID().equals(ID)) //search through studenIDList to find match
 								{
-									updatedStudentList.remove(studentObj); 		//removes student from updated list
+									updatedStudentList.remove(individualStudent); 		//removes student from updated list
 									
 									JOptionPane.showMessageDialog(screenFrame, "Grade Deleted.", "Delete Grade Status",JOptionPane.INFORMATION_MESSAGE);
 									System.out.println("Student Grade Deleted.");
@@ -305,7 +307,8 @@ public class GradeChange extends ImportGrades {
 	
 	} //End of deleteGrade()
 	
-		 
+	
+	
 	
 	
 } //End of GradeChange.java

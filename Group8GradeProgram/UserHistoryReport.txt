@@ -1,0 +1,38 @@
+Make Grade Change Button Clicked
+Import File Button Clicked
+Total Points Possible: 15.0
+1
+12.0
+2
+15.0
+3
+9.0
+4
+8.0
+5
+10.0
+6
+15.0
+7
+2.0
+8
+14.5
+9
+13.5
+10
+12.5
+File Uploaded
+Student ID: 1 Student Score: 12.0  Percent Score: 80%     Letter Grade: B
+Student ID: 2 Student Score: 15.0  Percent Score: 100%     Letter Grade: A
+Student ID: 3 Student Score: 9.0  Percent Score: 60%     Letter Grade: D
+Student ID: 4 Student Score: 8.0  Percent Score: 53%     Letter Grade: F
+Student ID: 5 Student Score: 10.0  Percent Score: 67%     Letter Grade: D
+Student ID: 6 Student Score: 15.0  Percent Score: 100%     Letter Grade: A
+Student ID: 7 Student Score: 2.0  Percent Score: 13%     Letter Grade: F
+Student ID: 8 Student Score: 14.5  Percent Score: 97%     Letter Grade: A
+Student ID: 9 Student Score: 13.5  Percent Score: 90%     Letter Grade: A
+Student ID: 10 Student Score: 12.5  Percent Score: 83%     Letter Grade: B
+Make Grade Change Button Clicked
+Delete Student ID: 10
+Student Grade Deleted.
+[Student@e42abc5, Student@2169ef4f, Student@7c502c40, Student@37c69386, Student@2c411a38, Student@423c9b68, Student@3f738d43, Student@3caa7388, Student@181e2eff, Student@3e5f014f]

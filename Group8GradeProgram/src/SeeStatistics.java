@@ -153,12 +153,13 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 					double userPercentile = Double.parseDouble(givenPercentilesField.getText());
 					System.out.println("Percentile: " + userPercentile);
 					
-					CalcStatistics(getStudentList(), userPercentile);
+					CalcStatistics(studentList, userPercentile);
 					
 					
 					JTextArea percenArea = new JTextArea();
 					percenArea.setText("Percentile Results For: "+ userPercentile + "\n"+ percentileResults);
 					percenArea.setBackground(Color.green);
+					percenArea.setEditable(false);
 					
 					
 					JButton percClose = new JButton("Close");
@@ -170,6 +171,7 @@ public class SeeStatistics extends gradeAnalyticsGUI {
 					temp.setVisible(true);  
 					temp.setBounds(850,350,450,400); //displays window in center of screen
 					temp.add(percClose, BorderLayout.SOUTH);
+					
 					
 				
 					

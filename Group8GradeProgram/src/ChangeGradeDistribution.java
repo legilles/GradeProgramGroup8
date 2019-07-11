@@ -16,13 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ChangeGradeDistribution extends SeeStatistics {
+public class ChangeGradeDistribution extends SeeStatistics 
+{
 	
 	String newMaxPointsPossible; 
 	String newMinPointsPossible;
 	String reCalcGrades = "";
-	double doubleMaxPointsPossible = 0.0;
-	double doubleMinPointsPossible = 0.0;
+	//double doubleMaxPointsPossible = 0.0;
+	//double doubleMinPointsPossible = 0.0;
 	double newRoundedComputedScore;
 	double newComputedScore;
 	
@@ -38,11 +39,16 @@ public class ChangeGradeDistribution extends SeeStatistics {
 	double redefinedGrade_C;
 	double redefinedGrade_D;
 	
+	double pScoreEarned = 0.0;
+	//double redefinedPercentage = 0.0;
+	
 	ArrayList<Double> newComputedScoreList = new ArrayList<Double>();	//array list to store new grades with changed point scale
 	
-	
+
 	public void changeGradeDistribution()
 	{
+
+	
 		System.out.println("Change Grade Distribution Button Clicked");
 		
 		
@@ -51,7 +57,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		gradeDisFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		gradeDisFrame.setVisible(true); 
 		//gradeDisFrame.setResizable(false);
-		gradeDisFrame.setBounds(800,300,700,90);
+		gradeDisFrame.setBounds(800,300,600,90);
 		
 		//Creating Panel
 		JPanel gradeDisPanel = new JPanel();
@@ -60,14 +66,16 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		
 		//Creating buttons
 		JButton closeButton = new JButton("Close");
-		JButton changeGradeRangeButton = new JButton("Change Letter Grade Ranges");
+		JButton changeLetters = new JButton("Change Letter Grade Ranges");
 		JButton changeMinMaxPointsButton = new JButton("Change Lowest/Highest Points Possible");
 		
 		gradeDisPanel.setLayout(new BoxLayout(gradeDisPanel, BoxLayout.X_AXIS));
 		
 		//Adding buttons to panel and spacing
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
-		gradeDisPanel.add(changeGradeRangeButton);
+		gradeDisPanel.add(changeLetters);
+		
+		
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
 		gradeDisPanel.add(changeMinMaxPointsButton);
 		gradeDisPanel.add(Box.createHorizontalStrut(10));
@@ -84,11 +92,13 @@ public class ChangeGradeDistribution extends SeeStatistics {
 				gradeDisFrame.dispose();
 			}	
 		}); 
+		
 	
+	
+
 		
-//Change Max/Min Points Possible JButton Action Listener
 		
-		changeMinMaxPointsButton.addActionListener(new ActionListener()
+	changeMinMaxPointsButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
@@ -129,31 +139,69 @@ public class ChangeGradeDistribution extends SeeStatistics {
 					public void actionPerformed(ActionEvent e)
 					{
 								newMinPointsPossible = newMinTotalField.getText(); 
-								doubleMinPointsPossible = Double.parseDouble(newMinPointsPossible); //converts string to double
+								double doubleMinPointsPossible = Double.parseDouble(newMinPointsPossible); //converts string to double
 								System.out.println("New Lowest Point Range: " + newMinPointsPossible);
 								setMinPosScore(doubleMinPointsPossible);
 								
 								
 								newMaxPointsPossible = newMaxTotalField.getText(); 
-								doubleMaxPointsPossible = Double.parseDouble(newMaxPointsPossible); //converts string to double
+								double doubleMaxPointsPossible = Double.parseDouble(newMaxPointsPossible); //converts string to double
 								System.out.println("New Highest Point Range: " + newMaxPointsPossible);
-								setMaxPosScore(doubleMinPointsPossible);
+								setMaxPosScore(doubleMaxPointsPossible);
 								
-						gradeRecalculator (studentList); //calls
+						gradeRecalculator (updatedStudentList); //calls
 						changeMinMaxFrame.dispose(); //closes window
 	
+						JTextArea area = new JTextArea();
+						area.setText("Grade Distribution: "+ "/n" +  gradeRecalculator(studentList));
+						area.setBackground(Color.red);
+						area.setEditable(false);
+						
+						
+						JButton close = new JButton("Close");
+						
+						JFrame tempA = new JFrame();
+						tempA.add(area, BorderLayout.CENTER);
+						tempA.setDefaultCloseOperation(screenFrame.DISPOSE_ON_CLOSE); //program will quit if user clicks "x"
+						tempA.setVisible(true);
+						tempA.setBounds(850,350,800,400); //displays window in center of screen
+						tempA.add(close, BorderLayout.SOUTH);
+						
+						close.addActionListener(new ActionListener() 
+								{
+									public void actionPerformed(ActionEvent e)
+									{	
+										tempA.dispose();
+									}
+								});
+						
+						
 					}
 				}); //End of change Min/Max Enter Button
-		
 				
+			}
+		});
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			
 //Change Grade Letter Ranges JButton Action Listener
-		changeGradeRangeButton.addActionListener(new ActionListener()
-		{
+	changeLetters.addActionListener(new ActionListener()
+	{
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e)
 			{
 				
 		JFrame gradeRangeFrame = new JFrame("Change Grade Distribution");
-		gradeRangeFrame.setSize(200,300);
 		gradeRangeFrame.setDefaultCloseOperation(gradeDisFrame.DISPOSE_ON_CLOSE); //program will close "create report" window if user clicks "x"
 		gradeRangeFrame.setVisible(true); 
 		gradeRangeFrame.setBounds(850,350,200,300);
@@ -169,7 +217,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		JLabel letterBLabel = new JLabel("B  >=");
 		JLabel letterCLabel = new JLabel("C >=");
 		JLabel letterDLabel = new JLabel("D >=");
-		JLabel letterFLabel = new JLabel("F  <");
+		//JLabel letterFLabel = new JLabel("F  <");
 	
 		//Creating enter button
 		JButton rangeEnterButton = new JButton("Enter");
@@ -184,7 +232,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		gradeRangePanel.add(Box.createVerticalGlue());
 		gradeRangePanel.add(letterDLabel);
 		gradeRangePanel.add(Box.createVerticalGlue());
-		gradeRangePanel.add(letterFLabel);
+		//gradeRangePanel.add(letterFLabel);
 		
 		
 		//Adding low/high text fields for each letter
@@ -196,7 +244,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		//JTextField CHighTextField = new JTextField(4);
 		JTextField DLowTextField = new JTextField(4);
 		//JTextField DHighTextField = new JTextField(4);
-		JTextField FLowTextField = new JTextField(4);
+		//JTextField FLowTextField = new JTextField(4);
 		//JTextField FHighTextField = new JTextField(4);
 		
 	
@@ -218,7 +266,7 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		lowTextPanel.add(Box.createVerticalGlue());
 		lowTextPanel.add(DLowTextField);
 		lowTextPanel.add(Box.createVerticalGlue());
-		lowTextPanel.add(FLowTextField);
+		//lowTextPanel.add(FLowTextField);
 				
 		//Add components to panel
 		gradeRangeFrame.add(gradeRangePanel, BorderLayout.WEST);
@@ -227,93 +275,91 @@ public class ChangeGradeDistribution extends SeeStatistics {
 		gradeRangeFrame.add(highTextPanel, BorderLayout.EAST);
 		gradeRangeFrame.add(rangeEnterButton, BorderLayout.SOUTH);
 		
-		
-		//Action Listener for A
-				ALowTextField.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						double a = Double.parseDouble(ALowTextField.getText());
-						System.out.println("A: " + a);
-						redefinedGrade_A = a;
-					}
-				});
-		
-		//Action Listener for B
-				BLowTextField.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						double b = Double.parseDouble(BLowTextField.getText());
-						System.out.println("B: " + b);
-						redefinedGrade_B = b;
-					}
-				});
-		
-	
-		//Action Listener for C
-				CLowTextField.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						double c = Double.parseDouble(BLowTextField.getText());
-						System.out.println("C: " + c);
-						redefinedGrade_C = c;
-					}
-				});
-	
 				
-//Action Listener for D
-				DLowTextField.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						double d = Double.parseDouble(DLowTextField.getText());
-						System.out.println("D: " + d);
-						redefinedGrade_D = d;
-					}
-				});
-		
-		
-						
-						
 //Action Listener for rangeEnterButton
 			rangeEnterButton.addActionListener(new ActionListener() //enter button only closes window if value entered into high f text field
 			{
 				public void actionPerformed(ActionEvent e)
 				{
 					
-					redefinedLetterGrade(pScoreEarned, redefinedGrade_A, redefinedGrade_B, redefinedGrade_C, redefinedGrade_D); //calls to re-organize letter grades on new range
+
+					double a = Double.parseDouble(ALowTextField.getText());
+					System.out.println("A: " + a);
+					redefinedGrade_A = a;	
+					
+					
+					double b = Double.parseDouble(BLowTextField.getText());
+					System.out.println("B: " + b);
+					redefinedGrade_B = b;
+					
+					double c = Double.parseDouble(BLowTextField.getText());
+					System.out.println("C: " + c);
+					redefinedGrade_C = c;
+					
+					
+					double d = Double.parseDouble(DLowTextField.getText());
+					System.out.println("D: " + d);
+					redefinedGrade_D = d;
+					
+					gradeRecalculator(updatedStudentList);
 					gradeRangeFrame.dispose(); //closes window	
+					
+					
+					JTextArea areaL = new JTextArea();
+					areaL.setText("Grade Distribution By New Letter Ranges: " + "/n" + gradeRecalculator(updatedStudentList));
+					areaL.setBackground(Color.red);
+					areaL.setEditable(false);
+					
+					
+					JButton close = new JButton("Close");
+					
+					JFrame tempL = new JFrame();
+					tempL.add(areaL, BorderLayout.CENTER);
+					tempL.setDefaultCloseOperation(screenFrame.DISPOSE_ON_CLOSE); //program will quit if user clicks "x"
+					tempL.setVisible(true);  
+					tempL.setBounds(850,350,500,400); //displays window in center of screen
+					tempL.add(close, BorderLayout.SOUTH);
+					
+					close.addActionListener(new ActionListener() 
+							{
+								public void actionPerformed(ActionEvent e)
+								{	
+									tempL.dispose();
+								}
+							});
+					
+					
+					
+					
+					
+			
 				}
 			});
 			
-			
-			
 			}
-		}); //end of change letter ranges
+			
+			});
 	
-			}
-		});
-	} //End of change distribution
-
+	}
+		
+					
 		
 ///////////////////////////////////////////////////////////////////////////////////////////
 	public String gradeRecalculator (ArrayList<Student> pStudentList)
 	{
 		Collections.sort(pStudentList);
 		System.out.println("Size of the studentList: " + pStudentList.size());
-		
+		/*
 		for (Student individualStudent: pStudentList)
     	{
     		System.out.println("Student ID: " + individualStudent.getID() + ", Student Score: " + 
-    	individualStudent.getScore() + ", Percentage: " + individualStudent.getScore()/doubleMaxPointsPossible
+    	individualStudent.getScore() + ", Percentage: " + individualStudent.getScore()/getMaxPosScore()
     	+ ", Percentile: " + individualStudent.getPercentile() + ", Grade: " + individualStudent.getLetterGrade());
     	}
- 
-    	System.out.println("Max Score: " + getMaxPosScore());
+ */
+    	//System.out.println("Max Score: " + getMaxPosScore());
     	//setMinPosScore(70);
-    	System.out.println("Min Score: " + getMinPosScore());
+    	//	System.out.println("Min Score: " + getMinPosScore());
     	//setMaxPosScore(70);
     	//System.out.println("Max Score: " + mMaxPosScore);
     	
@@ -327,14 +373,15 @@ public class ChangeGradeDistribution extends SeeStatistics {
     	}
 		double addingScore;
 		double modifiedScore=0;
-		double redefinedPercentage;
+		
     	for (Student individualStudent: pStudentList)
     	{
     		
-    		if (minScore < getMinPosScore())
+    		if (minScore > getMinPosScore())
     			addingScore = 0;
     		else
     			addingScore = Math.abs(getMinPosScore() - minScore);
+    		
     		modifiedScore = (individualStudent.getScore() + addingScore);
     		System.out.println(modifiedScore);
     		individualStudent.setScore(modifiedScore);
@@ -343,13 +390,13 @@ public class ChangeGradeDistribution extends SeeStatistics {
     		individualStudent.setPercentile( redefinedPercentile );
     		System.out.println("redefinedPercentile: " + redefinedPercentile);
     		
-    		redefinedPercentage = Math.round(modifiedScore/getMaxPosScore() * 100);
+    		double redefinedPercentage = Math.round((modifiedScore/getMaxPosScore()) * 100);
     		Character grade = redefinedLetterGrade(redefinedPercentage, redefinedGrade_A, redefinedGrade_B, redefinedGrade_C, redefinedGrade_D);
     		individualStudent.setLetterGrade(grade);
-    		//System.out.println("Redefined");
+    		System.out.println("Max Possible Score================" + getMaxPosScore());
     		System.out.println("Student ID: " + individualStudent.getID() + 
     				" Student Score: " + individualStudent.getScore() + 
-    				" Percentage: " + individualStudent.getScore()/doubleMaxPointsPossible 
+    				" Percentage: " + individualStudent.getScore()/getMaxPosScore() 
     				+ " Percentile: " + individualStudent.getPercentile() 
     				+ " Grade: " + individualStudent.getLetterGrade());
     		
@@ -368,31 +415,31 @@ public class ChangeGradeDistribution extends SeeStatistics {
     	}
     	for (Student individualStudent: pStudentList)
     	{
+    		/*
     		System.out.println("Student ID: " + individualStudent.getID() 
     		+ " Student Score: " + individualStudent.getScore() 
-    		+ " Percentage: " + individualStudent.getScore()/doubleMaxPointsPossible  
+    		+ " Percentage: " + individualStudent.getScore()/getMaxPosScore() 
     		+ " Percentile: " + individualStudent.getPercentile() 
     		+ " Grade: " + individualStudent.getLetterGrade());
-    		
+    		*/
     		
     		
     		reCalcGrades += "Student ID: " + individualStudent.getID() 
-    		+ " Student Score: " + individualStudent.getScore() 
-    		+ " Percentage: " + individualStudent.getScore()/doubleMaxPointsPossible  
-    		+ " Percentile: " + individualStudent.getPercentile() 
-    		+ " Grade: " + individualStudent.getLetterGrade() + "\n";
+    		+ "    Student Score: " + individualStudent.getScore() 
+    		+ "    Percentage: " + individualStudent.getScore()/getMaxPosScore() 
+    		+ "    Percentile: " + individualStudent.getPercentile() 
+    		+ "    Grade: " + individualStudent.getLetterGrade() + "\n";
     	}
     	
 	
     	Collections.sort(pStudentList, new SortbyID());
 		return reCalcGrades;
   
-
 	}
 	
 
 	public Character redefinedLetterGrade (double pScoreEarned, double redefinedGrade_A, double redefinedGrade_B, double redefinedGrade_C, double redefinedGrade_D)
-	{
+	{	
 		//Default A Letter Range
 		if (pScoreEarned >= redefinedGrade_A )
 		{
@@ -424,8 +471,10 @@ public class ChangeGradeDistribution extends SeeStatistics {
 			System.exit(-200);
 			return 'I'; // I for invalid.
 		}
+
 	}
+
 	
+		
+}  //End of java file
 	
-						
-	} //End of java file

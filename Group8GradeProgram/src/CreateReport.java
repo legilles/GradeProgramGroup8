@@ -24,20 +24,22 @@ import javax.swing.JTextField;
 public class CreateReport extends GradeChange {
 	
 	 String reportFileName = ""; //user entered string for file name
-	 String finalGrades = "";
 	 protected JFrame createReportFrame;
-	 
 	 
 	 public String printFinalGrades(ArrayList<Student> updatedStudentList)
 		{
-		for (Student individualStudent: updatedStudentList)
+		 ArrayList<Student> finalGradesList = new ArrayList<>();
+		 finalGradesList = updatedStudentList;
+		 
+		for (Student individualStudent:  finalGradesList)
 		{
 			finalGrades += "Student ID: " + individualStudent.getID() + " Student Score: " + 
 		individualStudent.getScore() + "  Letter Grade: " + individualStudent.getLetterGrade() + "\n";
 			
 		}
 		return finalGrades;	
-		}
+		}	  
+	
 	 
 	public void createReport()
 	{
@@ -99,12 +101,14 @@ public class CreateReport extends GradeChange {
 	});
 	}
 	
+	
 //Method to Write Grades to a Text File
 	public void writeToTextFile(String reportFileName, String finalGrades) 
 	{
 			
 		try {
 			FileWriter fw = new FileWriter(reportFileName);
+			
 			fw.write(finalGrades); //writes updated array list to file
 			fw.close(); //close text file
 			
